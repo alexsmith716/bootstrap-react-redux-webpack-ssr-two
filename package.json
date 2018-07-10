@@ -6,12 +6,20 @@
   "author": "dev",
   "license": "MIT",
   "scripts": {
-    "production": "concurrently \"yarn production:server\" \"yarn production:api\"",
-    "production:server": "NODE_ENV=production node ./bin/server.js",
-    "production:api": "NODE_ENV=production node ./bin/api.js",
-    "production:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.server.production.babel.js",
-    "build": "NODE_ENV=production webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.client.production.babel.js",
-    "dlls": "webpack --colors --display-error-details --config webpack/vendor.config.js"
+    "init:dev": "npm-run-all dev:prepare development",
+    "dev:prepare": "universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
+    "development": "npm-run-all --parallel dev:client:build dev:server:build start:dev",
+    "dev:server": "NODE_ENV=development WEBPACK_DLLS=1 node ./bin/server.js --watch ./server --watch ./build/server",
+    "dev:api": "NODE_ENV=development node ./bin/api.js",
+    "dev:server:build": "NODE_ENV=development WEBPACK_DLLS=1 webpack --mode development --config ./webpack/webpack.config.server.development.babel.js --watch --colors --display-error-details",
+    "dev:client:build": "NODE_ENV=development WEBPACK_DLLS=1 webpack-serve --hot --config webpack/webpack.config.client.development.babel.js",
+    "start:dev": "concurrently \"yarn dev:server\" \"yarn dev:api\"",
+    "start:prod": "concurrently \"yarn prod:server\" \"yarn prod:api\"",
+    "prod:server": "NODE_ENV=production node ./bin/server.js",
+    "prod:api": "NODE_ENV=production node ./bin/api.js",
+    "prod:build": "webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.server.production.babel.js",
+    "dlls": "webpack --colors --display-error-details --config webpack/vendor.config.js",
+    "build": "NODE_ENV=production webpack --mode production --colors --display-error-details --config ./webpack/webpack.config.client.production.babel.js"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.6",

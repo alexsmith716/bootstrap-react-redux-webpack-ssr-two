@@ -32,7 +32,6 @@ function getNoopReducers(reducers, data) {
 }
 
 
-
 export default function createStore({ history, data, helpers, persistConfig }) {
 
   console.log('>>>>>>>>> CREATE.JS > history: ', history);
@@ -40,38 +39,55 @@ export default function createStore({ history, data, helpers, persistConfig }) {
   console.log('>>>>>>>>> CREATE.JS > helpers: ', helpers);
   console.log('>>>>>>>>> CREATE.JS > persistConfig: ', persistConfig);
 
+
+  // ------------------------------------------------------------------------------------------
+
+
   const middleware = [clientMiddleware(helpers), routerMiddleware(history)];
 
   console.log('>>>>>>>>> CREATE.JS > middleware: ', middleware);
 
-  // if (__CLIENT__ && __DEVELOPMENT__) {
-  //   const logger = require('redux-logger').createLogger({
-  //     collapsed: true
-  //   });
-  //   middleware.push(logger.__esModule ? logger.default : logger);
-  // }
+  if (__CLIENT__ && __DEVELOPMENT__) {
+    const logger = require('redux-logger').createLogger({ collapsed: true });
+    middleware.push(logger.__esModule ? logger.default : logger);
+  }
+
+
+  // ------------------------------------------------------------------------------------------
+
 
   const enhancers = [applyMiddleware(...middleware)];
 
-  // if (__CLIENT__ && __DEVTOOLS__) {
-  //   const { persistState } = require('redux-devtools');
-  //   const DevTools = require('../containers/DevTools/DevTools');
+  if (__CLIENT__ && __DEVTOOLS__) {
 
-  //   Array.prototype.push.apply(enhancers, [
-  //     window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
-  //     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-  //   ]);
-  // }
+    const { persistState } = require('redux-devtools');
+    const DevTools = require('../containers/DevTools/DevTools');
+
+    Array.prototype.push.apply(enhancers, [
+      window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
+      persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+    ]);
+
+  }
 
   console.log('>>>>>>>>> CREATE.JS > enhancers: ', enhancers);
   console.log('>>>>>>>>> CREATE.JS > persistConfig: ', persistConfig);
 
   const finalCreateStore = compose(...enhancers)(_createStore);
+
+
+  // ------------------------------------------------------------------------------------------
+
   const reducers = createReducers();
   const noopReducers = getNoopReducers(reducers, data);
+
+  // ------------------------------------------------------------------------------------------
+
+
   const store = finalCreateStore(combine({ ...noopReducers, ...reducers }, persistConfig), data);
 
   store.asyncReducers = {};
+
   store.inject = _reducers => inject(store, _reducers, persistConfig);
 
   if (persistConfig) {
@@ -92,3 +108,4 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   return store;
 }
+
