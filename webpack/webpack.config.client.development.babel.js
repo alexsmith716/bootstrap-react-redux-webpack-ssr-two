@@ -10,20 +10,23 @@ const dev_config = require('../config/config');
 
 const settings = require('./universal-webpack-settings');
 const { clientConfiguration } = require('universal-webpack');
+
+
+base_configuration.output.publicPath = '/';
+
 const configuration = clientConfiguration(base_configuration, settings);
 
 // https://github.com/webpack-contrib/webpack-serve/issues/81#issuecomment-378469110
 module.exports = configuration;
 
-var validDLLs = helpers.isValidDLLs('vendor', configuration.output.path);
+// var validDLLs = helpers.isValidDLLs('vendor', configuration.output.path);
+var validDLLs = helpers.isValidDLLs('vendor','/');
 
 if (process.env.WEBPACK_DLLS === '1' && !validDLLs) {
   process.env.WEBPACK_DLLS = '0';
   console.warn('>>>>>>>>>>>>>>>>>>>>>>>> webpack dlls disabled!! <<<<<<<<<<<<<<<<<<<<<<<<<<<');
 };
 
-// `webpack-serve` can't set the correct `mode` by itself.
-// https://github.com/webpack-contrib/webpack-serve/issues/94
 configuration.mode = 'development';
 
 // https://webpack.js.org/guides/development/#source-maps
@@ -154,15 +157,18 @@ configuration.plugins.push(
 );
 
 // network path for static files: fetch all statics from webpack development server
+// http://localhost:3001/assets/
+
+// configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
+
 configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
 
 console.log('>>>>>> webpack.config.client.development.babel.js > configuration.output.publicPath: ', configuration.output.publicPath);
 
 // `webpack-serve` Config settings.
 configuration.serve = {
-  port : dev_config.devServerPort,
+  port : dev_config.devServerPort, // 3001
   dev  : {
-    // https://github.com/webpack-contrib/webpack-serve/issues/95
     publicPath : configuration.output.publicPath,
     headers : { 'Access-Control-Allow-Origin': '*' }
   }

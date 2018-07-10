@@ -254,19 +254,19 @@ configuration.plugins.push(
     navigateFallback: './index.html',
   }),
 
-  new Visualizer({
-    filename: '../../analyzers/visualizer/bundle-stats.html'
-  }),
+  // new Visualizer({
+  //   filename: '../../analyzers/visualizer/bundle-stats.html'
+  // }),
 
-  new BundleAnalyzerPlugin({
-    analyzerMode: 'static',
-    reportFilename: '../../analyzers/bundleAnalyzer/client-development.html',
-    // analyzerMode: 'server',
-    // analyzerPort: 8888,
-    // defaultSizes: 'parsed',
-    openAnalyzer: false,
-    generateStatsFile: false
-  }),
+  // new BundleAnalyzerPlugin({
+  //   analyzerMode: 'static',
+  //   reportFilename: '../../analyzers/bundleAnalyzer/client-development.html',
+  //   // analyzerMode: 'server',
+  //   // analyzerPort: 8888,
+  //   // defaultSizes: 'parsed',
+  //   openAnalyzer: false,
+  //   generateStatsFile: false
+  // }),
 );
 
 // console.log('>>>>>>>>>>>>>>>>>>> WCCPB CLIENT configuration: ', configuration)

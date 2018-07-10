@@ -386,6 +386,11 @@ export default function (parameters) {
 
       const bundles = getBundles(getChunks(), modules);
 
+      if (process.env.NODE_ENV === 'production') {
+        console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > NODE_ENV PRODUCTION !!!!!!!!');
+      } else {
+        console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > NODE_ENV DEVELOPMENT !!!!!!!!');
+      }
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > CHUNKS: ', chunks);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);

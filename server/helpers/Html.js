@@ -11,10 +11,11 @@ const Html = ({
 }) => {
   const head = Helmet.renderStatic();
 
-  // console.log('>>>>>> HTML.JS > assets: ', assets);
+  console.log('>>>>>> HTML.JS > assets: ', assets);
+  console.log('>>>>>> HTML.JS > assets.styles length: ', Object.keys(assets.styles).length);
   // console.log('>>>>>> HTML.JS > store: ', store);
   // console.log('>>>>>> HTML.JS > content: ', content);
-  // console.log('>>>>>> HTML.JS > bundles: ', bundles);
+  console.log('>>>>>> HTML.JS > bundles: ', bundles);
 
   return (
 
@@ -52,6 +53,10 @@ const Html = ({
             />
           ))}
 
+        {/* (will be present only in development mode) */}
+        {assets.styles && Object.keys(assets.styles).length === 0 ? (
+          <style dangerouslySetInnerHTML={{ __html: '#content{display:none}' }} />
+        ) : null}
       </head>
 
       <body>
@@ -76,6 +81,11 @@ const Html = ({
         {assets.javascript && <script src={assets.javascript.main} charSet="utf-8" />}
 
         {bundles.map(bundle => testCss.test(bundle) && bundle && <script src={config.assetsPath + bundle.file} key={bundle.id} />)}
+
+        {/* (will be present only in development mode) */}
+        {assets.styles && Object.keys(assets.styles).length === 0 ? (
+          <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }} />
+        ) : null}
 
       </body>
     </html>
