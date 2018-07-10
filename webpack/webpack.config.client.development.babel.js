@@ -11,12 +11,12 @@ const dev_config = require('../config/config');
 const settings = require('./universal-webpack-settings');
 const { clientConfiguration } = require('universal-webpack');
 
+// import { addDevServerConfiguration, setDevFileServer } from './devserver';
 
-base_configuration.output.publicPath = '/';
+base_configuration.output.publicPath = dev_config.devServerPath;
 
 const configuration = clientConfiguration(base_configuration, settings);
 
-// https://github.com/webpack-contrib/webpack-serve/issues/81#issuecomment-378469110
 module.exports = configuration;
 
 // var validDLLs = helpers.isValidDLLs('vendor', configuration.output.path);
@@ -159,19 +159,19 @@ configuration.plugins.push(
 // network path for static files: fetch all statics from webpack development server
 // http://localhost:3001/assets/
 
-// configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
-
 configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
+// configuration.output.publicPath = 'http://localhost:3001/';
 
 console.log('>>>>>> webpack.config.client.development.babel.js > configuration.output.publicPath: ', configuration.output.publicPath);
 
-// `webpack-serve` Config settings.
+// configuration.output.crossOriginLoading = 'anonymous',
+
 configuration.serve = {
-  port : dev_config.devServerPort, // 3001
-  dev  : {
+  port: dev_config.devServerPort,
+  devMiddleware: {
     publicPath : configuration.output.publicPath,
     headers : { 'Access-Control-Allow-Origin': '*' }
-  }
+  },
 }
 
 if (process.env.WEBPACK_DLLS === '1' && validDLLs) {

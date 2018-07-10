@@ -21,3 +21,11 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
   Server Dev (webpack-serve):
     Port: 3001
+
+
+### Webpack-Serve (references):
+
+  https://github.com/webpack-contrib/webpack-serve
+  https://github.com/webpack-contrib/webpack-hot-client
+  https://github.com/webpack/webpack-dev-middleware#options
+  https://github.com/koajs/cors
