@@ -4,7 +4,7 @@ import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { App, Home, NotFound } from '../client/containers';
 
 import Register from '../client/containers/Register/Loadable';
-// import LoginSuccess from '../client/containers/LoginSuccess/Loadable';
+import LoginSuccess from '../client/containers/LoginSuccess/Loadable';
 
 import About from '../client/containers/About/Loadable';
 import AboutOne from '../client/containers/AboutOne/Loadable';
@@ -42,7 +42,7 @@ const routes = [{
     { path: '/aboutthree', component: AboutThree },
     { path: '/aboutfour', component: AboutFour },
     { path: '/login', component: Login },
-    // { path: '/login-success', component: isAuthenticated(LoginSuccess) },
+    { path: '/login-success', component: isAuthenticated(LoginSuccess) },
     { path: '/register', component: isNotAuthenticated(Register) },
     { component: NotFound },
   ],

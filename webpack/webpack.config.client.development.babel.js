@@ -1,3 +1,5 @@
+
+require('babel-polyfill');
 const webpack = require('webpack');
 const helpers = require('./helpers');
 const path = require('path');
@@ -34,7 +36,7 @@ configuration.output.chunkFilename = '[name].[chunkhash].chunk.js';
 
 configuration.entry.main.push(
   'bootstrap-loader',
-  './client/index.entry.js',
+  './client/index.js',
 );
 
 configuration.module.rules.push(
@@ -53,7 +55,7 @@ configuration.module.rules.push(
           modules: true,
           importLoaders: 2,
           sourceMap: true,
-          localIdentName: '[name]__[local]__[hash:base64:5]',
+          //localIdentName: '[name]__[local]__[hash:base64:5]',
         }
       },
       {
@@ -93,7 +95,7 @@ configuration.module.rules.push(
         loader : 'css-loader',
         options: {
           modules: true,
-          localIdentName: '[name]__[local]__[hash:base64:5]',
+          //localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
           sourceMap: true
         }

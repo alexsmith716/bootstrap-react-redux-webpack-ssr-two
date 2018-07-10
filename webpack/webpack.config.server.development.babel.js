@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const baseConfiguration = require('./webpack.config.server.production.babel');
-const settings = require('../configuration');
 
 const dev_config = require('../config/config');
 
