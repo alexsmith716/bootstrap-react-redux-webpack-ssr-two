@@ -6,13 +6,13 @@
   "author": "dev",
   "license": "MIT",
   "scripts": {
-    "sd": "NODE_ENV=development npm-run-all dev:prepare development",
-    "dev:prepare": "NODE_ENV=development universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
+    "sd": "npm-run-all dev:prepare development",
+    "dev:prepare": "universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
     "development": "NODE_ENV=development npm-run-all --parallel dev:client:build dev:server:build start:dev",
-    "dev:server": "NODE_ENV=development WEBPACK_DLLS=1 node ./bin/server.js --watch ./server --watch ./build/server",
+    "dev:server": "NODE_ENV=development WEBPACK_DLLS=1 nodemon ./bin/server.js --watch ./server --watch ./build/server",
     "dev:api": "NODE_ENV=development node ./bin/api.js",
     "dev:server:build": "NODE_ENV=development WEBPACK_DLLS=1 webpack --mode development --config ./webpack/webpack.config.server.development.babel.js --watch --colors --display-error-details",
-    "dev:client:build": "NODE_ENV=development WEBPACK_DLLS=1 webpack-serve --hot-client --config webpack/webpack.config.client.development.babel.js",
+    "dev:client:build": "NODE_ENV=development WEBPACK_DLLS=1 webpack-serve --hot-client --require babel-register --config webpack/webpack.config.client.development.babel.js",
     "start:dev": "concurrently \"yarn dev:server\" \"yarn dev:api\"",
     "start:prod": "concurrently \"yarn prod:server\" \"yarn prod:api\"",
     "prod:server": "NODE_ENV=production node ./bin/server.js",
@@ -106,7 +106,6 @@
     "serialize-javascript": "^1.5.0",
     "serve-favicon": "^2.5.0",
     "socket.io-client": "^2.1.1",
-    "universal-webpack": "^0.6.6",
     "url": "^0.11.0"
   },
   "devDependencies": {
@@ -178,6 +177,7 @@
     "svg-react-loader": "^0.4.5",
     "sw-precache-webpack-plugin": "^0.11.5",
     "uglifyjs-webpack-plugin": "^1.2.5",
+    "universal-webpack": "^0.6.6",
     "url-loader": "^1.0.1",
     "webpack": "^4.15.1",
     "webpack-bundle-analyzer": "^2.11.1",

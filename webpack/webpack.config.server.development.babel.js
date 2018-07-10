@@ -13,7 +13,7 @@ configuration.mode = 'development',
 // configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
 
 
-configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${dev_config.devServerDir}`;
+configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${dev_config.devServerPath}`;
 
 console.log('>>>>>> webpack.config.server.development.babel.js > configuration.output.publicPath: ', configuration.output.publicPath);
 

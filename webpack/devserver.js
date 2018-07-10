@@ -1,30 +1,26 @@
 
 
-import application_configuration from '../configuration'
-
-const devserver = application_configuration.webpack.devserver
-
+const dev_config = require('../config/config');
 
 export function addDevServerConfiguration(configuration) {
   return {
     ...configuration,
     serve: {
-      port : devserver.port,
+      port : dev_config.devServerPort,
       dev  : {
-        publicPath : configuration.output.publicPath,
+        publicPath : dev_config.devServerPath,
         headers : { 'Access-Control-Allow-Origin': '*' }
       }
     }
   }
 }
 
-
 export function setDevFileServer(configuration) {
   return {
     ...configuration,
     output: {
       ...configuration.output,
-      publicPath: `http://${devserver.host}:${devserver.port}${configuration.output.publicPath}`
+      publicPath: `http://${dev_config.devServerHost}:${dev_config.devServerPort}${dev_config.devServerPath}`
     }
   }
 }
