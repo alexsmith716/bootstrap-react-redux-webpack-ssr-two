@@ -238,8 +238,17 @@ configuration.plugins.push(
 
   // use service workers to cache external dependencies
   // generate 'service-worker.js' and add it to build directory
+
+
+
+  // SWPrecacheWebpackPlugin is a webpack plugin for using service workers to cache your external project dependencies. 
+  // It will generate a service worker file using sw-precache and add it to your build directory.
+
+  // /Users/robertsnith/Documents/A-NEW-SUMMER-2018/A-SSR-NEWEST/bootstrap-react-redux-webpack-ssr-two/build/public
+  // /Users/robertsnith/Documents/AA-EARLY-2018/Universal-Webpack/BERTHO-NEWEST/ALATEST-react-redux-universal-hot-example/static
+
   new SWPrecacheWebpackPlugin({
-    cacheId: 'bootstrap-redux-react-loadable-webpack-dllplugin-three',
+    cacheId: 'bootstrap-react-redux-webpack-ssr-two',
     filename: 'service-worker.js',
     maximumFileSizeToCacheInBytes: 8388608,
 
@@ -251,7 +260,7 @@ configuration.plugins.push(
 
     directoryIndex: '/',
     verbose: true,
-    navigateFallback: './index.html',
+    navigateFallback: '/assets/index.html',
   }),
 
   // new Visualizer({

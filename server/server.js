@@ -66,7 +66,8 @@ if (process.env.NODE_ENV === 'production') {
 const mongooseOptions = {
   autoReconnect: true,
   keepAlive: true,
-  connectTimeoutMS: 30000
+  connectTimeoutMS: 30000,
+  useNewUrlParser: true,
 };
 
 // #########################################################################
@@ -137,7 +138,7 @@ export default function (parameters) {
 
   // #########################################################################
 
-  app.use('/service-worker.js', (req, res, next) => {
+  app.use('assets/service-worker.js', (req, res, next) => {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     res.setHeader('Service-Worker-Allowed', '/');
     res.setHeader('Cache-Control', 'no-store');

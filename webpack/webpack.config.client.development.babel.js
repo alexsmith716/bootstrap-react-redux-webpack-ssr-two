@@ -117,14 +117,11 @@ configuration.module.rules.push(
 configuration.plugins.push(
 
   new webpack.DefinePlugin({
-    'process.env': {
-      CLIENT: JSON.stringify(true),
-      NODE_ENV  : JSON.stringify('development'),
-    },
+    'process.env.NODE_ENV': '"development"',
     __CLIENT__: true,
     __SERVER__: false,
     __DEVELOPMENT__: true,
-    __DEVTOOLS__: false,
+    __DEVTOOLS__: true
   }),
 
   new webpack.ProvidePlugin({

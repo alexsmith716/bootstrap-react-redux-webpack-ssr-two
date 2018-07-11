@@ -29,3 +29,10 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
   https://github.com/webpack-contrib/webpack-hot-client
   https://github.com/webpack/webpack-dev-middleware#options
   https://github.com/koajs/cors
+
+
+### Nodemon:
+
+  https://github.com/remy/nodemon
+  By default nodemon monitors the current working directory. 
+  *** If you want to take control of that option, use the --watch option >>>> TO ADD SPECIFIC PATHS <<<<
