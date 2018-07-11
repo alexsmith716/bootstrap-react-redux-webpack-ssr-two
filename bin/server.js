@@ -3,9 +3,6 @@
 
 require('../server.babel');
 
-const path = require('path');
-const rootDir = path.resolve(__dirname, '..');
-
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DISABLE_SSR__ = false;

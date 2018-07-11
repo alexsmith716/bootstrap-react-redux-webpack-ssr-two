@@ -133,12 +133,13 @@ export default function (parameters) {
   app.use(compression()); // compress request response bodies
 
   app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
+  // app.use(express.static(path.join(__dirname, '../build/public/assets')));
   app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
   app.use('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, '../public/static/manifest/manifest.json')));
 
   // #########################################################################
 
-  app.use('assets/service-worker.js', (req, res, next) => {
+  app.use('/service-worker.js', (req, res, next) => {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     res.setHeader('Service-Worker-Allowed', '/');
     res.setHeader('Cache-Control', 'no-store');
@@ -154,6 +155,7 @@ export default function (parameters) {
     );
   });
 
+  app.use(express.static(path.join(__dirname, '../public/assets/')));
   // #########################################################################
 
   // identify the originating IP address through an HTTP proxy or load balancer
