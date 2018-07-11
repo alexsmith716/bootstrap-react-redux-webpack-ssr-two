@@ -133,7 +133,7 @@ export default function (parameters) {
   app.use(compression()); // compress request response bodies
 
   app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
-  // app.use(express.static(path.join(__dirname, '../build/public/assets')));
+  app.use(express.static(path.join(__dirname, '../build/public/assets')));
   app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
   app.use('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, '../public/static/manifest/manifest.json')));
 
@@ -143,10 +143,14 @@ export default function (parameters) {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     res.setHeader('Service-Worker-Allowed', '/');
     res.setHeader('Cache-Control', 'no-store');
+    // res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Type', 'application/javascript');
+    // res.setHeader('Content-Type', 'text/javascript');
+    // application/x-javascript
     return next();
   });
 
-  app.use('/dlls/:dllName.js', (req, res, next) => {
+  app.use('/dlls/:dllName.js', express.static(path.join(__dirname, '../build/public/assets/dlls/:dllName.js')), (req, res, next) => {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DLLs $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     fs.access(
       path.join(__dirname, '..', 'build', 'public', 'assests', 'dlls', `${req.params.dllName}.js`),
@@ -155,7 +159,6 @@ export default function (parameters) {
     );
   });
 
-  app.use(express.static(path.join(__dirname, '../public/assets/')));
   // #########################################################################
 
   // identify the originating IP address through an HTTP proxy or load balancer
