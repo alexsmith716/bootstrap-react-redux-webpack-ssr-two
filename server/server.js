@@ -133,22 +133,20 @@ export default function (parameters) {
   app.use(compression()); // compress request response bodies
 
   app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
-  app.use(express.static(path.join(__dirname, '../build/public/assets')));
   app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
   app.use('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, '../public/static/manifest/manifest.json')));
 
   // #########################################################################
 
-  app.use('/service-worker.js', (req, res, next) => {
-    console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-    res.setHeader('Service-Worker-Allowed', '/');
-    res.setHeader('Cache-Control', 'no-store');
-    // res.setHeader('Cache-Control', 'no-cache');
-    res.setHeader('Content-Type', 'application/javascript');
-    // res.setHeader('Content-Type', 'text/javascript');
-    // application/x-javascript
-    return next();
-  });
+  // app.use('/service-worker.js', (req, res, next) => {
+  //   console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+  //   res.setHeader('Service-Worker-Allowed', '/');
+  //   res.setHeader('Cache-Control', 'no-store');
+  //   // res.setHeader('Cache-Control', 'no-cache');
+  //   res.setHeader('Content-Type', 'application/javascript');
+  //   // res.setHeader('Content-Type', 'text/javascript');
+  //   return next();
+  // });
 
   app.use('/dlls/:dllName.js', express.static(path.join(__dirname, '../build/public/assets/dlls/:dllName.js')), (req, res, next) => {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DLLs $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
@@ -159,6 +157,7 @@ export default function (parameters) {
     );
   });
 
+  // app.use(express.static(path.join(__dirname, '..', 'build', 'public')));
   // #########################################################################
 
   // identify the originating IP address through an HTTP proxy or load balancer
@@ -348,7 +347,7 @@ export default function (parameters) {
         match,
         params,
         history,
-        location: history.location // current location
+        location: history.location
       });
 
       console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer END $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
@@ -385,10 +384,61 @@ export default function (parameters) {
         return res.redirect(302, context.url);
       }
 
-      // const locationState = store.getState().router.location;
-      // if (req.originalUrl !== locationState.pathname + locationState.search) {
-      //   return res.redirect(301, locationState.pathname);
-      // }
+
+
+
+      const locationState2 = store.getState();
+      const locationState = store.getState().routing.location;
+
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState2: ', locationState2);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > req.originalUrl: ', req.originalUrl);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState.pathname: ', locationState.pathname);
+
+      // [0] >>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState2:  { routing:
+      // [0]    { location:
+      // [0]       { pathname: '/service-worker.js',
+      // [0]         search: '',
+      // [0]         hash: '',
+      // [0]         state: undefined,
+      // [0]         key: 'k7217c' } },
+      // [0]   online: true,
+      // [0]   notifs: {},
+      // [0]   auth:
+      // [0]    { loaded: false,
+      // [0]      user: null,
+      // [0]      loading: false,
+      // [0]      error:
+      // [0]       { NotAuthenticated: Could not find stored JWT and no authentication strategy was given
+      // [0]           at new NotAuthenticated (/Users/robertsnith/Documents/A-NEW-SUMMER-2018/A-SSR-NEWEST/bootstrap-react-redux-webpack-ssr-two/node_modules/@feathersjs/errors/lib/index.js:93:17)
+      // [0]           at getCredentials.getJWT.then.accessToken (/Users/robertsnith/Documents/A-NEW-SUMMER-2018/A-SSR-NEWEST/bootstrap-react-redux-webpack-ssr-two/node_modules/@feathersjs/authentication-client/lib/passport.js:153:35)
+      // [0]           at process._tickCallback (internal/process/next_tick.js:68:7)
+      // [0]         type: 'FeathersError',
+      // [0]         name: 'NotAuthenticated',
+      // [0]         message:
+      // [0]          'Could not find stored JWT and no authentication strategy was given',
+      // [0]         code: 401,
+      // [0]         className: 'not-authenticated',
+      // [0]         data: undefined,
+      // [0]         errors: {} } },
+      // [0]   info:
+      // [0]    { loaded: true,
+      // [0]      loading: false,
+      // [0]      data:
+      // [0]       { message: 'This came from the api server',
+      // [0]         time: 1531423552376 } } }
+      // [0] >>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState:  { pathname: '/service-worker.js',
+      // [0]   search: '',
+      // [0]   hash: '',
+      // [0]   state: undefined,
+      // [0]   key: 'k7217c' }
+      // [0] >>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > req.originalUrl:  /service-worker.js
+      // [0] >>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState.pathname:  /service-worker.js
+
+
+      if (req.originalUrl !== locationState.pathname + locationState.search) {
+        return res.redirect(301, locationState.pathname);
+      }
 
       const bundles = getBundles(getChunks(), modules);
 

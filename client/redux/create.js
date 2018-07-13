@@ -4,14 +4,12 @@ import { createPersistoid, persistCombineReducers, REGISTER } from 'redux-persis
 import clientMiddleware from './middleware/clientMiddleware';
 import createReducers from './reducer';
 
-
 function combine(reducers, persistConfig) {
   if (persistConfig) {
     return persistCombineReducers(persistConfig, reducers);
   }
   return combineReducers(reducers);
 }
-
 
 export function inject(store, reducers, persistConfig) {
   Object.entries(reducers).forEach(([name, reducer]) => {
@@ -22,7 +20,6 @@ export function inject(store, reducers, persistConfig) {
   store.replaceReducer(combine(createReducers(store.asyncReducers), persistConfig));
 }
 
-
 function getNoopReducers(reducers, data) {
   if (!data) return {};
   return Object.keys(data).reduce(
@@ -31,35 +28,20 @@ function getNoopReducers(reducers, data) {
   );
 }
 
-
 export default function createStore({ history, data, helpers, persistConfig }) {
-
-  console.log('>>>>>>>>> CREATE.JS > history: ', history);
-  console.log('>>>>>>>>> CREATE.JS > data: ', data);
-  console.log('>>>>>>>>> CREATE.JS > helpers: ', helpers);
-  console.log('>>>>>>>>> CREATE.JS > persistConfig: ', persistConfig);
-
-
-  // ------------------------------------------------------------------------------------------
-
 
   const middleware = [clientMiddleware(helpers), routerMiddleware(history)];
 
-  console.log('>>>>>>>>> CREATE.JS > middleware: ', middleware);
-
   if (__CLIENT__ && __DEVELOPMENT__) {
-    const logger = require('redux-logger').createLogger({ collapsed: true });
+    const logger = require('redux-logger').createLogger({
+      collapsed: true
+    });
     middleware.push(logger.__esModule ? logger.default : logger);
   }
-
-
-  // ------------------------------------------------------------------------------------------
-
 
   const enhancers = [applyMiddleware(...middleware)];
 
   if (__CLIENT__ && __DEVTOOLS__) {
-
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTools/DevTools');
 
@@ -67,27 +49,14 @@ export default function createStore({ history, data, helpers, persistConfig }) {
       window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
       persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
     ]);
-
   }
 
-  console.log('>>>>>>>>> CREATE.JS > enhancers: ', enhancers);
-  console.log('>>>>>>>>> CREATE.JS > persistConfig: ', persistConfig);
-
   const finalCreateStore = compose(...enhancers)(_createStore);
-
-
-  // ------------------------------------------------------------------------------------------
-
   const reducers = createReducers();
   const noopReducers = getNoopReducers(reducers, data);
-
-  // ------------------------------------------------------------------------------------------
-
-
   const store = finalCreateStore(combine({ ...noopReducers, ...reducers }, persistConfig), data);
 
   store.asyncReducers = {};
-
   store.inject = _reducers => inject(store, _reducers, persistConfig);
 
   if (persistConfig) {
@@ -108,4 +77,3 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   return store;
 }
-

@@ -84,6 +84,8 @@ console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > client !!!!!: ', client);
 // 
 // =====================================================================
 
+// const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
+
 (async () => {
 
   const preloadedState = await getStoredState(persistConfig);
@@ -198,37 +200,47 @@ console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > client !!!!!: ', client);
     );
   }
 
-  if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > !__DEVELOPMENT__ && serviceWorker in navigator <<<<<<<<<<<<<');
-    try {
-      const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
-      registration.onupdatefound = () => {
+  // if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
+  //   console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > !__DEVELOPMENT__ && serviceWorker in navigator <<<<<<<<<<<<<');
+  //   try {
+  //     
+  //     const registration = await navigator.serviceWorker.register('/service-worker.js');
 
-        const installingWorker = registration.installing;
+  //     console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > !__DEVELOPMENT__ && serviceWorker in navigator <<<<<<<<<<<<<XX: ', registration);
 
-        installingWorker.onstatechange = () => {
-          switch (installingWorker.state) {
-            case 'installed':
-              if (navigator.serviceWorker.controller) {
+  //     registration.onupdatefound = () => {
 
-                console.log('New or updated content is available.');
-              } else {
+  //       const installingWorker = registration.installing;
 
-                console.log('Content is now available offline!');
-              }
-              break;
-            case 'redundant':
-              console.error('The installing service worker became redundant.');
-              break;
-            default:
-          }
-        };
-      };
-    } catch (error) {
-      console.log('Error registering service worker: ', error);
-    }
+  //       installingWorker.onstatechange = () => {
+  //         switch (installingWorker.state) {
+  //           case 'installed':
+  //             if (navigator.serviceWorker.controller) {
 
-    await navigator.serviceWorker.ready;
-    console.log('Service Worker Ready');
-  }
+  //               console.log('New or updated content is available.');
+  //             } else {
+
+  //               console.log('Content is now available offline!');
+  //             }
+  //             break;
+  //           case 'redundant':
+  //             console.error('The installing service worker became redundant.');
+  //             break;
+  //           default:
+  //         }
+  //       };
+  //     };
+  //   } catch (error) {
+  //     console.log('Error registering service worker: ', error);
+  //   }
+
+  //   await navigator.serviceWorker.ready;
+  //   console.log('Service Worker Ready');
+  // }
+
 })();
+
+
+
+
+
