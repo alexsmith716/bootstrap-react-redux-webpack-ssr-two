@@ -7,7 +7,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const Visualizer = require('webpack-visualizer-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+// const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const { clientConfiguration } = require('universal-webpack');
@@ -239,29 +239,23 @@ configuration.plugins.push(
   // use service workers to cache external dependencies
   // generate 'service-worker.js' and add it to build directory
 
-
-
   // SWPrecacheWebpackPlugin is a webpack plugin for using service workers to cache your external project dependencies. 
   // It will generate a service worker file using sw-precache and add it to your build directory.
 
-  // /Users/robertsnith/Documents/A-NEW-SUMMER-2018/A-SSR-NEWEST/bootstrap-react-redux-webpack-ssr-two/build/public
-  // /Users/robertsnith/Documents/AA-EARLY-2018/Universal-Webpack/BERTHO-NEWEST/ALATEST-react-redux-universal-hot-example/static
+  // new SWPrecacheWebpackPlugin({
 
-  new SWPrecacheWebpackPlugin({
-    cacheId: 'bootstrap-react-redux-webpack-ssr-two',
-    filename: 'service-worker.js',
-    maximumFileSizeToCacheInBytes: 8388608,
+  //   cacheId: 'bootstrap-react-redux-webpack-ssr-two',
+  //   filename: 'service-worker.js',
+  //   maximumFileSizeToCacheInBytes: 8388608,
 
-    // omit these bundle assets from being cached
-    staticFileGlobs: [path.dirname(configuration.output.path) + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
+  //   staticFileGlobs: [path.dirname(configuration.output.path) + '/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'],
 
-    // output path
-    stripPrefix: path.dirname(configuration.output.path),
+  //   stripPrefix: path.dirname(configuration.output.path),
 
-    directoryIndex: '/',
-    verbose: true,
-    navigateFallback: '/assets/index.html',
-  }),
+  //   directoryIndex: '/',
+  //   verbose: true,
+  //   navigateFallback: '/assets/index.html',
+  // }),
 
   // new Visualizer({
   //   filename: '../../analyzers/visualizer/bundle-stats.html'
