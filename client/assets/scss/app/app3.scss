@@ -1,6 +1,4 @@
 
-$fa-font-path: "~font-awesome/fonts";
-
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
@@ -10,18 +8,23 @@ $fa-font-path: "~font-awesome/fonts";
 // HANDLING FONT-AWESOME FONTS (2 CHOICES):
 
 // CHOICE 1:
-// GO WITH ALL THE DEFAULT FONTS:
-// UNCOMMENT LINE BELOW AND COMMENT OUT THE 4 CHOICE 2 IMPORTS
-// @import "~font-awesome/scss/font-awesome.scss";
+// GO WITH ALL THE DEFAULT FONTS
+// UNCOMMENT LINE 14
+// COMMENT-OUT LINES 21-27
+@import "~font-awesome/scss/font-awesome.scss";
 
 // CHOICE 2:
-// MODIFY THE DEFAULT FONTS (refer to 'pathModified.scss'):
+// MODIFY THE DEFAULT FONTS (refer to '../fontAwesome/customizations/pathModified.scss')
+// COMMENT-OUT LINE 14
+// UNCOMMENT LINES 21-27
 
-@import "~font-awesome/scss/_variables.scss";
-@import "~font-awesome/scss/_mixins.scss";
+// $fa-font-path: "~font-awesome/fonts";
 
-@import "../fontAwesome/customizations/pathModified.scss";
-@import "../fontAwesome/customizations/font-awesome-modified.scss";
+// @import "~font-awesome/scss/_variables.scss";
+// @import "~font-awesome/scss/_mixins.scss";
+
+// @import "../fontAwesome/customizations/pathModified.scss";
+// @import "../fontAwesome/customizations/font-awesome-modified.scss";
 
 // -------------------------------------------------------------------------------
 // -------------------------------------------------------------------------------
