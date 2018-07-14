@@ -9,6 +9,7 @@ module.exports = {
 
   entry: {
     main: [],
+    // vendor: [],
   },
 
   output: {

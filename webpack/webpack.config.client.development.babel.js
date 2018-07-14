@@ -8,6 +8,12 @@ const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugi
 const base_configuration = require('./webpack.config');
 const dev_config = require('../config/config');
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const assetsPath = path.resolve(base_configuration.context, './build/public/assets');
+const serverPath = path.resolve(base_configuration.context, './build/server');
+const webpackDllsPath = path.resolve(base_configuration.context, './dlls/');
+
 const settings = require('./universal-webpack-settings');
 const { clientConfiguration } = require('universal-webpack');
 
@@ -41,6 +47,10 @@ configuration.entry.main.push(
   'bootstrap-loader',
   './client/index.js',
 );
+
+// configuration.entry.vendor.push(
+//   '',
+// );
 
 configuration.module.rules.push(
   {
@@ -115,6 +125,8 @@ configuration.module.rules.push(
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 configuration.plugins.push(
+
+  new CleanWebpackPlugin([assetsPath,serverPath,webpackDllsPath], { root: configuration.context }),
 
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': '"development"',

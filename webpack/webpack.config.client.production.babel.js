@@ -53,6 +53,10 @@ configuration.entry.main.push(
   './client/index.js',
 );
 
+// configuration.entry.vendor.push(
+//   '',
+// );
+
 configuration.output.filename = '[name].[chunkhash].bundle.js';
 configuration.output.chunkFilename = '[name].[chunkhash].chunk.js';
 
