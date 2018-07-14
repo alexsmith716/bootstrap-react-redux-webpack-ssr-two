@@ -74,12 +74,6 @@ function initSocket() {
 
 initSocket();
 
-console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS <<<<<<<<<<<<<<<<<<<<<<<<<<<');
-console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ !!!!!: ', __DEVTOOLS__);
-console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > persistConfig !!!!!: ', persistConfig);
-console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > app !!!!!: ', app);
-console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > client !!!!!: ', client);
-
 // =====================================================================
 // 
 // =====================================================================
@@ -158,9 +152,9 @@ console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > client !!!!!: ', client);
 
     console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > MODULE.HOT! <<<<<<<<<<<<<<<<<');
 
-    module.hot.accept('./routes', () => {
+    module.hot.accept('../shared/routes', () => {
 
-      const nextRoutes = require('./routes');
+      const nextRoutes = require('../shared/routes');
 
       hydrate(nextRoutes).catch(err => {
         console.error('>>>>>>>>>>>>>>>>>>> Error on routes reload:', err);
