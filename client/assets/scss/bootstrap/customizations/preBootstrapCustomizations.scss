@@ -44,19 +44,22 @@ $fonts-url-path: '../../../fonts';
 // ------------------------------------------------
 
 // Override default Bootstrap "$font-family-sans-serif" setting with "Old English":
-$font-family-sans-serif: "Old English", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-@font-face {
-  font-family: 'Old English';
-  src: url('#{$fonts-url-path}/old-english.woff2') format('woff2');
-}
+// $font-family-sans-serif: "Old English", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+// 
+// @font-face {
+//   font-family: 'Old English';
+//   src: url('#{$fonts-url-path}/old-english.woff2') format('woff2');
+// }
 
 // ------------------------------------------------
 
-// Below IS THE Bootstrap v4 "font-size-base":
-// $font-size-base: 1rem;
-// $body-bg: #E6E6FA;
-// $body-color: #FFFFF0;
+// Bootstrap's '1rem' Assumes the browser default, typically '16px'
+// $font-size-base: 1rem !default; // 'font-size' variable >>>>> '_variables.scss'
+
+// .875rem = 14px / 16px
+// changing default font size from (1rem/16px) to (.875rem/14px)
+
+$font-size-base: .875rem;
 
 $navbar-dark-color: #C6E2FF;
 // $input-color: #9B30FF;

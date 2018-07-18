@@ -135,6 +135,8 @@ export default function (parameters) {
   app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
   app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
   app.use('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, '../public/static/manifest/manifest.json')));
+  app.use('/jquery.js', (req, res) => res.sendFile(path.join(__dirname, '../public/static/js/jquery.js')));
+  app.use('/app.js', (req, res) => res.sendFile(path.join(__dirname, '../public/static/js/app.js')));
 
   // #########################################################################
 
@@ -360,7 +362,7 @@ export default function (parameters) {
       // Find out which modules were actually rendered when a request comes in:
       // Loadable.Capture: component to collect all modules that were rendered
 
-      const component = (
+      const component = renderToString(
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
           <Provider store={store} {...providers}>
             <ConnectedRouter history={history}>
@@ -410,11 +412,13 @@ export default function (parameters) {
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > content: ', content);
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store: ', store);
 
-      const html = <Html assets={chunks} bundles={bundles} content={content} store={store} />;
+      //const html = <Html assets={chunks} bundles={bundles} content={content} store={store} />;
 
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > DID IT !! > STATUS 200 !! <<<<<<<<<<<<<<<<<<');
 
-      res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
+      //res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
+      //const markup = <Html {...{ css, assets, state, content }} />;
+      const html = `<!doctype html>${renderToStaticMarkup(html)}`;
 
     } catch (error) {
 
