@@ -13,7 +13,7 @@ const Html = ({ assets, store, content, bundles }) => {
   // console.log('>>>>>> HTML.JS > store: ', store);
   // console.log('>>>>>> HTML.JS > content: ', content);
   // console.log('>>>>>> HTML.JS > bundles: ', bundles);
-  
+
   const head = Helmet.renderStatic();
 
   return (
@@ -86,8 +86,6 @@ const Html = ({ assets, store, content, bundles }) => {
           <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }} />
         ) : null}
 
-        <script src="/jquery.js" />
-        <script src="/app.js" />
       </body>
     </html>
   );

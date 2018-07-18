@@ -333,6 +333,8 @@ export default function (parameters) {
 
       console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer START $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
+      // match route get the component
+
       const { components, match, params } = await asyncMatchRoutes(routes, req.path);
 
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 components: ', components);
@@ -362,7 +364,7 @@ export default function (parameters) {
       // Find out which modules were actually rendered when a request comes in:
       // Loadable.Capture: component to collect all modules that were rendered
 
-      const component = renderToString(
+      const component = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
           <Provider store={store} {...providers}>
             <ConnectedRouter history={history}>
@@ -376,49 +378,49 @@ export default function (parameters) {
         </Loadable.Capture>
       );
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 2 component: ', component);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== component: ', component);
 
       const content = ReactDOM.renderToString(component);
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 2 content: ', content);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== content: ', content);
+
+
+      // ------------------------------------------------------------------------------------------------------
+
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > context.url: ', context.url);
 
       if (context.url) {
         return res.redirect(302, context.url);
       }
 
-      const locationState2 = store.getState();
       const locationState = store.getState().routing.location;
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState2: ', locationState2);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > req.originalUrl: ', req.originalUrl);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState.pathname: ', locationState.pathname);
-
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store.getState: ', store.getState());
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > req.originalUrl: ', req.originalUrl);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState.pathname: ', locationState.pathname);
 
       if (req.originalUrl !== locationState.pathname + locationState.search) {
         return res.redirect(301, locationState.pathname);
       }
 
+      // ------------------------------------------------------------------------------------------------------
+
+
       const bundles = getBundles(getChunks(), modules);
 
-      if (process.env.NODE_ENV === 'production') {
-        console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > NODE_ENV PRODUCTION !!!!!!!!');
-      } else {
-        console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > NODE_ENV DEVELOPMENT !!!!!!!!');
-      }
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > CHUNKS: ', chunks);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > content: ', content);
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store: ', store);
 
-      //const html = <Html assets={chunks} bundles={bundles} content={content} store={store} />;
+      const html = <Html assets={chunks} bundles={bundles} content={content} store={store} />;
 
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > DID IT !! > STATUS 200 !! <<<<<<<<<<<<<<<<<<');
 
-      //res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
-      //const markup = <Html {...{ css, assets, state, content }} />;
-      const html = `<!doctype html>${renderToStaticMarkup(html)}`;
+      res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
+
 
     } catch (error) {
 
@@ -429,7 +431,6 @@ export default function (parameters) {
       hydrate();
 
     }
-
   });
 
 

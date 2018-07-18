@@ -20,6 +20,7 @@ import config from '../../../config/config';
 
 // https://reactjs.org/docs/dom-elements.html <<<<<<<<< DOM attributes supported by React
 // https://github.com/facebook/react/issues/10772#issuecomment-333242375
+// <a className="nav-link bootstrapDefaultFont" data-toggle="modal" href="#appModal1">
 
 @provideHooks({
   fetch: async ({ store: { dispatch, getState } }) => {
@@ -114,7 +115,6 @@ export default class App extends Component {
     const stylesScss1 = require('./scss/AppScss1.scss');
     const stylesScss2 = require('./scss/AppScss2.scss');
     const stylesCss1 = require('./css/AppCss1.css');
-    require('./js/app.js');
     // const iconBar30 = require('./img/icon-bar-30.svg');
     // <img src={iconBar30} width="30" height="30" alt=""/>
     // <span className="navbar-toggler-icon"></span>
@@ -139,35 +139,19 @@ export default class App extends Component {
             <ul className="navbar-nav mr-auto">
 
               <li className="nav-item">
-                <Link to='/about' className="nav-link openSansItalicwebfontFont js-scroll-trigger">About</Link>
+                <Link to='/about' className="nav-link js-scroll-trigger">About</Link>
               </li>
 
               <li className="nav-item">
-                <Link to='/aboutone' className="nav-link js-scroll-trigger">About One</Link>
+                <Link to='/login' className="nav-link js-scroll-trigger">Login</Link>
               </li>
 
               <li className="nav-item">
-                <Link to='/abouttoo' className="nav-link">About Too</Link>
+                <Link to='/register' className="nav-link js-scroll-trigger">Register</Link>
               </li>
 
               <li className="nav-item">
-                <Link to='/aboutthree' className="nav-link">About Three</Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to='/aboutfour' className="nav-link">About Four</Link>
-              </li>
-
-              <li className="nav-item ">
-                <Link to='/login' className="nav-link">Login</Link>
-              </li>
-
-              <li className="nav-item ">
-                <Link to='/register' className="nav-link">Register</Link>
-              </li>
-
-              <li className="nav-item">
-                <a className="nav-link bootstrapDefaultFont" data-toggle="modal" href="#appModal1">
+                <a className="nav-link font-old-english" data-toggle="modal" href="#appModal1">
                   <span className="fa fa-fw fa-sign-in"></span>Modal</a>
               </li>
 
@@ -222,7 +206,7 @@ export default class App extends Component {
 
                 <p className="robotoMonoV4LatinRegularFont">This paragraph's '@font-face' is 'roboto-mono-v4-latin-regular'.</p>
 
-                <p className="bootstrapDefaultFont colorSalmonGlobal">This paragraph's '@font-face' is 'font-family-sans-serif'.</p>
+                <p className="font-montserratlight colorSalmonGlobal">This paragraph's '@font-face' is 'font-montserratlight'.</p>
 
                 <p className="lobsterv20latinregularFont">This paragraph's '@font-face' is 'lobster-v20-latin-regular'.</p>
 
@@ -230,11 +214,11 @@ export default class App extends Component {
 
                 <p className="colorCrimsonGlobal openSansItalicwebfontFont">This paragraph's '@font-face' is 'OpenSans-Italic-webfont'.</p>
 
-                <p className="philosopherboldwebfontFont">This paragraph's '@font-face' is 'philosopher-bold-webfont'.</p>
+                <p className="font-philosopher-bold-webfont">This paragraph's '@font-face' is 'font-philosopher-bold-webfont'.</p>
 
                 <p className="sourcesansproregularwebfontFont">This paragraph's '@font-face' is 'sourcesanspro-regular-webfont'.</p>
 
-                <p className={`colorDarkgrayGlobal ${stylesScss2.montserratLightFontGlobalToLocal}`}>This paragraph's '@font-face' is 'MontserratLight'. It is scoped Global to Local.</p>
+                <p className={`color-springgreen ${stylesScss2.montserratLightFontGlobalToLocal}`}>This paragraph's '@font-face' is 'MontserratLight'. It is scoped Global to Local.</p>
 
                 <p className="colorOrangeredGlobal openSansBoldwebfontFont">This paragraph's '@font-face' is 'OpenSans-Bold-webfont' It is scoped Global.</p>
 
