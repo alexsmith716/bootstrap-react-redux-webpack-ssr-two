@@ -3,19 +3,24 @@
 // CALCULATE AND RETURN PIXEL TO REM
 // --------------------------------------------------------------------------------
 
-@function test-number-px($testSize) {
+// Bootstrap's '1rem' Assumes the browser default, typically '16px'
+$font-size-browser-default: 16px;
+
+// --------------------------------------------------------------------------------
+
+@function test-number-unit($testSize) {
 
   @if (type-of($testSize) == number) {
 
     @if (unit($testSize) != "px") {
 
-      @error "`#{$testSize}` needs to be a pixel value.";
+      @error "`#{$testSize}` needs to be a PIXEL value.";
 
-    }
+    } 
 
   } @else {
 
-    @error "`#{$testSize}` needs to be a number.";
+    @error "`#{$testSize}` needs to be a NUMBER.";
 
   }
 
@@ -23,12 +28,17 @@
 
 }
 
+// --------------------------------------------------------------------------------
+
 @function calculate-rem($size) {
 
-  $testedSize: test-number-px($size);
+  $testedSize: test-number-unit($size);
 
-  $remSize: $testedSize / $base-font-pixel-size;
+  $returnedValue: $testedSize / $font-size-browser-default;
 
-  @return #{$remSize}rem;
+  @return #{$returnedValue}rem;
 
 }
+
+// --------------------------------------------------------------------------------
+

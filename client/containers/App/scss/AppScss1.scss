@@ -7,13 +7,13 @@
   }
   // nav :global(.fa) {
   //   font-size: 1em;
-  //   line-height: 20px;
+  //   line-height: calculate-rem(20px);
   // }
 }
 
 .appContent {
-  padding-top: calculate-rem(56px);
-  min-height: calc(100vh - 145px); // exclude the height of footer
+  padding-top: calculate-rem(50px);
+  min-height: calc(100vh - 120px); // exclude the height of footer
   position: relative;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .notifs {
-  margin: 15px 0;
+  margin: calculate-rem(15px) 0;
   color: #F0F8FF;
   border: 3px solid #F0F8FF;
 }
@@ -31,8 +31,8 @@
 .footer {
   background: #388E8E;
   margin-bottom: 0;
-  padding: 10px 0;
-  height: 145px;
+  padding: calculate-rem(10px) 0;
+  height: 120px;
 }
 
 // sgi teal:            388E8E
@@ -45,5 +45,3 @@
 // ghostwhite:          F8F8FF
 // aliceblue:           F0F8FF
 // gray 40:             666666
-
-// min-height: 100vh;

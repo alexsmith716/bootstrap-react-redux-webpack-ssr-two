@@ -10,6 +10,7 @@ import config from '../../../config/config';
   online: state.online
 }))
 
+// <h1>Election App 2018</h1>
 
 export default class Home extends Component {
 
@@ -32,7 +33,7 @@ export default class Home extends Component {
 
           <div className="container">
 
-            <h1>Election App 2018</h1>
+            <h1>App 2018!!</h1>
 
             <h2>The Midterms are almost here!</h2>
 

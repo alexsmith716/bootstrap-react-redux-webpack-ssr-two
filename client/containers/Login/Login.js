@@ -101,7 +101,7 @@ export default class Login extends Component {
 
                   <LoginForm onSubmit={this.onLocalLogin} />
 
-                  <div className={`mt-3 mb-3 ${styles.signInWith}`}>
+                  <div className={`mt-3 mb-3 font-weight-600 ${styles.signInWith}`}>
                     <p>Or sign in with</p>
                   </div>
 

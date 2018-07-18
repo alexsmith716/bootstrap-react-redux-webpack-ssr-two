@@ -86,6 +86,8 @@ const Html = ({ assets, store, content, bundles }) => {
           <script dangerouslySetInnerHTML={{ __html: 'document.getElementById("content").style.display="block";' }} />
         ) : null}
 
+        <script src="/jquery.js" />
+        <script src="/app.js" />
       </body>
     </html>
   );

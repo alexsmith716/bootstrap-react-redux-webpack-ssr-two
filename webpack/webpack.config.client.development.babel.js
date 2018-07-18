@@ -126,14 +126,14 @@ configuration.module.rules.push(
 
 configuration.plugins.push(
 
-  new CleanWebpackPlugin([assetsPath,serverPath,webpackDllsPath], { root: configuration.context }),
+  // new CleanWebpackPlugin([assetsPath,serverPath,webpackDllsPath], { root: configuration.context }),
 
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': '"development"',
     __CLIENT__: true,
     __SERVER__: false,
     __DEVELOPMENT__: true,
-    __DEVTOOLS__: true
+    __DEVTOOLS__: false,
   }),
 
   new webpack.ProvidePlugin({

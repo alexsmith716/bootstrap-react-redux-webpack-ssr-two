@@ -28,8 +28,6 @@ import { getStoredState } from 'redux-persist';
 import { CookieStorage } from 'redux-persist-cookie-storage';
 import Cookies from 'cookies-js'; // Client-Side Cookie Manipulation 'cookies-js'
 
-const dest = document.getElementById('content');
-
 // =====================================================================
 // Bootstrap Cookie from preloaded state in window object
 // =====================================================================
@@ -43,6 +41,8 @@ const persistConfig = {
   },
   whitelist: ['auth', 'info',] // accepting from
 };
+
+const dest = document.getElementById('content');
 
 // =====================================================================
 // configure client for API communication ( socket / authentication )
@@ -169,10 +169,10 @@ initSocket();
 
   // --------------------------------------------------------------------------------------
 
-
+  // Server-side rendering check
   if (process.env.NODE_ENV !== 'production') {
-    window.React = React;
-    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > process.env.NODE_ENV === DEV!!!');
+    window.React = React; // enable debugger
+    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > process.env.NODE_ENV === DEV <<<<<<<<<<<<<<<<<<<<<<');
 
     if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-reactroot']) {
       console.error('Server-side React render was discarded.' +

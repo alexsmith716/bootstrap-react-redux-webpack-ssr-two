@@ -114,6 +114,7 @@ export default class App extends Component {
     const stylesScss1 = require('./scss/AppScss1.scss');
     const stylesScss2 = require('./scss/AppScss2.scss');
     const stylesCss1 = require('./css/AppCss1.css');
+    require('./js/app.js');
     // const iconBar30 = require('./img/icon-bar-30.svg');
     // <img src={iconBar30} width="30" height="30" alt=""/>
     // <span className="navbar-toggler-icon"></span>
@@ -125,42 +126,63 @@ export default class App extends Component {
 
         <Helmet {...config.app.head} />
 
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="main-nav">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
           <Link to='/' className={`navbar-brand ${stylesScss1.brand}`}>Election App</Link>
-          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+
+          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarCollapse">
+
+          <div className="collapse navbar-collapse" id="navbarResponsive">
+
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <Link to='/' className="nav-link openSansItalicwebfontFont">Home <span className="sr-only">(current)</span></Link>
-              </li>
+
               <li className="nav-item">
-                <a className="nav-link bootstrapDefaultFont" data-toggle="modal" data-target="#exampleModal">
+                <Link to='/about' className="nav-link openSansItalicwebfontFont js-scroll-trigger">About</Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to='/aboutone' className="nav-link js-scroll-trigger">About One</Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to='/abouttoo' className="nav-link">About Too</Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to='/aboutthree' className="nav-link">About Three</Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to='/aboutfour' className="nav-link">About Four</Link>
+              </li>
+
+              <li className="nav-item ">
+                <Link to='/login' className="nav-link">Login</Link>
+              </li>
+
+              <li className="nav-item ">
+                <Link to='/register' className="nav-link">Register</Link>
+              </li>
+
+              <li className="nav-item">
+                <a className="nav-link bootstrapDefaultFont" data-toggle="modal" href="#appModal1">
                   <span className="fa fa-fw fa-sign-in"></span>Modal</a>
               </li>
+
               <li className="nav-item">
-                <a className="nav-link norwesterFont" href="#">
+                <a className="nav-link norwesterFont dropdown-item" href="#">
                   <span className={`fa fa-fw fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={stylesScss2.testColorFont}>Headphones!</span></a>
               </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle lobsterv20latinregularFont" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                <div className="dropdown-menu" aria-labelledby="dropdown01">
-                  <Link to='/about' className="dropdown-item">The About</Link>
-                  <Link to='/aboutone' className="dropdown-item">About One</Link>
-                  <Link to='/abouttoo' className="dropdown-item">About Too</Link>
-                  <Link to='/aboutthree' className="dropdown-item">About Three</Link>
-                  <Link to='/aboutfour' className="dropdown-item">About Four</Link>
-                  <Link to='/login' className="dropdown-item">Login</Link>
-                  <Link to='/register' className="dropdown-item">Register</Link>
-                </div>
-              </li>
+
             </ul>
             <form className="form-inline my-2 my-lg-0">
               <input className="form-control mr-sm-2" placeholder="Search" aria-label="Search" type="text"></input>
               <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
           </div>
+
         </nav>
 
         <div className={stylesScss1.appContent}>
@@ -176,18 +198,20 @@ export default class App extends Component {
           {renderRoutes(route.routes)}
         </div>
 
-        <div className={`py-5 ${stylesScss1.footer}`}>
+
+        <div className={`py-4 ${stylesScss1.footer}`}>
           <div className="container">
             <div className={`m-0 text-center philosopherboldwebfontFont ${stylesCss1.colorCrimsonCssLocal}`}>Copyright &copy; 2018 · Election App 2018!</div>
             <div className="m-0 text-center"><span className={`fa fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={`norwesterFont ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
           </div>
         </div>
 
-        <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div className="app-modal modal fade" id="appModal1" tabIndex="-1" role="dialog" aria-labelledby="appModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title colorGreenYellowGlobalCSS" id="exampleModalLabel">Modal Test</h5>
+                <h5 className="modal-title colorGreenYellowGlobalCSS" id="appModalLabel">Modal Test</h5>
                 <button className="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
@@ -215,10 +239,12 @@ export default class App extends Component {
                 <p className="colorOrangeredGlobal openSansBoldwebfontFont">This paragraph's '@font-face' is 'OpenSans-Bold-webfont' It is scoped Global.</p>
 
               </div>
+
               <div className="modal-footer">
                 <button className="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                 <a className="btn btn-primary" href="#">Button Somewhere</a>
               </div>
+
             </div>
           </div>
         </div>

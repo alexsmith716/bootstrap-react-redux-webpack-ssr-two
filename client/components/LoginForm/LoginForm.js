@@ -7,21 +7,19 @@ const Input = ({input, label, type, meta: { touched, error, submitError }, ...re
 
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
 
-    {label === 'Email' && (
+    {label === 'Username or email address' && (
 
-      <label htmlFor={input.name}>{label}</label>
+      <label htmlFor={input.name} className="font-weight-600">{label}</label>
     )}
 
     {label === 'Password' && (
 
       <div className="d-flex justify-content-between">
 
-        <label htmlFor={input.name}>
-          {label}
-        </label>
+        <label htmlFor={input.name} className="font-weight-600">{label}</label>
 
         <div>
-          <a href="/password_reset">Forgot password?</a>
+          <a className="font-size-smaller-90" href="/password_reset">Forgot password?</a>
         </div>
 
       </div>
@@ -64,7 +62,7 @@ const LoginForm = ({ onSubmit }) => (
       <form onSubmit={handleSubmit}>
 
         <div className="form-group">
-          <Field name="email" type="text" component={Input} label="Email" />
+          <Field name="email" type="text" component={Input} label="Username or email address" />
         </div>
 
         <div className="form-group">
@@ -77,7 +75,7 @@ const LoginForm = ({ onSubmit }) => (
           </p>
         )}
 
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center mt-4">
           <a className="btn btn-success btn-width-fifty-percent" href="index.html">Sign in</a>
         </div>
 
