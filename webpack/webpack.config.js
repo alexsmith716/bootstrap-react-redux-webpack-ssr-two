@@ -68,23 +68,6 @@ module.exports = {
           mimetype: 'image/svg+xml'
         }
       },
-      {
-        test: '/jquery/',
-        use: [
-          {
-            loader: 'expose-loader',
-            options: '$',
-          },
-          {
-            loader: 'expose-loader',
-            options: 'jQuery',
-          },
-          {
-            loader: 'expose-loader',
-            options: 'jquery',
-          },
-        ]
-      },
     ]
   },
 
