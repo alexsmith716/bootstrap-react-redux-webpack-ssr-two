@@ -135,8 +135,6 @@ export default function (parameters) {
   app.use('/assets', express.static(path.join(__dirname, '../public/assets')));
   app.use(favicon(path.join(__dirname, '../public/static/favicon', 'favicon.ico')));
   app.use('/manifest.json', (req, res) => res.sendFile(path.join(__dirname, '../public/static/manifest/manifest.json')));
-  app.use('/jquery.js', (req, res) => res.sendFile(path.join(__dirname, '../public/static/js/jquery.js')));
-  app.use('/app.js', (req, res) => res.sendFile(path.join(__dirname, '../public/static/js/app.js')));
 
   // #########################################################################
 
