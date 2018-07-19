@@ -1,5 +1,13 @@
 import { matchRoutes } from 'react-router-config';
 
+// 'react-router-config' (Static route configuration helpers for React Router):
+//    With the introduction of React Router v4, there is no longer a centralized route configuration. 
+//    There are some use-cases where it is valuable to know about all the app's potential routes such as:
+//    
+//    - Loading data on the server or in the lifecycle before rendering the next screen
+//    - Linking to routes by name
+//    - Static analysis
+
 function getComponents(match) {
   return match.map(v => v.route.component).reduce(async (result, component) => {
     if (component.preload) {
@@ -22,13 +30,13 @@ function getParams(match) {
 
 const asyncMatchRoutes = async (routes, pathname) => {
 
-  console.log('>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > pathname: ', pathname)
-  const match = matchRoutes(routes, pathname);
-  console.log('>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > match: ', match)
-  const params = getParams(match);
-  console.log('>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > params: ', params)
+  const match = matchRoutes(routes, pathname); // Returns array of matched routes
   const components = await getComponents(match);
-  console.log('>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > components: ', components)
+  const params = getParams(match);
+
+  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > components: ', components);
+  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > matchRoutes: ', match);
+  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > params: ', params);
 
   return { components, match, params };
 };

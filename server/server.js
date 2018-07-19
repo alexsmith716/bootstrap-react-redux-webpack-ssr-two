@@ -171,9 +171,10 @@ export default function (parameters) {
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.ip +++++++++++++: ', req.ip);
     console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.method +++++++++++++++: ', req.method);
     console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.url ++++++++++++++++++: ', req.url);
-    console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.headers ++++++++++++++: ', req.headers);
-    console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.cookies ++++++++++++++: ', req.cookies);
-    console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.session ++++++++: ', req.session);
+    console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.path ++++++++++++++++++: ', req.path);
+    // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.headers ++++++++++++++: ', req.headers);
+    // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.cookies ++++++++++++++: ', req.cookies);
+    // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.session ++++++++: ', req.session);
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.params +++++++++: ', req.params);
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.originalUrl ++++: ', req.originalUrl);
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ IN < $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
@@ -239,6 +240,7 @@ export default function (parameters) {
   // app.use((req, res) => {
   //   res.status(200).send('SERVER > Response Ended For Testing!!!!!!! Status 200!!!!!!!!!');
   // });
+
 
   app.use(async (req, res) => {
 
@@ -331,44 +333,51 @@ export default function (parameters) {
 
       console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer START $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
-      // match route get the component
-
+      // match incoming 'route' and get the 'components' and 'params' from that match
       const { components, match, params } = await asyncMatchRoutes(routes, req.path);
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 components: ', components);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 match: ', match);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 params: ', params);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 persistConfig: ', persistConfig);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 preloadedState: ', preloadedState);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 providers: ', providers);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== 1 store: ', store);
+      // Redial (trigger)
+      // ensure all data for routes prefetched on server before rendering
+      // 'trigger' all decorated components
+      // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
+      // App
+      // About
+      // Chat
+      // returning promises if any asynchronous operations need to be performed.
 
-      await trigger('fetch', components, {
-        ...providers,
-        store,
-        match,
-        params,
-        history,
-        location: history.location
-      });
+      // const locals = { some: 'data', more: 'stuff' };
+      // trigger('fetch', components, locals).then(render);
+
+      // from matched route, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
+      await trigger( 'fetch', components, { ...providers, store, match, params, history, location: history.location } );
+
+      const modules = [];
+      const context = {};
+
+      // 'react-router-config' (Static route configuration helpers for React Router):
+      //    With the introduction of React Router v4, there is no longer a centralized route configuration. 
+      //    There are some use-cases where it is valuable to know about all the app's potential routes such as:
+      //    
+      //    - Loading data on the server or in the lifecycle before rendering the next screen
+      //    - Linking to routes by name
+      //    - Static analysis
 
       console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer END $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-
-
-      const context = {};
-      const modules = [];
 
       // Finding out which dynamic modules were rendered
       // Find out which modules were actually rendered when a request comes in:
       // Loadable.Capture: component to collect all modules that were rendered
 
+      // Render on the server (stateless)
       const component = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-          <Provider store={store} {...providers}>
-            <ConnectedRouter history={history}>
-              <StaticRouter location={req.originalUrl} context={context}>
-                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
-                  {renderRoutes(routes)}
+          <Provider store={store} {...providers}> // rx
+            <ConnectedRouter history={history}> // rx
+              // {req.originalUrl}: pass in requested url from the server
+              // {context}: pass in empty context prop
+              <StaticRouter location={req.originalUrl} context={context}> // rr
+                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}> // rr
+                  {renderRoutes(routes)} // 'react-router-config'
                 </ReduxAsyncConnect>
               </StaticRouter>
             </ConnectedRouter>
@@ -376,27 +385,29 @@ export default function (parameters) {
         </Loadable.Capture>
       );
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== component: ', component);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== component: ', component);
 
       const content = ReactDOM.renderToString(component);
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== content: ', content);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== content: ', content);
 
 
       // ------------------------------------------------------------------------------------------------------
 
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > context.url: ', context.url);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > context: ', context);
 
+      // test context prop to find out what the result of rendering was
+      // context.url ? the app redirected
+      // 301: status.redirect
+      // send a redirect from the server
       if (context.url) {
-        return res.redirect(302, context.url);
+        return res.redirect(301, context.url);
       }
 
-      const locationState = store.getState().routing.location;
+      const locationState = store.getState().router.location;
 
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store.getState: ', store.getState());
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > req.originalUrl: ', req.originalUrl);
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState.pathname: ', locationState.pathname);
 
       if (req.originalUrl !== locationState.pathname + locationState.search) {
         return res.redirect(301, locationState.pathname);
