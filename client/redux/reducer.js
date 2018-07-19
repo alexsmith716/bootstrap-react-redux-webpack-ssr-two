@@ -1,5 +1,8 @@
 
+// Keep state in sync with router
+// dispatch navigation actions 
 import { routerReducer } from 'react-router-redux';
+
 // import multireducer from 'multireducer';
 
 import auth from './modules/auth';
@@ -11,7 +14,7 @@ export default function createReducers(asyncReducers) {
 
   return {
 
-    routing: routerReducer,
+    router: routerReducer, // Add 'routerReducer' to store on the `router` key
 
     online: (v = true) => v,
 
