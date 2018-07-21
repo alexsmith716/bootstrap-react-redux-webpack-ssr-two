@@ -132,6 +132,7 @@ initSocket();
     ReactDOM.hydrate(
       <HotEnabler>
         <Provider store={store} {...providers}>
+          { /* ConnectedRouter will use the store from Provider automatically */ }
           <ConnectedRouter history={history}>
             <ReduxAsyncConnect routes={_routes} store={store} helpers={providers}>
               {renderRoutes(_routes)}
