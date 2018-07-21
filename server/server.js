@@ -246,8 +246,8 @@ export default function (parameters) {
 
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
-    const chunks = parameters.chunks();
-    // const chunks = {...parameters.chunks()};
+    const webpackAssets = parameters.chunks();
+    // const webpackAssets = {...parameters.chunks()};
 
     // configure server for API communication (rest / axios/ajax)
     // passing session cookie (req)
@@ -322,7 +322,7 @@ export default function (parameters) {
 
     function hydrate() {
       res.write('<!doctype html>');
-      ReactDOM.renderToNodeStream(<Html assets={chunks} store={store} />).pipe(res);
+      ReactDOM.renderToNodeStream(<Html assets={webpackAssets} store={store} />).pipe(res);
     }
 
     if (__DISABLE_SSR__) {
@@ -368,16 +368,20 @@ export default function (parameters) {
       // Find out which modules were actually rendered when a request comes in:
       // Loadable.Capture: component to collect all modules that were rendered
 
+      // {req.originalUrl}: pass in requested url from the server
+      // {context}: pass in empty context prop
+
       // Render on the server (stateless)
       const component = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-          <Provider store={store} {...providers}> // rx
-            <ConnectedRouter history={history}> // rx
-              // {req.originalUrl}: pass in requested url from the server
-              // {context}: pass in empty context prop
-              <StaticRouter location={req.originalUrl} context={context}> // rr
-                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}> // rr
-                  {renderRoutes(routes)} // 'react-router-config'
+          <Provider store={store} {...providers}>
+            { /* ConnectedRouter will use the store from Provider automatically */ }
+            <ConnectedRouter history={history}>
+              { /* {req.originalUrl}: pass in requested url from the server */ }
+              { /* {context}: pass in empty context prop */ }
+              <StaticRouter location={req.originalUrl} context={context}>
+                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
+                  {renderRoutes(routes)}
                 </ReduxAsyncConnect>
               </StaticRouter>
             </ConnectedRouter>
@@ -415,16 +419,15 @@ export default function (parameters) {
 
       // ------------------------------------------------------------------------------------------------------
 
-
       const bundles = getBundles(getChunks(), modules);
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > CHUNKS: ', chunks);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > ASSETS: ', webpackAssets);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE: ', store);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > CONTENT : ', content);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > content: ', content);
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store: ', store);
 
-      const html = <Html assets={chunks} bundles={bundles} content={content} store={store} />;
+      const html = <Html assets={webpackAssets} store={store} content={content} bundles={bundles} />;
 
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > DID IT !! > STATUS 200 !! <<<<<<<<<<<<<<<<<<');
 

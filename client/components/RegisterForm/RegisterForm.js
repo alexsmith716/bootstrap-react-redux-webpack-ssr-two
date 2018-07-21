@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import registerValidation from './registerValidation';
 
 const Input = ({input, label, type, meta: { touched, error, submitError }, ...rest}) => (
+
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
+
     <label htmlFor={input.name} className="col-sm-2">
       {label}
     </label>

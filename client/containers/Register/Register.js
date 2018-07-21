@@ -52,7 +52,19 @@ export default class Register extends Component {
 
           <div className="d-flex justify-content-center">
 
-            <h1>HOLDER FOR REGISTER FORM</h1>
+            <div className={styles.register}>
+
+              <div className={`mb-3 ${styles.formTitle}`}>
+                <p>
+                  Join ElectionApp2018!
+                </p>
+              </div>
+
+              <div className={styles.formContainer}>
+
+              </div>
+
+            </div>
 
           </div>
 
