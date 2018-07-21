@@ -31,6 +31,12 @@ const join = rules => (value, data, params) => rules.map(rule => rule(value, dat
 // Name pattern="\\s*^(?=\\s*\\S)(.{1,35})$\\s*"
 // Please type a valid Name. Maximum 35 characters
 
+export function username(value) {
+  if (!isEmpty(value) && !/^[A-Za-z0-9_]{4,21}$/i.test(value)) {
+    return 'Invalid username';
+  }
+}
+
 export function email(value) {
   // Let's not start a debate on email regex. This is just for an example app!
   if (!isEmpty(value) && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
