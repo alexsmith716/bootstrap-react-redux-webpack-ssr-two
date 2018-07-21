@@ -3,11 +3,22 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 
-// import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import * as authActions from '../../redux/modules/auth';
 import * as notifActions from '../../redux/modules/notifs';
 
-@connect(() => ({}), { ...notifActions, ...authActions })
+
+
+@connect(
+
+  () => ({
+
+  }), 
+
+  { ...notifActions, ...authActions }
+
+)
+
 
 
 export default class Register extends Component {
@@ -48,7 +59,7 @@ export default class Register extends Component {
 
         <div className={styles.registerContainer}>
 
-          <Helmet title="Join ElectionApp2018!" />
+          <Helmet title="Join Election App" />
 
           <div className="d-flex justify-content-center">
 
@@ -56,11 +67,13 @@ export default class Register extends Component {
 
               <div className={`mb-3 ${styles.formTitle}`}>
                 <p>
-                  Join ElectionApp2018!
+                  Join Election App
                 </p>
               </div>
 
               <div className={styles.formContainer}>
+
+                <RegisterForm onSubmit={this.register} initialValues={this.getInitialValues()} />
 
               </div>
 

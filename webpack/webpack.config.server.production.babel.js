@@ -14,22 +14,22 @@ configuration.module.rules.push(
         loader: 'css-loader',
         options: {
           modules: true,
+          localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 2,
-          sourceMap: true,
+          //sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
+          //sourceMap: true,
         }
       },
       {
         loader: 'sass-loader',
         options: {
           outputStyle: 'expanded',
-          sourceMap: true,
-          // sourceMapContents: true
+          //sourceMap: true,
         }
       },
       {
@@ -52,8 +52,9 @@ configuration.module.rules.push(
         loader : 'css-loader',
         options: {
           modules: true,
+          localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
-          sourceMap: true
+          //sourceMap: true
         }
       },
       {
