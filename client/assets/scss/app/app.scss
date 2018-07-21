@@ -43,7 +43,7 @@ hr.light {
 .button-facebook,
 .button-google {
   line-height: 1.2;
-  width: calculate-rem(130px);
+  width: calculate-rem(116px);
   height: calculate-rem(40px);
   border-radius: calculate-rem(3px);
   border: calculate-rem(1px) solid #B8B8B8;
@@ -80,8 +80,20 @@ hr.light {
   border-color: #EEEEE0;
 }
 
-.btn-width-fifty-percent {
+.btn-width-one-quarter {
+  width: 25%;
+}
+
+.btn-width-one-third {
+  width: 33%;
+}
+
+.btn-width-one-half {
   width: 50%;
+}
+
+.btn-width-three-quarters {
+  width: 75%;
 }
 
 .font-weight-bold {

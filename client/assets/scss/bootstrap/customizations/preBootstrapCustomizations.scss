@@ -10,6 +10,14 @@
 // Other Bootstrap font size variables are based on this, so pre Bootstrap Customizations go into this file
 // preBootstrapCustomizations.scss file.
 
+// -----------------------------------------------------
+// ------------ change default 'body-bg' color ---------
+// -----------------------------------------------------
+
+// $body-bg: $white !default;
+$body-bg: #F7F7F7; // gray 97
+
+
 // --------------------------------------------------------------------------------------------------
 
 // Bootstraps default "$font-family-sans-serif" config:

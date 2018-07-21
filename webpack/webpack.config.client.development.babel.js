@@ -59,29 +59,29 @@ configuration.module.rules.push(
       {
         loader: 'style-loader',
         options: { 
-          sourceMap: true 
+          //sourceMap: true 
         }
       },
       {
         loader: 'css-loader',
         options: {
           modules: true,
+          localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 2,
-          sourceMap: true,
-          //localIdentName: '[name]__[local]__[hash:base64:5]',
+          //sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
+          //sourceMap: true,
         }
       },
       {
         loader: 'sass-loader',
         options: {
           outputStyle: 'expanded',
-          sourceMap: true,
+          //sourceMap: true,
           // sourceMapContents: true
         }
       },
@@ -101,16 +101,16 @@ configuration.module.rules.push(
       {
         loader: 'style-loader',
         options: { 
-          sourceMap: true 
+          //sourceMap: true 
         }
       },
       {
         loader : 'css-loader',
         options: {
           modules: true,
-          //localIdentName: '[name]__[local]__[hash:base64:5]',
+          localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
-          sourceMap: true
+          //sourceMap: true
         }
       },
       {

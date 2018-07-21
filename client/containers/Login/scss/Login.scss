@@ -1,7 +1,7 @@
 
 .loginContainer {
   @include bootstrap-default-font;
-  padding-top: calculate-rem(65px);
+  padding-top: calculate-rem(35px);
   // padding-bottom: calculate-rem(40px);
 
   .login {
@@ -17,7 +17,8 @@
     .formContainer {
       padding: calculate-rem(15px) calculate-rem(15px);
       border: calculate-rem(1px) solid #d8dee2;
-      border-radius: calculate-rem(3px);
+      border-radius: calculate-rem(6px);
+      background-color: #ffffff;
 
       .signInWith {
         text-align: center;
@@ -30,7 +31,8 @@
     .createAccount {
       padding: calculate-rem(15px) calculate-rem(15px);
       border: calculate-rem(1px) solid #d8dee2;
-      border-radius: calculate-rem(3px);
+      border-radius: calculate-rem(6px);
+      background-color: #ffffff;
       a {
         padding-left: calculate-rem(8px);
       }

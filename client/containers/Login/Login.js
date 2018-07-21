@@ -5,13 +5,24 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import LoginForm from '../../components/LoginForm/LoginForm';
 // import FacebookLogin from '../../components/FacebookLogin/FacebookLogin';
+import { Link } from 'react-router-dom';
 
 import * as authActions from '../../redux/modules/auth';
 import * as notifActions from '../../redux/modules/notifs';
 
 // <p>You are currently logged in as {user.email}.</p>
 
-@connect(state => ({ user: state.auth.user }), { ...notifActions, ...authActions })
+
+@connect(
+
+  state => ({ 
+    user: state.auth.user 
+  }), 
+
+  { ...notifActions, ...authActions }
+
+)
+
 
 @withRouter
 
@@ -128,7 +139,7 @@ export default class Login extends Component {
                 <div className={`mt-4 d-flex justify-content-center ${styles.createAccount}`}>
                   <div>
                     Not a member?
-                    <a href="/join?source=login">Create an account</a>.
+                    <Link to='/register' className="js-scroll-trigger">Create an account</Link>.
                   </div>
                 </div>
 

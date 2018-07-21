@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 import PropTypes from 'prop-types';
 import loginValidation from './loginValidation';
 
+
 const Input = ({input, label, type, meta: { touched, error, submitError }, ...rest}) => (
 
   <div className={`form-group ${(error || submitError) && touched ? 'has-error' : ''}`}>
@@ -76,7 +77,7 @@ const LoginForm = ({ onSubmit }) => (
         )}
 
         <div className="d-flex justify-content-center mt-4">
-          <a className="btn btn-success btn-width-fifty-percent" href="index.html">Sign in</a>
+          <a className="btn btn-success btn-width-one-half" href="index.html">Sign in</a>
         </div>
 
       </form>
@@ -90,3 +91,4 @@ LoginForm.propTypes = {
 };
 
 export default LoginForm;
+
