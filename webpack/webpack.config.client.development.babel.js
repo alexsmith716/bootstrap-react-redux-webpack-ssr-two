@@ -1,5 +1,5 @@
 
-require('babel-polyfill');
+require("@babel/polyfill");
 const webpack = require('webpack');
 const helpers = require('./helpers');
 const path = require('path');

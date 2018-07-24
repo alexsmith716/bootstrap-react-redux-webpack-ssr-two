@@ -22,6 +22,8 @@ import config from '../../../config/config';
 // https://github.com/facebook/react/issues/10772#issuecomment-333242375
 // <a className="nav-link bootstrapDefaultFont" data-toggle="modal" href="#appModal1">
 
+// --------------------------------------------------------------------------
+
 @provideHooks({
   fetch: async ({ store: { dispatch, getState } }) => {
 
@@ -42,22 +44,22 @@ import config from '../../../config/config';
   }
 })
 
-
-
 @connect(
-
   state => ({
     notifs: state.notifs,
     user: state.auth.user
   }),
-
   { logout, pushState: push }
-
 )
 
+// HOC to access the imperative API
+// You can get access to the history object's properties and the closest <Route>'s 
+//   match via the withRouter higher-order component.
+// withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
+@withRouter 
 
+// --------------------------------------------------------------------------
 
-@withRouter
 
 export default class App extends Component {
 
@@ -102,6 +104,9 @@ export default class App extends Component {
     prevProps: this.props,
     user: this.props.user
   };
+
+  // executed after the render() method is done
+  // and the new changes to the underlying DOM have been applied
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {

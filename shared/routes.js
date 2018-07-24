@@ -1,5 +1,12 @@
-import { routerActions } from 'react-router-redux';
+
+// https://mjrussell.github.io/redux-auth-wrapper/docs/Getting-Started/Overview.html
+// https://mjrussell.github.io/redux-auth-wrapper/docs/Getting-Started/ReactRouter4.html
+// https://github.com/mjrussell/redux-auth-wrapper/tree/master/examples/react-router-4
 import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
+
+import { routerActions } from 'react-router-redux';
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 import { App, Home, NotFound } from '../client/containers';
 
@@ -14,19 +21,32 @@ import AboutFour from '../client/containers/AboutFour/Loadable';
 import Login from '../client/containers/Login/Loadable';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Helper 'connectedRouterRedirect' builds HOC 'isAuthenticated/isNotAuthenticated'
+// config {} passed in to 'connectedRouterRedirect' determines access to route
+// apply 'isAuthenticated/isNotAuthenticated' to Component(s) ('LoginSuccess' && 'Register')
+// pass Component ('LoginSuccess' / 'Register') to HOC ('isAuthenticated' / 'isNotAuthenticated')
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const isAuthenticated = connectedReduxRedirect({
+  // url to redirect if check fails
   redirectPath: '/login',
+  // If authenticatedSelector is true, wrapper will not redirect
+  // So if there is no user data, then we show the page
   authenticatedSelector: state => state.auth.user !== null,
-  redirectAction: routerActions.replace,
+  // dispatch a redux action to navigate - pass the redux action creator to redirectAction
+  redirectAction: routerActions.replace,          
   wrapperDisplayName: 'UserIsAuthenticated'
 });
 
 const isNotAuthenticated = connectedReduxRedirect({
+  // url to redirect if check fails
   redirectPath: '/',
+  // If authenticatedSelector is true, wrapper will not redirect
   authenticatedSelector: state => state.auth.user === null,
+  // dispatch a redux action to navigate - pass the redux action creator to redirectAction
   redirectAction: routerActions.replace,
   wrapperDisplayName: 'UserIsAuthenticated',
+  // prevent adding the query parameter when we send the user away from the Register page
   allowRedirectBack: false
 });
 

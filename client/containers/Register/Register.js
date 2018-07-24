@@ -7,19 +7,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import * as authActions from '../../redux/modules/auth';
 import * as notifActions from '../../redux/modules/notifs';
 
-
-
-@connect(
-
-  () => ({
-
-  }), 
-
-  { ...notifActions, ...authActions }
-
-)
-
-
+@connect(() => ({}), { ...notifActions, ...authActions })
 
 export default class Register extends Component {
 
@@ -47,7 +35,6 @@ export default class Register extends Component {
       dismissAfter: 2000
     });
   };
-
 
   render() {
 

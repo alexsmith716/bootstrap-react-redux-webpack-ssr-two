@@ -5,7 +5,13 @@ import { trigger } from 'redial';
 import NProgress from 'nprogress';
 import asyncMatchRoutes from '../server/utils/asyncMatchRoutes';
 
+// --------------------------------------------------------------------------
+
+// withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
 @withRouter
+
+// --------------------------------------------------------------------------
+
 
 export default class ReduxAsyncConnect extends Component {
   static propTypes = {
