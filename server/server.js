@@ -246,6 +246,7 @@ export default function (parameters) {
 
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
+    // return webpack-compiled chunks
     const webpackAssets = parameters.chunks();
     // const webpackAssets = {...parameters.chunks()};
 
@@ -372,6 +373,8 @@ export default function (parameters) {
       // {context}: pass in empty context prop
 
       // Render on the server (stateless)
+      // ReactDOM.render
+
       const component = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
           <Provider store={store} {...providers}>
@@ -424,7 +427,7 @@ export default function (parameters) {
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > ASSETS: ', webpackAssets);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE: ', store);
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > CONTENT : ', content);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > CONTENT : ', content);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);
 
       const html = <Html assets={webpackAssets} store={store} content={content} bundles={bundles} />;

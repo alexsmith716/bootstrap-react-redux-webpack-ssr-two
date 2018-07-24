@@ -1,5 +1,5 @@
 
-require('babel-polyfill');
+require("@babel/polyfill");
 
 var fs = require('fs');
 var babelrc = fs.readFileSync('./.babelrc');
@@ -13,6 +13,8 @@ try {
 
     config.plugins.push('dynamic-import-node');
 
+    console.log('>>>>>>>>>>>>>>>> SERVER.BABEL > GOOD parsing .babelrc !!!!!!!!!!!!!!: ', config);
+
   }
 
 } catch (err) {
@@ -21,4 +23,4 @@ try {
 
 }
 
-require('babel-register')(config);
+require('@babel/register')(config);

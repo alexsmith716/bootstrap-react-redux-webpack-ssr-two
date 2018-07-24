@@ -12,19 +12,21 @@ import * as notifActions from '../../redux/modules/notifs';
 
 // <p>You are currently logged in as {user.email}.</p>
 
+// --------------------------------------------------------------------------
 
 @connect(
-
   state => ({ 
     user: state.auth.user 
   }), 
-
   { ...notifActions, ...authActions }
-
 )
 
 
+// withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
 @withRouter
+
+// --------------------------------------------------------------------------
+
 
 export default class Login extends Component {
 

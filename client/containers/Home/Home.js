@@ -7,13 +7,10 @@ import config from '../../../config/config';
 
 
 @connect(
-
   state => ({
     online: state.online
   })
-
 )
-
 
 // <h1>Election App 2018</h1>
 

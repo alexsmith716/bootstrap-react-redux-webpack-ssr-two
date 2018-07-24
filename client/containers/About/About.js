@@ -19,12 +19,17 @@ import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/
 export default class About extends Component {
 
   state = {
-    aboutContainerStateOne: false
+    componentButtonState: false,
+    // componentHourlyState: false
   };
+
+  handleButtonState = () => this.setState({ componentButtonState: !this.state.componentButtonState });
 
   render() {
 
-    const { aboutContainerStateOne } = this.state;
+    const { componentButtonState } = this.state;
+    // const { componentHourlyState } = this.state;
+
     const aboutImageMain = require('../../assets/images/about-750-450.png');
     const aboutImageOurCustomers = require('../../assets/images/about-500-300.png');
     const styles = require('./scss/About.scss');
@@ -116,7 +121,7 @@ export default class About extends Component {
         <h2>This Component's State!!!</h2>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
-            <p className="colorCrimsonGlobal openSansBoldwebfontFont">{`'aboutContainerStateOne' store state is ${aboutContainerStateOne} !!!!!!!!!!!!!!!!`}</p>
+            <p className="colorCrimsonGlobal openSansBoldwebfontFont">{`'componentButtonState' store state is ${componentButtonState} !!!!!!!!!!!!!!!!`}</p>
           </div>
         </div>
 
