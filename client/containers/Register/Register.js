@@ -7,6 +7,7 @@ import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import * as authActions from '../../redux/modules/auth';
 import * as notifActions from '../../redux/modules/notifs';
 
+// connect component to redux store
 @connect(() => ({}), { ...notifActions, ...authActions })
 
 export default class Register extends Component {

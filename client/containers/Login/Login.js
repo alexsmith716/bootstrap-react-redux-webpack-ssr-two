@@ -14,6 +14,7 @@ import * as notifActions from '../../redux/modules/notifs';
 
 // --------------------------------------------------------------------------
 
+// connect component to redux store
 @connect(
   state => ({ 
     user: state.auth.user 

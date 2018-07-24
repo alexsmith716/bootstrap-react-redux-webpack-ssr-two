@@ -1,98 +1,30 @@
-// import PropTypes from 'prop-types';
-// import { Provider as ReduxProvider } from 'react-redux';
-// import { withContext } from 'recompose';
-// 
-// const Provider = withContext(
-//   {
-//     app: PropTypes.objectOf(PropTypes.any).isRequired
-//   },
-//   ({ app }) => ({ app })
-// )(ReduxProvider);
-// 
-// export default Provider;
 
-import { Component, Children } from 'react';
+// A higher-order component (HOC) refers to a function that accepts a single React component and returns a new React component
+
+// ----------------------------
+
+// withContext(
+//   childContextTypes: Object,
+//   getChildContext: (props: Object) => Object
+// ): HigherOrderComponent
+// 
+// Provides context to the component's children. 
+// childContextTypes is an object of React prop types. 
+// getChildContext() is a function that returns the child context. Use along with getContext().
+
+// ----------------------------
+
+// using the above HOC function 'withContext', accept React component { Provider as ReduxProvider }
+// and return a new function aptly named 'Provider'
+
 import PropTypes from 'prop-types';
+import { Provider as ReduxProvider } from 'react-redux';
 
-let didWarnAboutReceivingStore = false;
+import { withContext } from 'recompose';
 
-function warning(message) {
+const Provider = withContext(
+  { app: PropTypes.objectOf(PropTypes.any).isRequired },
+  ({ app }) => ({ app })
+)(ReduxProvider);
 
-  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-    console.error(message);
-  }
-
-  try {
-    // This error was thrown as a convenience so that if you enable
-    // "break on all exceptions" in your console,
-    // it would pause the execution at this line.
-    throw new Error(message);
-
-  } catch (e) {}
-
-}
-
-function warnAboutReceivingStore() {
-  if (didWarnAboutReceivingStore) {
-    return;
-  }
-  didWarnAboutReceivingStore = true;
-
-  warning('<Provider> does not support changing `store` on the fly. ' +
-      'It is most likely that you see this error because you updated to ' +
-      'Redux 2.x and React Redux 2.x which no longer hot reload reducers ' +
-      'automatically. See https://github.com/reactjs/react-redux/releases/' +
-      'tag/v2.0.0 for the migration instructions.');
-}
-
-export default class Provider extends Component {
-  static propTypes = {
-    store: PropTypes.shape({
-      subscribe: PropTypes.func.isRequired,
-      dispatch: PropTypes.func.isRequired,
-      getState: PropTypes.func.isRequired
-    }).isRequired,
-    children: PropTypes.element.isRequired
-  };
-
-  static childContextTypes = {
-    store: PropTypes.shape({
-      subscribe: PropTypes.func.isRequired,
-      dispatch: PropTypes.func.isRequired,
-      getState: PropTypes.func.isRequired
-    }).isRequired,
-    storeSubscription: PropTypes.shape({
-      trySubscribe: PropTypes.func.isRequired,
-      tryUnsubscribe: PropTypes.func.isRequired,
-      notifyNestedSubs: PropTypes.func.isRequired,
-      isSubscribed: PropTypes.func.isRequired
-    })
-  };
-
-  constructor(props, context) {
-    super(props, context);
-    this.store = props.store;
-  }
-
-  getChildContext() {
-    return {
-      store: this.store,
-      storeSubscription: null
-    };
-  }
-
-  componentWillReceiveProps = nextProps => {
-    if (process.env.NODE_ENV !== 'production') {
-      const { store } = this;
-      const { store: nextStore } = nextProps;
-
-      if (store !== nextStore) {
-        warnAboutReceivingStore();
-      }
-    }
-  };
-
-  render() {
-    return Children.only(this.props.children);
-  }
-}
+export default Provider;

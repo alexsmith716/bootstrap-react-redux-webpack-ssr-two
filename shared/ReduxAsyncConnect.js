@@ -12,8 +12,13 @@ import asyncMatchRoutes from '../server/utils/asyncMatchRoutes';
 
 // --------------------------------------------------------------------------
 
+// <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
+//   {renderRoutes(routes)}
+// </ReduxAsyncConnect>
+
 
 export default class ReduxAsyncConnect extends Component {
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -24,14 +29,15 @@ export default class ReduxAsyncConnect extends Component {
     previousLocation: null
   };
 
+
   componentWillMount() {
     NProgress.configure({ trickleSpeed: 200 });
   }
 
+
   async componentWillReceiveProps(nextProps) {
-    const {
-      history, location, routes, store, helpers
-    } = this.props;
+
+    const { history, location, routes, store, helpers } = this.props;
     const navigated = nextProps.location !== location;
 
     if (navigated) {
@@ -61,6 +67,7 @@ export default class ReduxAsyncConnect extends Component {
     }
   }
 
+
   render() {
     const { children, location } = this.props;
     const { previousLocation } = this.state;
@@ -70,3 +77,6 @@ export default class ReduxAsyncConnect extends Component {
     return <Route location={previousLocation || location} render={() => children} />;
   }
 }
+
+
+
