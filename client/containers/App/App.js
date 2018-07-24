@@ -44,6 +44,7 @@ import config from '../../../config/config';
   }
 })
 
+// connect component to redux store
 @connect(
   state => ({
     notifs: state.notifs,

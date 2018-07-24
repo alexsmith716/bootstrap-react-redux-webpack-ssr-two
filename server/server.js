@@ -203,6 +203,7 @@ export default function (parameters) {
     proxy.web(req, res, { target: `${targetUrl}/ws` });
   });
 
+  console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
   // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
   proxy.on('error', (error, req, res) => {
@@ -222,6 +223,7 @@ export default function (parameters) {
 
     res.end(JSON.stringify(json));
   });
+
 
 
   // #########################################################################
@@ -244,31 +246,17 @@ export default function (parameters) {
 
   app.use(async (req, res) => {
 
-    console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponent !! START !! $$$$$$$$$$$$$$$$$$$$$$');
 
     // return webpack-compiled chunks
     const webpackAssets = parameters.chunks();
     // const webpackAssets = {...parameters.chunks()};
-
-    // configure server for API communication (rest / axios/ajax)
-    // passing session cookie (req)
-    const providers = {
-      app: createApp(req),
-      client: apiClient(req)
-    };
-
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
-
-
-    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponent !! START !! $$$$$$$$$$$$$$$$$$$$$$');
 
     // manage session history with 'history' object
     // manage session history (stack, navigate, confirm navigation, persist state between sessions)
     // initialEntries: initial URLs in the history stack
     // createMemoryHistory: method used in Node (non-DOM)
     const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
-
 
     // redux-persist-cookie-storage: redux persist cookie
     // Read-only mode: using getStoredState()
@@ -299,27 +287,28 @@ export default function (parameters) {
 
     try {
       preloadedState = await getStoredState(persistConfig); // redux-persist
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > preloadedState !! =======================: ', preloadedState);
     } catch (e) {
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > preloadedState {} =======================');
       preloadedState = {};
     }
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > preloadedState !! =======================: ', preloadedState);
 
+    // configure server for API communication (rest / axios/ajax)
+    // passing session cookie (req)
+    const providers = {
+      app: createApp(req),
+      client: apiClient(req)
+    };
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
 
     const store = createStore({
       history,
       data: preloadedState,
       helpers: providers
     });
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > store: ', store);
 
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > url: ', url);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > location: ', location);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > apiClient !!');
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > apiClient !!');
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > createMemoryHistory !!');
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > history: '. history);
-    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > store: ', store);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! END !! $$$$$$$$$$$$$$$$$$$$$$$$$');
+    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! END !! $$$$$$$$$$$$$$$$$$$$$$$$$');
 
     function hydrate() {
       res.write('<!doctype html>');
@@ -331,8 +320,6 @@ export default function (parameters) {
     }
 
     try {
-
-      console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer START $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
       // match incoming 'route' and get the 'components' and 'params' from that match
       const { components, match, params } = await asyncMatchRoutes(routes, req.path);
@@ -363,8 +350,6 @@ export default function (parameters) {
       //    - Linking to routes by name
       //    - Static analysis
 
-      console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$ loadOnServer END $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-
       // Finding out which dynamic modules were rendered
       // Find out which modules were actually rendered when a request comes in:
       // Loadable.Capture: component to collect all modules that were rendered
@@ -375,11 +360,15 @@ export default function (parameters) {
       // Render on the server (stateless)
       // ReactDOM.render
 
+      // {...providers}: { app: {}, client: {} }
+
       const component = (
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+          { /* 'provide' store to child components (application) */ }
           <Provider store={store} {...providers}>
             { /* ConnectedRouter will use the store from Provider automatically */ }
             <ConnectedRouter history={history}>
+              { /* StaticRouter >> server-side rendering >> (no navigating, location never changes) */ }
               { /* {req.originalUrl}: pass in requested url from the server */ }
               { /* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>

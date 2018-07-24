@@ -4,6 +4,7 @@ import { createPersistoid, persistCombineReducers, REGISTER } from 'redux-persis
 import clientMiddleware from './middleware/clientMiddleware';
 import createReducers from './reducer';
 
+
 function combine(reducers, persistConfig) {
   if (persistConfig) {
     return persistCombineReducers(persistConfig, reducers);
@@ -27,6 +28,11 @@ function getNoopReducers(reducers, data) {
     {}
   );
 }
+
+
+// =======================================================================================
+// =======================================================================================
+
 
 export default function createStore({ history, data, helpers, persistConfig }) {
 

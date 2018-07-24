@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { connect } from 'react-redux';
 import config from '../../../config/config';
 
-
+// connect component to redux store
 @connect(
   state => ({
     online: state.online
