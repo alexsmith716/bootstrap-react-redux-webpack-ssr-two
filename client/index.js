@@ -19,10 +19,10 @@ import routes from '../shared/routes';
 import isOnline from '../server/utils/isOnline';
 
 import createBrowserHistory from 'history/createBrowserHistory';
-import createStore from './redux/create';
+import createStore from './redux/createStore';
 
 import { socket, createApp } from '../server/app';
-import apiClient from '../server/helpers/apiClient';
+import apiClient from '../server/utils/apiClient';
 
 import { getStoredState } from 'redux-persist';
 import { CookieStorage } from 'redux-persist-cookie-storage';
@@ -84,6 +84,9 @@ initSocket();
 
 (async () => {
 
+  const history = createBrowserHistory();
+  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
+
   const preloadedState = await getStoredState(persistConfig);
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > preloadedState: ', preloadedState);
 
@@ -96,10 +99,6 @@ initSocket();
 
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > online: ', online);
 
-  const history = createBrowserHistory();
-
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
-
   const store = createStore({
     history,
     data: {
@@ -107,7 +106,7 @@ initSocket();
       ...window.__data,
       online
     },
-    helpers: providers,
+    providers,
     persistConfig
   });
 
@@ -134,7 +133,7 @@ initSocket();
         <Provider store={store} {...providers}>
           { /* ConnectedRouter will use the store from Provider automatically */ }
           <ConnectedRouter history={history}>
-            <ReduxAsyncConnect routes={_routes} store={store} helpers={providers}>
+            <ReduxAsyncConnect routes={_routes} store={store} providers={providers}>
               {renderRoutes(_routes)}
             </ReduxAsyncConnect>
           </ConnectedRouter>
@@ -162,7 +161,6 @@ initSocket();
       hydrate(nextRoutes).catch(err => {
         console.error('>>>>>>>>>>>>>>>>>>> Error on routes reload:', err);
       });
-
     });
 
   } else {
@@ -190,7 +188,7 @@ initSocket();
     const DevTools = require('./containers/DevTools/DevTools');
 
     ReactDOM.hydrate(
-      <Provider store={store} key="provider">
+      <Provider store={store}>
         <DevTools />
       </Provider>,
       devToolsDest

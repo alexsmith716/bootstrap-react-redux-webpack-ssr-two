@@ -1,5 +1,10 @@
 
-// A higher-order component (HOC) refers to a function that accepts a single React component and returns a new React component
+// a higher-order component (HOC aka 'enhancers') refers to a function that accepts a single React component and returns a new React component
+// a component transforms props into UI, a HOC transforms a component into another component
+// const EnhancedComponent = hoc(BaseComponent)
+
+// import { Provider as ReduxProvider } from 'react-redux';
+// const Provider = withContext(ReduxProvider);
 
 // ----------------------------
 
@@ -15,7 +20,7 @@
 // ----------------------------
 
 // using the above HOC function 'withContext', accept React component { Provider as ReduxProvider }
-// and return a new function aptly named 'Provider'
+// and return a new React component aptly named 'Provider'
 
 import PropTypes from 'prop-types';
 import { Provider as ReduxProvider } from 'react-redux';

@@ -1,5 +1,24 @@
 const dev_config = require('../config/config');
 
+
+export function addDevServerConfiguration(configuration) {
+
+  return {
+
+    ...configuration,
+
+    serve: {
+      port : devserver.port,
+      dev  : {
+        publicPath : configuration.output.publicPath,
+        headers : { 'Access-Control-Allow-Origin': '*' }
+      }
+    }
+
+  }
+
+}
+
 export function setDevFileServer(configuration) {
 
   return {

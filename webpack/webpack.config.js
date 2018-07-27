@@ -22,23 +22,15 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
+        loader: 'babel-loader',
         exclude: /node_modules(\/|\\)(?!(@feathersjs))/, // https://docs.feathersjs.com/api/client.html#module-loaders
-        use: [
-          { 
-            loader: 'babel-loader',
-          },
-        ],
       },
       {
         test: /\.(jpg|jpeg|gif|png)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-            },
-          },
-        ]
+        loader: 'url-loader',
+        options: {
+          limit: 10240,
+        },
       },
       {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,

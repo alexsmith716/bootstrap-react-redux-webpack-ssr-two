@@ -221,7 +221,7 @@ configuration.plugins.push(
 
   new HtmlWebpackPlugin({
     filename: 'index.html',
-    template: path.join(rootPath, './server/navigateFallback.js'),
+    template: path.join(rootPath, './server/pwa.js'),
   }),
 
   // use service workers to cache external dependencies
