@@ -34,9 +34,9 @@ function getNoopReducers(reducers, data) {
 // =======================================================================================
 
 
-export default function createStore({ history, data, helpers, persistConfig }) {
+export default function createStore({ history, data, providers, persistConfig }) {
 
-  const middleware = [clientMiddleware(helpers), routerMiddleware(history)];
+  const middleware = [clientMiddleware(providers), routerMiddleware(history)];
 
   if (__CLIENT__ && __DEVELOPMENT__) {
     const logger = require('redux-logger').createLogger({
@@ -65,6 +65,7 @@ export default function createStore({ history, data, helpers, persistConfig }) {
   store.asyncReducers = {};
   store.inject = _reducers => inject(store, _reducers, persistConfig);
 
+  // persistConfig > from client
   if (persistConfig) {
     const persistoid = createPersistoid(persistConfig);
     store.subscribe(() => {

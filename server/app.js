@@ -6,6 +6,11 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import config from '../config/config';
 
+// localForage is a asynchronous storage library for JavaScript
+// localForage uses localStorage in browsers
+// configure client side storage
+// store any type in localForage
+// localForage automatically does `JSON.parse()` and `JSON.stringify()` when getting/setting values
 const storage = __SERVER__ ? null : require('localforage');
 
 const host = clientUrl => (__SERVER__ ? `http://${config.apiHost}:${config.apiPort}` : clientUrl);
@@ -28,12 +33,14 @@ const host = clientUrl => (__SERVER__ ? `http://${config.apiHost}:${config.apiPo
 
 // ===================================================================================
 
-const configureApp = (transport) => {
-  const app = feathers();
-  app.configure(transport);
-  app.configure(authentication({ storage }));
-  return app;
-}
+
+// Feathers: REST and realtime API layer
+// Feathers is a set of tools and an architecture pattern 
+//    that make it easy to create scalable REST APIs and real-time applications
+const configureApp = transport =>
+  feathers()
+    .configure(transport)
+    .configure(authentication({ storage }));
 
 // ===================================================================================
 
@@ -44,6 +51,7 @@ export const socket = io('', { path: host('/ws'), autoConnect: false });
 
 export function createApp(req) {
 
+  // test if 'rest-client' (server)
   if (req === 'rest') {
     return configureApp( rest(host('/api')).axios(axios) );
   }
@@ -51,6 +59,7 @@ export function createApp(req) {
   // -------- SERVER ----------------------------------------------
   if (__SERVER__ && req) {
 
+    // const app = configureApp( rest(host('/api')).axios(axios.create(headers:{})) );
     const app = configureApp( rest(host('/api')).axios(axios.create({
       headers: {
         Cookie: req.get('cookie'),
@@ -67,3 +76,5 @@ export function createApp(req) {
   // -------- CLIENT ----------------------------------------------
   return configureApp( socketio(socket) );
 }
+
+

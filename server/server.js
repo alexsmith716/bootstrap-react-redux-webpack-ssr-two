@@ -30,7 +30,7 @@ import { ReduxAsyncConnect, Provider } from '../shared';
 
 import createMemoryHistory from 'history/createMemoryHistory';
 
-import createStore from '../client/redux/create';
+import createStore from '../client/redux/createStore';
 
 import { ConnectedRouter } from 'react-router-redux';
 import { renderRoutes } from 'react-router-config';
@@ -38,12 +38,12 @@ import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import { trigger } from 'redial';
 
-import Html from './helpers/Html';
+import Html from './utils/Html';
 import routes from '../shared/routes';
 import { parse as parseUrl } from 'url';
 
 import { createApp } from './app';
-import apiClient from './helpers/apiClient';
+import apiClient from './utils/apiClient';
 
 import { getChunks, waitChunks } from './utils/chunks';
 
@@ -138,15 +138,15 @@ export default function (parameters) {
 
   // #########################################################################
 
-  // app.use('/service-worker.js', (req, res, next) => {
-  //   console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-  //   res.setHeader('Service-Worker-Allowed', '/');
-  //   res.setHeader('Cache-Control', 'no-store');
-  //   // res.setHeader('Cache-Control', 'no-cache');
-  //   res.setHeader('Content-Type', 'application/javascript');
-  //   // res.setHeader('Content-Type', 'text/javascript');
-  //   return next();
-  // });
+  app.use('/service-worker.js', (req, res, next) => {
+    console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ service-worker $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    res.setHeader('Service-Worker-Allowed', '/');
+    res.setHeader('Cache-Control', 'no-store');
+    // res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Content-Type', 'application/javascript');
+    // res.setHeader('Content-Type', 'text/javascript');
+    return next();
+  });
 
   app.use('/dlls/:dllName.js', express.static(path.join(__dirname, '../build/public/assets/dlls/:dllName.js')), (req, res, next) => {
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ DLLs $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
@@ -301,12 +301,14 @@ export default function (parameters) {
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
 
+
     const store = createStore({
       history,
       data: preloadedState,
-      helpers: providers
+      providers
     });
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > store: ', store);
+    
 
     console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! END !! $$$$$$$$$$$$$$$$$$$$$$$$$');
 
@@ -337,7 +339,13 @@ export default function (parameters) {
       // trigger('fetch', components, locals).then(render);
 
       // from matched route, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
-      await trigger( 'fetch', components, { ...providers, store, match, params, history, location: history.location } );
+      await trigger( 'fetch', components, { 
+        ...providers, 
+        store, match, 
+        params, 
+        history, 
+        location: history.location 
+      } );
 
       const modules = [];
       const context = {};
@@ -372,7 +380,7 @@ export default function (parameters) {
               { /* {req.originalUrl}: pass in requested url from the server */ }
               { /* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>
-                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
+                <ReduxAsyncConnect routes={routes} store={store} providers={providers}>
                   {renderRoutes(routes)}
                 </ReduxAsyncConnect>
               </StaticRouter>

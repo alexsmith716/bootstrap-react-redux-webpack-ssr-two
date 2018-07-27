@@ -1,7 +1,7 @@
 
-export default function clientMiddleware(client) {
+export default function clientMiddleware(providers) {
 
-  console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > client <<<<<<<');
+  console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > providers <<<<<<<');
 
   return ({ dispatch, getState }) => next => action => {
 
@@ -22,7 +22,7 @@ export default function clientMiddleware(client) {
 
     next({ ...rest, type: REQUEST });
 
-    const actionPromise = promise(client, dispatch);
+    const actionPromise = promise(providers, dispatch);
 
     console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > return > YES promise > actionPromise <<<<<<<');
 
