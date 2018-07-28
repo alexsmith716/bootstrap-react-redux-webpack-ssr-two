@@ -37,7 +37,7 @@
   @include background-cover;
 
   text-align: center;
-  @include colorDarkorange;
+  @include colorCrimson;
   @include tester-font;
 
   h1 {
@@ -53,7 +53,7 @@
 
   h2 {
     @include font-size(32px);
-    @include colorCrimson;
+    @include colorDarkorange;
   }
 
   .blurb {

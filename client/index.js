@@ -76,9 +76,7 @@ function initSocket() {
 
 initSocket();
 
-// =====================================================================
-// 
-// =====================================================================
+// ==============================================================================================
 
 // const registration = await navigator.serviceWorker.register('/service-worker.js', { scope: '/' });
 
@@ -146,9 +144,7 @@ initSocket();
   await Loadable.preloadReady();
   await hydrate(routes);
 
-
-  // --------------------------------------------------------------------------------------
-
+  // ==============================================================================================
 
   if (module.hot) {
 
@@ -156,7 +152,9 @@ initSocket();
 
     module.hot.accept('../shared/routes', () => {
 
-      const nextRoutes = require('../shared/routes');
+      const nextRoutes = require('../shared/routes').default;
+
+      console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > MODULE.HOT! > nextRoutes: ', nextRoutes);
 
       hydrate(nextRoutes).catch(err => {
         console.error('>>>>>>>>>>>>>>>>>>> Error on routes reload:', err);
@@ -167,8 +165,7 @@ initSocket();
     console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > NO MODULE.HOT! <<<<<<<<<<<<<<');
   }
 
-
-  // --------------------------------------------------------------------------------------
+  // ==============================================================================================
 
   // Server-side rendering check
   if (process.env.NODE_ENV !== 'production') {
@@ -234,8 +231,3 @@ initSocket();
   // }
 
 })();
-
-
-
-
-

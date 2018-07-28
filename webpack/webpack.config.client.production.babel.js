@@ -26,6 +26,8 @@ const serverPath = path.resolve(configuration.context, './build/server');
 // Chunks can be configured. There are 3 values possible "initial", "async" and "all". 
 // When configured the optimization only selects initial chunks, on-demand chunks or all chunks.
 
+// ==============================================================================================
+
 configuration.mode = 'production';
 
 function recursiveIssuer(m) {
@@ -71,21 +73,24 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 2,
-          // sourceMap: true,
+          sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          // sourceMap: true,
+          sourceMap: true,
+          config: {
+            path: 'postcss.config.js'
+          }
         }
       },
       {
         loader: 'sass-loader',
         options: {
-          // outputStyle: 'expanded',
-          // sourceMap: true,
-          // sourceMapContents: true
+          outputStyle: 'expanded',
+          sourceMap: true,
+          sourceMapContents: true
         }
       },
       {
@@ -108,11 +113,17 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
-          // sourceMap: true,
+          sourceMap: true,
         }
       },
       {
-        loader : 'postcss-loader'
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true,
+          config: {
+            path: 'postcss.config.js'
+          }
+        }
       },
     ]
   },
@@ -192,9 +203,7 @@ configuration.optimization = {
   // occurrenceOrder: true,
 };
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// PLUGINS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// ==============================================================================================
 
 configuration.plugins.push(
 
