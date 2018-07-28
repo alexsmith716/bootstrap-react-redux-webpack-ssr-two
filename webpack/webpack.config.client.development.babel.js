@@ -1,7 +1,7 @@
 
 require("@babel/polyfill");
 const webpack = require('webpack');
-const helpers = require('./helpers');
+const helpers = require('./vendor.dll.helpers');
 const path = require('path');
 
 const ReactLoadablePlugin = require('react-loadable/webpack').ReactLoadablePlugin;
@@ -17,21 +17,29 @@ const webpackDllsPath = path.resolve(base_configuration.context, './dlls/');
 const settings = require('./universal-webpack-settings');
 const { clientConfiguration } = require('universal-webpack');
 
-// import { addDevServerConfiguration, setDevFileServer } from './devserver';
+// ==============================================================================================
 
-base_configuration.output.publicPath = dev_config.devServerPath;
+import { addDevServerConfiguration, setDevFileServer } from './devserver';
 
-const configuration = clientConfiguration(base_configuration, settings);
-
-module.exports = configuration;
+// base_configuration.output.publicPath = dev_config.devServerPath;
 
 // var validDLLs = helpers.isValidDLLs('vendor', configuration.output.path);
 var validDLLs = helpers.isValidDLLs('vendor','/');
 
 if (process.env.WEBPACK_DLLS === '1' && !validDLLs) {
   process.env.WEBPACK_DLLS = '0';
-  console.warn('>>>>>>>>>>>>>>>>>>>>>>>> webpack dlls disabled!! <<<<<<<<<<<<<<<<<<<<<<<<<<<');
+  console.warn('>>>>>> webpack.config.client.development.babel > WEBPACK_DLLS disabled !! <<<<<<<<<<');
 };
+
+// ==============================================================================================
+
+let configuration = clientConfiguration(base_configuration, settings);
+
+// ==============================================================================================
+
+configuration = addDevServerConfiguration(configuration);
+
+// ==============================================================================================
 
 configuration.mode = 'development';
 
@@ -59,7 +67,7 @@ configuration.module.rules.push(
       {
         loader: 'style-loader',
         options: { 
-          //sourceMap: true 
+          sourceMap: true 
         }
       },
       {
@@ -68,21 +76,23 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 2,
-          //sourceMap: true,
+          sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          //sourceMap: true,
+          sourceMap: true,
+          config: {
+            path: 'postcss.config.js'
+          }
         }
       },
       {
         loader: 'sass-loader',
         options: {
           outputStyle: 'expanded',
-          //sourceMap: true,
-          // sourceMapContents: true
+          sourceMap: true,
         }
       },
       {
@@ -101,7 +111,7 @@ configuration.module.rules.push(
       {
         loader: 'style-loader',
         options: { 
-          //sourceMap: true 
+          sourceMap: true 
         }
       },
       {
@@ -110,19 +120,25 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
-          //sourceMap: true
+          sourceMap: true
         }
       },
       {
-        loader : 'postcss-loader'
+        loader : 'postcss-loader',
+        options: {
+          sourceMap: true,
+          config: {
+            path: 'postcss.config.js'
+          }
+        }
       },
     ]
   },
 );
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// PLUGINS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+configuration = setDevFileServer(configuration)
+
+// ==============================================================================================
 
 configuration.plugins.push(
 
@@ -136,9 +152,6 @@ configuration.plugins.push(
     __DEVTOOLS__: false,
   }),
 
-  // // Webpack Hot Reload
-  // new webpack.HotModuleReplacementPlugin(),
-
   new ReactLoadablePlugin({
     filename: path.join(configuration.output.path, 'loadable-chunks.json')
   }),
@@ -147,23 +160,9 @@ configuration.plugins.push(
 
 );
 
-// network path for static files: fetch all statics from webpack development server
-// http://localhost:3001/assets/
+// ==============================================================================================
 
-configuration.output.publicPath = `http://${dev_config.devServerHost}:${dev_config.devServerPort}${configuration.output.publicPath}`;
-// configuration.output.publicPath = 'http://localhost:3001/';
-
-console.log('>>>>>> webpack.config.client.development.babel.js > configuration.output.publicPath: ', configuration.output.publicPath);
-
-// configuration.output.crossOriginLoading = 'anonymous',
-
-configuration.serve = {
-  port: dev_config.devServerPort,
-  devMiddleware: {
-    publicPath : configuration.output.publicPath,
-    headers : { 'Access-Control-Allow-Origin': '*' }
-  },
-}
+module.exports = configuration;
 
 if (process.env.WEBPACK_DLLS === '1' && validDLLs) {
   helpers.installVendorDLL(configuration, 'vendor');

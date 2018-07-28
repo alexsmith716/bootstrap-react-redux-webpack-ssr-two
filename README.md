@@ -40,16 +40,18 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
 ### Of Note:
 
-* decorators make it possible to annotate and modify classes and properties at design time
-* a higher-order component (HOC aka 'enhancers') refers to a function that accepts a single React component and returns a new React component
-* a component transforms props into UI, a HOC transforms a component into another component
+  * decorators make it possible to annotate and modify classes and properties at design time
+  * a higher-order component (HOC aka 'enhancers') refers to a function that accepts a single React component and returns a new React component
+  * a component transforms props into UI, a HOC transforms a component into another component
+  
+  * const EnhancedComponent = hoc(BaseComponent);
+  * import { Provider as ReduxProvider } from 'react-redux';
+  * const Provider = withContext(ReduxProvider);
+  
+  /** react-bootstrap (Bootstrap 3 components built with React) https://react-bootstrap.github.io/
+   * The `<Portal/>` component renders its children into a new "subtree" outside of current component hierarchy.
+   * You can think of it as a declarative `appendChild()`, or jQuery's `$.fn.appendTo()`.
+   * The children of `<Portal/>` component will be appended to the `container` specified.
+   */
 
-* const EnhancedComponent = hoc(BaseComponent);
-* import { Provider as ReduxProvider } from 'react-redux';
-* const Provider = withContext(ReduxProvider);
 
-/** react-bootstrap (Bootstrap 3 components built with React) https://react-bootstrap.github.io/
- * The `<Portal/>` component renders its children into a new "subtree" outside of current component hierarchy.
- * You can think of it as a declarative `appendChild()`, or jQuery's `$.fn.appendTo()`.
- * The children of `<Portal/>` component will be appended to the `container` specified.
- */
