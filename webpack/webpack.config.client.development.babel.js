@@ -61,6 +61,15 @@ configuration.entry.main.push(
 // );
 
 configuration.module.rules.push(
+  // {
+  //   enforce: 'pre',
+  //   test: /\.jsx?$/,
+  //   loader: 'eslint-loader',
+  //   exclude: /node_modules(\/|\\)(?!(@feathersjs))/,
+  //   options: { 
+  //     emitWarning: true 
+  //   }
+  // },
   {
     test: /\.(scss)$/,
     use: [
@@ -136,6 +145,8 @@ configuration.module.rules.push(
   },
 );
 
+// ==============================================================================================
+
 configuration = setDevFileServer(configuration)
 
 // ==============================================================================================
@@ -164,6 +175,9 @@ configuration.plugins.push(
 
 module.exports = configuration;
 
+console.log('>>>>>>>>>>>>>> WEBPACK DEV > CONFIG >>>>>>>>>>>>>>>.: ', configuration.module.rules)
+
 if (process.env.WEBPACK_DLLS === '1' && validDLLs) {
   helpers.installVendorDLL(configuration, 'vendor');
 };
+

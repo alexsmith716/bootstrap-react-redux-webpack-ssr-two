@@ -10,15 +10,15 @@ import { routerActions } from 'react-router-redux';
 
 import { App, Home, NotFound } from '../client/containers';
 
-import Register from '../client/containers/Register/Loadable';
-import LoginSuccess from '../client/containers/LoginSuccess/Loadable';
-
-import About from '../client/containers/About/Loadable';
-import AboutOne from '../client/containers/AboutOne/Loadable';
-import AboutToo from '../client/containers/AboutToo/Loadable';
-import AboutThree from '../client/containers/AboutThree/Loadable';
-import AboutFour from '../client/containers/AboutFour/Loadable';
-import Login from '../client/containers/Login/Loadable';
+// import Register from '../client/containers/Register/Loadable';
+// import LoginSuccess from '../client/containers/LoginSuccess/Loadable';
+// 
+// import About from '../client/containers/About/Loadable';
+// import AboutOne from '../client/containers/AboutOne/Loadable';
+// import AboutToo from '../client/containers/AboutToo/Loadable';
+// import AboutThree from '../client/containers/AboutThree/Loadable';
+// import AboutFour from '../client/containers/AboutFour/Loadable';
+// import Login from '../client/containers/Login/Loadable';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Helper 'connectedRouterRedirect' builds HOC 'isAuthenticated/isNotAuthenticated'
@@ -27,28 +27,28 @@ import Login from '../client/containers/Login/Loadable';
 // pass Component ('LoginSuccess' / 'Register') to HOC ('isAuthenticated' / 'isNotAuthenticated')
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-const isAuthenticated = connectedReduxRedirect({
-  // url to redirect if check fails
-  redirectPath: '/login',
-  // If authenticatedSelector is true, wrapper will not redirect
-  // So if there is no user data, then we show the page
-  authenticatedSelector: state => state.auth.user !== null,
-  // dispatch a redux action to navigate - pass the redux action creator to redirectAction
-  redirectAction: routerActions.replace,          
-  wrapperDisplayName: 'UserIsAuthenticated'
-});
-
-const isNotAuthenticated = connectedReduxRedirect({
-  // url to redirect if check fails
-  redirectPath: '/',
-  // If authenticatedSelector is true, wrapper will not redirect
-  authenticatedSelector: state => state.auth.user === null,
-  // dispatch a redux action to navigate - pass the redux action creator to redirectAction
-  redirectAction: routerActions.replace,
-  wrapperDisplayName: 'UserIsAuthenticated',
-  // prevent adding the query parameter when we send the user away from the Register page
-  allowRedirectBack: false
-});
+// const isAuthenticated = connectedReduxRedirect({
+//   // url to redirect if check fails
+//   redirectPath: '/login',
+//   // If authenticatedSelector is true, wrapper will not redirect
+//   // So if there is no user data, then we show the page
+//   authenticatedSelector: state => state.auth.user !== null,
+//   // dispatch a redux action to navigate - pass the redux action creator to redirectAction
+//   redirectAction: routerActions.replace,          
+//   wrapperDisplayName: 'UserIsAuthenticated'
+// });
+// 
+// const isNotAuthenticated = connectedReduxRedirect({
+//   // url to redirect if check fails
+//   redirectPath: '/',
+//   // If authenticatedSelector is true, wrapper will not redirect
+//   authenticatedSelector: state => state.auth.user === null,
+//   // dispatch a redux action to navigate - pass the redux action creator to redirectAction
+//   redirectAction: routerActions.replace,
+//   wrapperDisplayName: 'UserIsAuthenticated',
+//   // prevent adding the query parameter when we send the user away from the Register page
+//   allowRedirectBack: false
+// });
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -56,14 +56,14 @@ const routes = [{
   component: App,
   routes: [
     { path: '/', exact: true, component: Home },
-    { path: '/about', component: About },
-    { path: '/aboutone', component: AboutOne },
-    { path: '/abouttoo', component: AboutToo },
-    { path: '/aboutthree', component: AboutThree },
-    { path: '/aboutfour', component: AboutFour },
-    { path: '/login', component: Login },
-    { path: '/login-success', component: isAuthenticated(LoginSuccess) },
-    { path: '/register', component: isNotAuthenticated(Register) },
+    // { path: '/about', component: About },
+    // { path: '/aboutone', component: AboutOne },
+    // { path: '/abouttoo', component: AboutToo },
+    // { path: '/aboutthree', component: AboutThree },
+    // { path: '/aboutfour', component: AboutFour },
+    // { path: '/login', component: Login },
+    // { path: '/login-success', component: isAuthenticated(LoginSuccess) },
+    // { path: '/register', component: isNotAuthenticated(Register) },
     { component: NotFound },
   ],
 }];
