@@ -31,3 +31,37 @@ export function setDevFileServer(configuration) {
     }
   }
 }
+
+// ========================== 'Object.assign()' ===============================
+
+// let stooge = { 'first-name': 'Moe', 'second-name': 'Larry' };
+// stooge['first-name']  // 'Moe'
+// console.log('>>>>>>>>>>>>>> stooge >>>>>>>>>>>>>>>: ', stooge['first-name']);
+// 
+// let stooge2 = { 'first-name': 'Moe' }['first-name']; // 'Moe'
+// console.log('>>>>>>>>>>>>>> stooge2 >>>>>>>>>>>>>>: ', stooge2);
+
+// Return a new 'Config' object with a new 'environment' property 
+// the value of which is 'retrieved' '[ ]' from object 'environment' based on evaluation of string expression 'process.env.NODE_ENV'
+
+// const environment = {
+//   development: { isProduction: false },
+//   production: { isProduction: true }
+// }[process.env.NODE_ENV || 'development'];
+// 
+// module.exports = Object.assign( {
+//     host: process.env.HOST || 'localhost',
+//     port: process.env.PORT,
+//     app: {
+//       title: 'React Redux Example',
+//       head: {
+//         titleTemplate: 'React Redux Example: %s',
+//         meta: [
+//           { name: 'description', content: 'All the modern best practices in one example.' },
+//           { charset: 'utf-8' },
+//         ]
+//       }
+//     }
+//   },
+//   environment
+// );
