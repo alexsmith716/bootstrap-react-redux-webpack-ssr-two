@@ -175,7 +175,8 @@ configuration.plugins.push(
 
 module.exports = configuration;
 
-console.log('>>>>>>>>>>>>>> WEBPACK DEV > CONFIG >>>>>>>>>>>>>>>.: ', configuration.module.rules)
+// console.log('>>>>>>>>>>>>>> WEBPACK DEV > CONFIG >>>>>>>>>>>>>>>: ', configuration);
+// console.log('>>>>>>>>>>>>>> WEBPACK DEV > CONFIG RULES >>>>>>>>>: ', configuration.module.rules);
 
 if (process.env.WEBPACK_DLLS === '1' && validDLLs) {
   helpers.installVendorDLL(configuration, 'vendor');

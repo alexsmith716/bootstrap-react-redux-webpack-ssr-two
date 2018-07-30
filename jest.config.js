@@ -2,6 +2,7 @@
 // https://jestjs.io/docs/en/configuration#moduledirectories-array-string
 // https://jestjs.io/docs/en/using-matchers
 // https://github.com/facebook/jest
+// writing unit tests
 
 module.exports = {
 
