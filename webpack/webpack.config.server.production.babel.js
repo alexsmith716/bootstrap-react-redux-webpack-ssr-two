@@ -65,10 +65,10 @@ configuration.module.rules.push(
 
 );
 
-console.log('>>>>>>>>>>>>>>>>>>>>> !!!! configuration 1 !!!!: ', configuration)
+// console.log('>>>>>>>>>>>>>> WEBPACK SERVER DEV > CONFIG >>>>>>>>>>>>>>>:', configuration)
 
 const configurationServer = serverConfiguration(configuration, settings);
 
-console.log('>>>>>>>>>>>>>>>>>>>>> !!!! configurationServer 2 !!!!: ', configurationServer)
+// console.log('>>>>>>>>>>>>>> WEBPACK SERVER DEV > CONFIG > UW >>>>>>>>>>:', configurationServer)
 
 export default configurationServer;

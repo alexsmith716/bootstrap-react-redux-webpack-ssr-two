@@ -38,6 +38,14 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
   *** If you want to take control of that option, use the --watch option >>>> TO ADD SPECIFIC PATHS <<<<
 
 
+### Webpack development server (webpack-hot-client):
+
+
+#### Set options for webpack-hot-client:
+
+  * CLI: 'webpack-serve --hot-client --config webpack.config.client.development.js'
+
+
 ### Of Note:
 
   * decorators make it possible to annotate and modify classes and properties at design time
