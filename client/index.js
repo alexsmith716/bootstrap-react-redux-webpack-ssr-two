@@ -85,7 +85,7 @@ initSocket();
   const history = createBrowserHistory();
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
 
-  const preloadedState = await getStoredState(persistConfig);
+  const preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > preloadedState: ', preloadedState);
 
   const online = window.__data ? true : await isOnline();

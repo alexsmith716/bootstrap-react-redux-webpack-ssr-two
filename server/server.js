@@ -205,7 +205,7 @@ export default function (parameters) {
 
   console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
-  // added the error handling to avoid https://github.com/nodejitsu/node-http-proxy/issues/527
+
   proxy.on('error', (error, req, res) => {
 
     if (error.code !== 'ECONNRESET') {
@@ -285,8 +285,8 @@ export default function (parameters) {
     //    info: {loaded: true,loading: false,data: {message: 'This came from the api server',time: 1530540780215}}
     //    }
 
-    try {
-      preloadedState = await getStoredState(persistConfig); // redux-persist
+    try 
+      preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
     } catch (e) {
       preloadedState = {};
     }
