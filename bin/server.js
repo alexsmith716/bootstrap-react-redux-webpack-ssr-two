@@ -1,3 +1,4 @@
+// @flow
 
 require('../server.babel');
 
