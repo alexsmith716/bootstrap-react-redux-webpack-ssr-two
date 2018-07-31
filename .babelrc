@@ -6,7 +6,8 @@
         "browsers": ["last 2 versions", "IE >= 8"]
       }
     }],
-    ["@babel/preset-stage-0"]
+    ["@babel/preset-stage-0"],
+    ["@babel/preset-flow"]
   ],
   "plugins": [
     ["@babel/plugin-proposal-object-rest-spread"],

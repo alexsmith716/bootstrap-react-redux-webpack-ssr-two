@@ -46,6 +46,24 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
   * CLI: 'webpack-serve --hot-client --config webpack.config.client.development.js'
 
 
+### Flow:
+
+  * A static type checker
+
+  * https://flow.org/en/docs/config/ignore/
+  * https://flow.org/en/docs/config/include/
+
+  * Flow needs to know which files to read and watch for changes. This set of files is determined by taking all `[include]` files and excluding all the `[ignore]` files.
+  * Including a directory recursively includes all the files under that directory.
+  * The project root directory (where your `.flowconfig` lives) is automatically included.
+  * Each line in the include section is a path to include. 
+  * These paths can be relative to the root directory or absolute, and support both single and double star wildcards.
+
+  * Ignores are processed AFTER includes. If you both include and ignore a file it will be ignored.
+
+  * Flow CLI: Using the command `flow` will type-check your current directory if the `.flowconfig` file is present. 
+
+
 ### Of Note:
 
   * decorators make it possible to annotate and modify classes and properties at design time
