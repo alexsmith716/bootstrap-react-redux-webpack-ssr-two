@@ -1,9 +1,14 @@
 const dev_config = require('../config/config');
 
-// Object Spread Syntax '...Object'
-// never mutate state
-// using 'object spread operator' as opposed to 'Object.assign()' method
-// Using Object Spread Operator to create copies of objects with new or updated values
+// core tenet of 'Redux' is to never mutate object state
+// --------------
+// compiled configuration objects built with modified/new values from initial 'config' object
+// --------------
+// Object Spread Syntax '...Object' (create copies of objects with new or updated values)
+// --------------
+// use 'object spread operator' as opposed to 'Object.assign()' method
+// 'Object.assign()' can make simple reducers difficult to read given its verbose syntax
+// --------------
 // 'object spread operator' >>> ES6 >>> "@babel/plugin-proposal-object-rest-spread"
 
 // return a new 'configuration' object with a new 'serve' property
