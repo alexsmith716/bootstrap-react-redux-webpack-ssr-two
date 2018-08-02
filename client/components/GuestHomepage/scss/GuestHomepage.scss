@@ -32,7 +32,7 @@
   @include background-cover;
 
   text-align: center;
-  @include colorDarkorange;
+  @include color-darkorange;
   @include tester-font;
 
   h1 {
@@ -42,13 +42,13 @@
     // font-size: 3.8rem;
     @include font-size(61px);
     font-weight: 600;
-    @include colorDodgerblueFour;
+    @include color-dodgerblue-4;
     @include tester-font3;
   }
 
   h2 {
     @include font-size(32px);
-    @include colorCrimson;
+    @include color-crimson;
   }
 
   .blurb {

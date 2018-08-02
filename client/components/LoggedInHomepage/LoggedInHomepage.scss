@@ -1,4 +1,3 @@
-@import '../../theme/variables.scss';
 
 .jarsWrapper {
   padding-top: 2rem;
@@ -12,7 +11,7 @@
   margin: 1rem auto 0;
   border: 0;
   font-size: 1.5rem;
-  background-color: $green-finance;
+  background-color: @include color-banana;
   color: white;
   text-indent: 50px;
   text-align: left;
@@ -27,7 +26,7 @@
   }
   
   &:active {
-    background-color: $green-finance-bold;
+    background-color: @include color-springgreen;
     transition: 0s;
   }
 }
