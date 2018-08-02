@@ -35,6 +35,6 @@
   height: $footer-height;
   .flexContainer {
     @include roboto-mono-v4-latin-regular-font;
-    @include color-midnightblue;
+    @include bg-color-lightsteelblue;
   }
 }

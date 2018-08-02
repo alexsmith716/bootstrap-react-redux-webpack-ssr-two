@@ -1,5 +1,10 @@
-@mixin color-midnightblue() {
-  color: #191970;
+
+@mixin bg-color-lightsteelblue() {
+  background-color: #B0C4DE;
+}
+
+@mixin bg-color-midnightblue() {
+  background-color: #191970;
 }
 
 @mixin color-purple() {
