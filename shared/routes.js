@@ -3,7 +3,6 @@
 // https://mjrussell.github.io/redux-auth-wrapper/docs/Getting-Started/ReactRouter4.html
 // https://github.com/mjrussell/redux-auth-wrapper/tree/master/examples/react-router-4
 import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
-
 import { routerActions } from 'react-router-redux';
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

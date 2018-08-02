@@ -36,7 +36,8 @@ configuration.module.rules.push(
         loader: 'sass-resources-loader',
         options: {
           resources: [
-            path.resolve(configuration.context, 'client/assets/scss/mixins/mixins.scss')
+            path.resolve(configuration.context, 'client/assets/scss/app/variables.scss'),
+            path.resolve(configuration.context, 'client/assets/scss/mixins/mixins.scss'),
           ],
         },
       },

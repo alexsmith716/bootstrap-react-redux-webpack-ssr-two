@@ -285,7 +285,7 @@ export default function (parameters) {
     //    info: {loaded: true,loading: false,data: {message: 'This came from the api server',time: 1530540780215}}
     //    }
 
-    try 
+    try {
       preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
     } catch (e) {
       preloadedState = {};

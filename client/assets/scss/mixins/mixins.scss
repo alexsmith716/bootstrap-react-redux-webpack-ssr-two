@@ -1,10 +1,10 @@
 
-@import './mixins/mixinsColors.scss';
+@import './mixins/mixins-colors.scss';
 
-@import './mixins/mixinsFunctions.scss';
+@import './mixins/mixins-fonts.scss';
 
-@import './mixins/mixinsFonts.scss';
+@import './mixins/mixins-functions.scss';
 
-@import './mixins/mixinsSrOnly.scss';
+@import './mixins/mixins-position-display-size-flex.scss';
 
-@import './mixins/mixinsTransitionsBackgrounds.scss';
+@import './mixins/mixins-sr-only.scss';

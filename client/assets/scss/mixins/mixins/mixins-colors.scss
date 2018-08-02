@@ -1,65 +1,69 @@
-@mixin colorPurple() {
+@mixin color-purple() {
   color: #9B30FF;
 }
 
-@mixin colorOlive() {
+@mixin color-olive() {
   color: #808000;
 }
 
-@mixin colorCrimson() {
+@mixin color-crimson() {
   color: #DC143C;
 }
 
-@mixin colorGold() {
+@mixin color-gold() {
   color: #FFD700;
 }
 
-@mixin colorLightblue() {
+@mixin color-lightblue() {
   color: #BFEFFF;
 }
 
-@mixin colorLavender() {
+@mixin color-lavender() {
   color: #E6E6FA;
 }
 
-@mixin colorTurquoise() {
+@mixin color-turquoise() {
   color: #00F5FF;
 }
 
-@mixin colorYellow() {
+@mixin color-yellow() {
   color: #FFFF00;
 }
 
-@mixin colorSpringgreen() {
+@mixin color-springgreen() {
   color: #00EE76;
 }
 
-@mixin colorAzure() {
+@mixin color-azure() {
   color: #F0FFFF;
 }
 
-@mixin colorDodgerblue() {
+@mixin color-dodgerblue() {
   color: #1E90FF;
 }
 
-@mixin colorGold() {
+@mixin color-gold() {
   color: #FFD700;
 }
 
-@mixin colorGreen() {
+@mixin color-green() {
   color: #008B00;
 }
 
-@mixin colorDarkorange() {
+@mixin color-darkorange() {
   color: #CD6600;
 }
 
-@mixin colorTeal() {
+@mixin color-teal() {
   color: #008080;
 }
 
-@mixin colorDodgerblueFour() {
+@mixin color-dodgerblue-4() {
   color: #104E8B;
+}
+
+@mixin color-banana() {
+  color: #E3CF57;
 }
 
 // dodgerblue 4       104E8B

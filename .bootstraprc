@@ -20,7 +20,7 @@
   },
   "preBootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/preBootstrapCustomizations.scss",
   "bootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/bootstrapCustomizations.scss",
-  "appStyles": "./client/assets/scss/app/app3.scss",
+  "appStyles": "./client/assets/scss/app/theme.scss",
   "styles": {
     "alert": true,
     "badge": true,

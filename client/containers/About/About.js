@@ -121,7 +121,7 @@ export default class About extends Component {
         <h2>This Component's State!!!</h2>
         <div className="row">
           <div className="col-lg-12 d-flex justify-content-center">
-            <p className="colorCrimsonGlobal openSansBoldwebfontFont">{`'componentButtonState' store state is ${componentButtonState} !!!!!!!!!!!!!!!!`}</p>
+            <p className="color-crimson font-opensans-bold-webfont">{`'componentButtonState' store state is ${componentButtonState} !!!!!!!!!!!!!!!!`}</p>
           </div>
         </div>
 

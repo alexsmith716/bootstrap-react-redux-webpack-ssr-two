@@ -72,7 +72,7 @@ configuration.module.rules.push(
         options: {
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
-          importLoaders: 2,
+          importLoaders: 3,
           sourceMap: true,
         }
       },
@@ -97,7 +97,8 @@ configuration.module.rules.push(
         loader: 'sass-resources-loader',
         options: {
           resources: [
-            path.resolve(configuration.context, 'client/assets/scss/mixins/mixins.scss')
+            path.resolve(configuration.context, 'client/assets/scss/app/variables.scss'),
+            path.resolve(configuration.context, 'client/assets/scss/mixins/mixins.scss'),
           ],
         },
       },

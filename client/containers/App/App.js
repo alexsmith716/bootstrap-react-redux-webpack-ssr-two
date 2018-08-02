@@ -141,41 +141,43 @@ export default class App extends Component {
 
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 
-          <Link to='/' className={`navbar-brand js-scroll-trigger ${stylesScss1.brand}`}>Election App</Link>
+          <div className="container">
 
-          <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            <Link to='/' className={`navbar-brand js-scroll-trigger ${stylesScss1.brand}`}>Election App</Link>
 
-          <div className="collapse navbar-collapse" id="navbarResponsive">
+            <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
 
-            <ul className="navbar-nav mr-auto">
+            <div className="collapse navbar-collapse" id="navbarResponsive">
 
-              <li className="nav-item">
-                <Link to='/about' className="nav-link js-scroll-trigger">About</Link>
-              </li>
+              <ul className="navbar-nav mr-auto">
 
-              <li className="nav-item">
-                <Link to='/login' className="nav-link js-scroll-trigger">Login</Link>
-              </li>
+                <li className="nav-item">
+                  <Link to='/about' className="nav-link js-scroll-trigger">About</Link>
+                </li>
 
-              <li className="nav-item">
-                <Link to='/register' className="nav-link js-scroll-trigger">Register</Link>
-              </li>
+                <li className="nav-item">
+                  <Link to='/login' className="nav-link js-scroll-trigger">Login</Link>
+                </li>
 
-              <li className="nav-item">
-                <a className="nav-link font-old-english" data-toggle="modal" href="#appModal1">
-                  <span className="fa fa-fw fa-sign-in"></span>Modal</a>
-              </li>
+                <li className="nav-item">
+                  <Link to='/register' className="nav-link js-scroll-trigger">Register</Link>
+                </li>
 
-              <li className="nav-item">
-                <a className="nav-link norwesterFont dropdown-item" href="#">
-                  <span className={`fa fa-fw fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={stylesScss2.testColorFont}>Headphones!</span></a>
-              </li>
+                <li className="nav-item">
+                  <a className="nav-link font-old-english" data-toggle="modal" href="#appModal1">
+                    <span className="fa fa-fw fa-sign-in"></span>Modal</a>
+                </li>
 
-            </ul>
+                <li className="nav-item">
+                  <a className="nav-link font-norwester dropdown-item" href="#">
+                    <span className={`fa fa-fw fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={stylesScss2.testColorFont}>Headphones!</span></a>
+                </li>
+
+              </ul>
+            </div>
           </div>
-
         </nav>
 
         <div className={stylesScss1.appContent}>
@@ -191,20 +193,24 @@ export default class App extends Component {
           {renderRoutes(route.routes)}
         </div>
 
-
-        <div className={`py-4 ${stylesScss1.footer}`}>
+        <div className={stylesScss1.footer}>
           <div className="container">
-            <div className={`m-0 text-center philosopherboldwebfontFont ${stylesCss1.colorCrimsonCssLocal}`}>Copyright &copy; 2018 · Election App 2018!</div>
-            <div className="m-0 text-center"><span className={`fa fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={`norwesterFont ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
+            <div className="row align-items-center">
+              <div className="col">
+                <div className="d-flex flex-column justify-content-center">
+                  <div>Copyright &copy; 2018 · Election App 2018</div>
+                  <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`norwesterFont ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
 
         <div className="app-modal modal fade" id="appModal1" tabIndex="-1" role="dialog" aria-labelledby="appModalLabel" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title colorGreenYellowGlobalCSS" id="appModalLabel">Modal Test</h5>
+                <h5 className="modal-title color-azure" id="appModalLabel">Modal Test</h5>
                 <button className="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                 </button>
@@ -213,23 +219,23 @@ export default class App extends Component {
 
                 <p>Modal is working. This paragraph's font and the above modal-title's font is 'Old English'. It is the default 'global' font for this app. It is overriding Bootstrap's default font 'font-family-sans-serif'. It's a hard to read font but easily recognizable for development purposes.</p>
 
-                <p className="robotoMonoV4LatinRegularFont">This paragraph's '@font-face' is 'roboto-mono-v4-latin-regular'.</p>
+                <p className="font-roboto-mono-V4-latin-regular">This paragraph's '@font-face' is 'roboto-mono-v4-latin-regular'.</p>
 
-                <p className="font-montserratlight colorSalmonGlobal">This paragraph's '@font-face' is 'font-montserratlight'.</p>
+                <p className="font-montserratlight color-salmon">This paragraph's '@font-face' is 'font-montserratlight'.</p>
 
-                <p className="lobsterv20latinregularFont">This paragraph's '@font-face' is 'lobster-v20-latin-regular'.</p>
+                <p className="font-lobster-v20-latin-regular">This paragraph's '@font-face' is 'lobster-v20-latin-regular'.</p>
 
-                <p className="norwesterFont">This paragraph's '@font-face' is 'norwester'.</p>
+                <p className="font-norwester">This paragraph's '@font-face' is 'norwester'.</p>
 
-                <p className="colorCrimsonGlobal openSansItalicwebfontFont">This paragraph's '@font-face' is 'OpenSans-Italic-webfont'.</p>
+                <p className="color-crimson open-sans-italic-webfont">This paragraph's '@font-face' is 'OpenSans-Italic-webfont'.</p>
 
                 <p className="font-philosopher-bold-webfont">This paragraph's '@font-face' is 'font-philosopher-bold-webfont'.</p>
 
-                <p className="sourcesansproregularwebfontFont">This paragraph's '@font-face' is 'sourcesanspro-regular-webfont'.</p>
+                <p className="font-sourcesanspro-regular-webfont">This paragraph's '@font-face' is 'sourcesanspro-regular-webfont'.</p>
 
                 <p className={`color-springgreen ${stylesScss2.montserratLightFontGlobalToLocal}`}>This paragraph's '@font-face' is 'MontserratLight'. It is scoped Global to Local.</p>
 
-                <p className="colorOrangeredGlobal openSansBoldwebfontFont">This paragraph's '@font-face' is 'OpenSans-Bold-webfont' It is scoped Global.</p>
+                <p className="color-orangered font-opensans-bold-webfont">This paragraph's '@font-face' is 'OpenSans-Bold-webfont' It is scoped Global.</p>
 
               </div>
 
