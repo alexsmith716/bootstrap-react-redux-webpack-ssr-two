@@ -195,13 +195,9 @@ export default class App extends Component {
 
         <div className={stylesScss1.footer}>
           <div className="container">
-            <div className="row align-items-center">
-              <div className="col">
-                <div className="d-flex flex-column justify-content-center">
-                  <div>Copyright &copy; 2018 · Election App 2018</div>
-                  <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`norwesterFont ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
-                </div>
-              </div>
+            <div className={`d-flex flex-column justify-content-center align-items-center bg-color-slategray ${stylesScss1.flexContainer}`}>
+              <div>Copyright &copy; 2018 · Election App 2018</div>
+              <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`font-norwester ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
             </div>
           </div>
         </div>
