@@ -31,6 +31,10 @@
 .footer {
   background: #388E8E;
   // @extend %footerHeight;
-  @include footer-height;
-  // height: $footer-height;
+  // @include footer-height;
+  height: $footer-height;
+  .flexContainer {
+    @include roboto-mono-v4-latin-regular-font;
+    @include bg-color-lightsteelblue;
+  }
 }
