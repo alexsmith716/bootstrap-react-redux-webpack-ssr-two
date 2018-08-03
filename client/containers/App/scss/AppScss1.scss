@@ -34,7 +34,6 @@
   // @include footer-height;
   height: $footer-height;
   .flexContainer {
-    @include roboto-mono-v4-latin-regular-font;
-    @include bg-color-lightsteelblue;
+    @include lobster-v20-latin-regular-font;
   }
 }
