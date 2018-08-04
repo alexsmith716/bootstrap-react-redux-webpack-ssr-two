@@ -2,18 +2,17 @@
 // Override Bootstrap styles that you can't modify via variables here
 // This gets loaded after bootstrap/variables is loaded, so you can refer to
 // bootstrap variables configured by bootstrap. For example, the _variables.scss contains:
-// $btn-primary-bg: $brand-primary !default;
 
-// Here we're adjusting the hue of that default:
-// $btn-primary-bg: adjust-hue(theme-color("primary"), +20deg);
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// ------------- Modify (hue) default '$btn-primary-bg' variable ------------
+// --------------------------------------------------------------------------
 
-// NOTE: $gray-300 is defined in _variables.scss
-// $body-bg: $gray-300;
+$btn-primary-bg: adjust-hue(theme-color("primary"), +20deg);
 
-// lavender:   E6E6FA
-// azure:      F0FFFF
-// snow:       FFFAFA
-
-// 'preBootstrapCustomizations.scss' >>>>>>>>>> $dropdown-bg: #FFFAFA;
+// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// ------------- Modify (darken) default '$dropdown-bg' variable ------------
+// --------------------------------------------------------------------------
 
 $dropdown-bg: darken($dropdown-bg, 20%);

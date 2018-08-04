@@ -74,6 +74,7 @@ export default function createStore({ history, data, providers, persistConfig })
     store.dispatch({ type: REGISTER });
   }
 
+  // https://github.com/59naga/babel-plugin-add-module-exports
   if (__DEVELOPMENT__ && module.hot) {
     module.hot.accept('./reducer', () => {
       let reducer = require('./reducer');

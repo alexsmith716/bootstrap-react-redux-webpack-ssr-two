@@ -1,7 +1,3 @@
-@mixin footer-height() {
-  height: $footer-height;
-}
-
 @mixin transition-all() {
   -webkit-transition: all 0.2s;
   -moz-transition: all 0.2s;

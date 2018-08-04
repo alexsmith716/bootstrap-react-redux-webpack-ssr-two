@@ -92,9 +92,9 @@ configuration.module.rules.push(
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
-          config: {
-            path: 'postcss.config.js'
-          }
+          //config: {
+          //  path: 'postcss.config.js'
+          //}
         }
       },
       {
@@ -109,7 +109,7 @@ configuration.module.rules.push(
         options: {
           resources: [
             path.resolve(configuration.context, 'client/assets/scss/app/variables.scss'),
-            path.resolve(configuration.context, 'client/assets/scss/mixins/mixins.scss'),
+            path.resolve(configuration.context, 'client/assets/scss/app/mixins.scss'),
           ],
         },
       },
@@ -137,9 +137,9 @@ configuration.module.rules.push(
         loader : 'postcss-loader',
         options: {
           sourceMap: true,
-          config: {
-            path: 'postcss.config.js'
-          }
+          //config: {
+          //  path: 'postcss.config.js'
+          //}
         }
       },
     ]

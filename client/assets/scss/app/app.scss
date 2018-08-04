@@ -65,7 +65,7 @@ hr.light {
 }
 
 .button-facebook i {
-  @include font-size(20px);
+  font-size: calculate-rem(20px);
   margin-right: calculate-rem(10px);
   padding-bottom: calculate-rem(1px);
 }

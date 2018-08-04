@@ -7,19 +7,13 @@
 }
 
 %footerHeight {
-  height: 100px;
+  height: calculate-rem(100px);
 }
 
 .appContent {
   padding-top: calculate-rem(50px);
-  // min-height: calc(100vh - 100px); // exclude the height of footer
-  min-height: #{'calc(100vh - ' + $footer-height + ')'};
+  min-height: #{'calc(100vh - ' + $footer-height + ')'}; // exclude the height of footer
   position: relative;
-}
-
-.faBars {
-  // transform: scale(1.5, 1.5);
-  // @include font-size(28px);
 }
 
 .notifs {
@@ -31,7 +25,6 @@
 .footer {
   background: #388E8E;
   // @extend %footerHeight;
-  // @include footer-height;
   height: $footer-height;
   .flexContainer {
     @include lobster-v20-latin-regular-font;
