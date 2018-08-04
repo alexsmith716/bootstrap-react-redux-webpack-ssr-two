@@ -45,14 +45,14 @@
     // font-size: calc(5rem/2);
     // font-size: 2.5rem;
     // font-size: 3.8rem;
-    @include font-size(61px);
+    font-size: calculate-rem(61px);
     font-weight: 600;
     @include color-dodgerblue-4;
     @include tester-font3;
   }
 
   h2 {
-    @include font-size(32px);
+    font-size: calculate-rem(32px);
     @include color-darkorange;
   }
 

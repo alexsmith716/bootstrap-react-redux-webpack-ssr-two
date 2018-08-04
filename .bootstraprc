@@ -1,12 +1,15 @@
 {
-  "loglevel": "disabled",
   "bootstrapVersion": 4,
+  "preBootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/preBootstrapCustomizations.scss",
+  "bootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/bootstrapCustomizations.scss",
+  "appStyles": "./client/assets/scss/app/theme.scss",
+  "loglevel": "disabled",
   "env": {
     "development": {
       "styleLoaders": [
-        "style-loader?sourceMap",
-        "css-loader?sourceMap",
-        "sass-loader?sourceMap",
+        "style-loader",
+        "css-loader",
+        "sass-loader",
       ],
       "extractStyles": false
     },
@@ -18,9 +21,6 @@
       "extractStyles": true,
     }
   },
-  "preBootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/preBootstrapCustomizations.scss",
-  "bootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/bootstrapCustomizations.scss",
-  "appStyles": "./client/assets/scss/app/theme.scss",
   "styles": {
     "alert": true,
     "badge": true,

@@ -18,7 +18,7 @@
 }
 
 .coloredText3Local {
-  @include font-size(20px);
+  font-size: calculate-rem(20px);
   color: #00CD00;
 }
 

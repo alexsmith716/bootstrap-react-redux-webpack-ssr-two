@@ -32,7 +32,11 @@
 
 @import "../fonts/fonts.scss";
 
-@import "../mixins/mixins.scss";
+// @import "./variables.scss";
+
+// @import "./functions.scss";
+
+@import "./mixins.scss";
 
 @import './nprogress.scss';
 

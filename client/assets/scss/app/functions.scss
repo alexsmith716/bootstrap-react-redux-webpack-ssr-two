@@ -3,11 +3,6 @@
 // CALCULATE AND RETURN PIXEL TO REM
 // --------------------------------------------------------------------------------
 
-// Bootstrap's '1rem' Assumes the browser default, typically '16px'
-$font-size-browser-default: 16px;
-
-// --------------------------------------------------------------------------------
-
 @function test-number-unit($testSize) {
 
   @if (type-of($testSize) == number) {
