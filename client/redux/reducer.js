@@ -1,6 +1,6 @@
 
 // import multireducer from 'multireducer';
-import { routerReducer } from 'react-router-redux';
+import { routerReducer } from 'connected-react-router';
 
 import auth from './modules/auth';
 import notifs from './modules/notifs';

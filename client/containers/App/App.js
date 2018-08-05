@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import renderRoutes from 'react-router-config/renderRoutes';
 import { provideHooks } from 'redial';
 import Helmet from 'react-helmet';

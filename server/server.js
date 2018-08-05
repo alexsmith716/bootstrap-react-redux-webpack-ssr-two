@@ -32,7 +32,7 @@ import createMemoryHistory from 'history/createMemoryHistory';
 
 import createStore from '../client/redux/createStore';
 
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { renderRoutes } from 'react-router-config';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
@@ -252,6 +252,15 @@ export default function (parameters) {
     const webpackAssets = parameters.chunks();
     // const webpackAssets = {...parameters.chunks()};
 
+    // configure server for API communication (rest / axios/ajax)
+    // passing session cookie (req)
+    const providers = {
+      app: createApp(req),
+      client: apiClient(req)
+    };
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
+
     // manage session history with 'history' object
     // manage session history (stack, navigate, confirm navigation, persist state between sessions)
     // initialEntries: initial URLs in the history stack
@@ -267,14 +276,9 @@ export default function (parameters) {
     const persistConfig = {
       key: 'root',
       storage: new CookieStorage(cookieJar),
-      stateReconciler(inboundState, originalState) {
-        // Ignore state from cookies, only use preloadedState from window object
-        return originalState
-      },
+      stateReconciler: (inboundState, originalState) => originalState,
       whitelist: ['auth', 'info',]
     };
-
-    // stateReconciler: (inboundState, originalState) => originalState,
 
     let preloadedState;
   
@@ -292,20 +296,10 @@ export default function (parameters) {
     }
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > preloadedState !! =======================: ', preloadedState);
 
-    // configure server for API communication (rest / axios/ajax)
-    // passing session cookie (req)
-    const providers = {
-      app: createApp(req),
-      client: apiClient(req)
-    };
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
-
-
     const store = createStore({
       history,
       data: preloadedState,
-      providers
+      helpers: providers,
     });
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > store: ', store);
     
@@ -380,7 +374,7 @@ export default function (parameters) {
               { /* {req.originalUrl}: pass in requested url from the server */ }
               { /* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>
-                <ReduxAsyncConnect routes={routes} store={store} providers={providers}>
+                <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
                   {renderRoutes(routes)}
                 </ReduxAsyncConnect>
               </StaticRouter>

@@ -1,7 +1,8 @@
 
-export default function clientMiddleware(providers) {
+// https://redux.js.org/advanced/middleware
+export default function clientMiddleware(helpers) {
 
-  console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > providers <<<<<<<');
+  console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > helpers <<<<<<<');
 
   return ({ dispatch, getState }) => next => action => {
 
@@ -22,7 +23,7 @@ export default function clientMiddleware(providers) {
 
     next({ ...rest, type: REQUEST });
 
-    const actionPromise = promise(providers, dispatch);
+    const actionPromise = promise(helpers, dispatch);
 
     console.log('>>>>>>>>>>>>>>>>>>>>> ClientMiddleware.js > return > YES promise > actionPromise <<<<<<<');
 

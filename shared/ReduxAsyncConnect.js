@@ -37,7 +37,7 @@ export default class ReduxAsyncConnect extends Component {
 
   async componentWillReceiveProps(nextProps) {
 
-    const { history, location, routes, store, providers } = this.props;
+    const { history, location, routes, store, helpers } = this.props;
     const navigated = nextProps.location !== location;
 
     if (navigated) {
@@ -48,7 +48,7 @@ export default class ReduxAsyncConnect extends Component {
       // load data while the old screen remains
       const { components, match, params } = await asyncMatchRoutes(routes, nextProps.location.pathname);
       const triggerLocals = {
-        ...providers,
+        ...helpers,
         store,
         match,
         params,

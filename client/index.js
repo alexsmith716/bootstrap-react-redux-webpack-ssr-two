@@ -3,7 +3,7 @@ import "@babel/polyfill";
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 import { renderRoutes } from 'react-router-config';
 import { trigger } from 'redial';
@@ -28,7 +28,7 @@ import { getStoredState } from 'redux-persist';
 import { CookieStorage } from 'redux-persist-cookie-storage';
 import Cookies from 'cookies-js'; // Client-Side Cookie Manipulation 'cookies-js'
 
-import './assets/js/app';
+// import './assets/js/app';
 
 // =====================================================================
 // Bootstrap Cookie from preloaded state in window object
@@ -82,11 +82,9 @@ initSocket();
 
 (async () => {
 
-  const history = createBrowserHistory();
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
-
   const preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > preloadedState: ', preloadedState);
+
 
   const online = window.__data ? true : await isOnline();
 
@@ -97,6 +95,10 @@ initSocket();
 
   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > online: ', online);
 
+  const history = createBrowserHistory();
+  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
+
+
   const store = createStore({
     history,
     data: {
@@ -104,7 +106,7 @@ initSocket();
       ...window.__data,
       online
     },
-    providers,
+    helpers: providers,
     persistConfig
   });
 
@@ -131,7 +133,7 @@ initSocket();
         <Provider store={store} {...providers}>
           { /* ConnectedRouter will use the store from Provider automatically */ }
           <ConnectedRouter history={history}>
-            <ReduxAsyncConnect routes={_routes} store={store} providers={providers}>
+            <ReduxAsyncConnect routes={_routes} store={store} helpers={providers}>
               {renderRoutes(_routes)}
             </ReduxAsyncConnect>
           </ConnectedRouter>
@@ -178,19 +180,21 @@ initSocket();
     }
   }
 
-  if (__DEVTOOLS__ && !window.devToolsExtension) {
-    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension');
-    const devToolsDest = document.createElement('div');
-    window.document.body.insertBefore(devToolsDest, null);
-    const DevTools = require('./containers/DevTools/DevTools');
+  // ==============================================================================================
 
-    ReactDOM.hydrate(
-      <Provider store={store}>
-        <DevTools />
-      </Provider>,
-      devToolsDest
-    );
-  }
+  // if (__DEVTOOLS__ && !window.devToolsExtension) {
+  //   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension');
+  //   const devToolsDest = document.createElement('div');
+  //   window.document.body.insertBefore(devToolsDest, null);
+  //   const DevTools = require('./containers/DevTools/DevTools');
+
+  //   ReactDOM.hydrate(
+  //     <Provider store={store}>
+  //       <DevTools />
+  //     </Provider>,
+  //     devToolsDest
+  //   );
+  // }
 
   // if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
   //   console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > !__DEVELOPMENT__ && serviceWorker in navigator <<<<<<<<<<<<<');
