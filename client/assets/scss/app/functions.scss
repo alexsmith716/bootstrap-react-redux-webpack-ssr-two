@@ -3,6 +3,8 @@
 // CALCULATE AND RETURN PIXEL TO REM
 // --------------------------------------------------------------------------------
 
+// $font-size-browser-default: 16px !default;
+
 @function test-number-unit($testSize) {
 
   @if (type-of($testSize) == number) {

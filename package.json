@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.56",
     "@babel/polyfill": "^7.0.0-beta.54",
     "@babel/register": "^7.0.0-beta.54",
     "@babel/runtime": "^7.0.0-beta.54",
