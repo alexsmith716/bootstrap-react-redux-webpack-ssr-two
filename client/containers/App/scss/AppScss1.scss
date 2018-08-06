@@ -1,4 +1,6 @@
 
+// $footer-height: 100px !default;
+
 .app {
   .brand {
     @include bootstrap-default-font;
@@ -12,7 +14,7 @@
 
 .appContent {
   padding-top: calculate-rem(50px);
-  min-height: #{'calc(100vh - ' + $footer-height + ')'}; // exclude the height of footer
+  min-height: #{'calc(100vh - ' + calculate-rem($footer-height) + ')'}; // exclude the height of footer
   position: relative;
 }
 
@@ -25,7 +27,7 @@
 .footer {
   background: #388E8E;
   // @extend %footerHeight;
-  height: $footer-height;
+  height: calculate-rem($footer-height);
   .flexContainer {
     @include lobster-v20-latin-regular-font;
   }

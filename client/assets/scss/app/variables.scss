@@ -3,10 +3,10 @@
 // ---------------- SHARED APP VARIABLES ---------------
 // -----------------------------------------------------
 
-$font-size-browser-default: 16px;
+$font-size-browser-default: 16px !default;
 
-$footer-height: calculate-rem(100px);
+$footer-height: 100px !default;
 
-$color-cornflowerblue: #6495ED;
+$color-cornflowerblue: #6495ED !default;
 
-$color-cadmiumorange: #FF6103;
+$color-cadmiumorange: #FF6103 !default;

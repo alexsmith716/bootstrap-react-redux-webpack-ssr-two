@@ -38,26 +38,7 @@ export default function createStore({ history, data, helpers, persistConfig }) {
   // https://redux.js.org/advanced/middleware
   const middleware = [clientMiddleware(helpers), routerMiddleware(history)];
 
-  // Redux logger
-  // if (__CLIENT__ && __DEVELOPMENT__) {
-  //   const logger = require('redux-logger').createLogger({
-  //     collapsed: true
-  //   });
-  //   middleware.push(logger.__esModule ? logger.default : logger);
-  // }
-
   const enhancers = [applyMiddleware(...middleware)];
-
-  // Redux DevTool
-  // if (__CLIENT__ && __DEVTOOLS__) {
-  //   const { persistState } = require('redux-devtools');
-  //   const DevTools = require('../containers/DevTools/DevTools');
-
-  //   Array.prototype.push.apply(enhancers, [
-  //     window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
-  //     persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-  //   ]);
-  // }
 
   // Composed Enhancers
   const finalCreateStore = compose(...enhancers)(_createStore);
@@ -67,7 +48,8 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // =======================================================================================
 
-  const store = finalCreateStore(combine({ ...noopReducers, ...reducers }, persistConfig), data);
+  // const store = finalCreateStore( combine({ ...noopReducers, ...reducers }, persistConfig), data);
+  const store = finalCreateStore(connectRouter(history)(combine({ ...noopReducers, ...reducers }, persistConfig)), data);
 
   store.asyncReducers = {};
 
