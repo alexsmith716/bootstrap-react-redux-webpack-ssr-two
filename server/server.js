@@ -416,7 +416,8 @@ export default function (parameters) {
       const bundles = getBundles(getChunks(), modules);
 
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > ASSETS: ', webpackAssets);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE: ', store);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE1: ', store);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE2: ', store.getState());
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > CONTENT : ', content);
       console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);
