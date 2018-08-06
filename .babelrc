@@ -1,21 +1,38 @@
 {
   "presets": [
-    ["@babel/preset-react"],
+    "@babel/preset-react",
     ["@babel/preset-env", {
       "targets": {
         "browsers": ["last 2 versions", "IE >= 8"]
       }
     }],
-    ["@babel/preset-flow"]
+    "@babel/preset-flow",
   ],
   "plugins": [
     "@babel/plugin-proposal-export-default-from",
-    ["@babel/plugin-syntax-dynamic-import"],
-    ["@babel/plugin-proposal-object-rest-spread"],
-    ["@babel/plugin-transform-runtime"],
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-runtime",
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     ["@babel/plugin-proposal-class-properties", { "loose": false }],
     "react-loadable/babel",
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
   ]
 }
+
+// --------------------------------------------------
+
+// * Plugin/Preset Ordering
+// 
+//     Ordering matters for each visitor in the plugin.
+// 
+// * This means if two transforms both visit the "Program" node, the transforms will run in either plugin or preset order.
+// 
+//     Plugins run before Presets.
+//     Plugin ordering is first to last.
+//     Preset ordering is reversed (last to first).
+
+// Plugin Ordering:
+// https://github.com/babel/babel/issues/5623
+// https://github.com/babel/babel/pull/5735
+// https://github.com/babel/babel/issues/5854

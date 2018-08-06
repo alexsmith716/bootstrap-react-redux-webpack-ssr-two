@@ -6,7 +6,7 @@
   "author": "dev",
   "license": "MIT",
   "scripts": {
-    "init:dev": "npm-run-all dev:prepare development",
+    "run:dev": "npm-run-all dev:prepare development",
     "dev:prepare": "universal-webpack --settings ./webpack/universal-webpack-settings.json prepare",
     "development": "NODE_ENV=development npm-run-all --parallel dev:client:build dev:server:build start:dev",
     "dev:server": "NODE_ENV=development WEBPACK_DLLS=1 nodemon ./bin/server.js --watch ./server --watch ./build/server --no-update-notifier",
@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.54",
-    "@babel/plugin-proposal-export-namespace-from": "^7.0.0-beta.56",
     "@babel/polyfill": "^7.0.0-beta.54",
     "@babel/register": "^7.0.0-beta.54",
     "@babel/runtime": "^7.0.0-beta.54",
