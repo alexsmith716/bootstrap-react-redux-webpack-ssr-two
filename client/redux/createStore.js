@@ -24,7 +24,7 @@ export function inject(store, reducers, persistConfig) {
   });
 
   // get a new root reducer
-  store.replaceReducer(combine(createReducers(store.asyncReducers), persistConfig));
+  store.replaceReducer(combine( createReducers(store.asyncReducers), persistConfig ));
 }
 
 // =======================================================================================
@@ -65,6 +65,9 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // Redux DevTool
   if (__CLIENT__ && __DEVTOOLS__) {
+
+    console.log('>>>>>>>>>>>>>>>>>>> CreateStore > __CLIENT__ && __DEVTOOLS__ <<<<<<<<<<<<<<<<<<');
+
     const { persistState } = require('redux-devtools');
     const DevTools = require('../containers/DevTools/DevTools').default;
 
@@ -83,8 +86,11 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // =======================================================================================
 
+
   // const store = finalCreateStore( combine({ ...noopReducers, ...reducers }, persistConfig), data);
+
   const store = finalCreateStore(connectRouter(history)(combine({ ...noopReducers, ...reducers }, persistConfig)), data);
+
 
   // =======================================================================================
 

@@ -1,3 +1,4 @@
+
 const INCREMENT = 'redux-example/counter/INCREMENT';
 
 const initialState = {

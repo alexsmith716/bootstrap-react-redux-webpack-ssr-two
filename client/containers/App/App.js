@@ -18,28 +18,31 @@ import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/
 import { Notifs } from '../../components';
 import config from '../../../config/config';
 
-// https://reactjs.org/docs/dom-elements.html <<<<<<<<< DOM attributes supported by React
-// https://github.com/facebook/react/issues/10772#issuecomment-333242375
-// <a className="nav-link bootstrapDefaultFont" data-toggle="modal" href="#appModal1">
-
 // --------------------------------------------------------------------------
 
+// HOC to ensure all data for routes is prefetched on server before attempting to render
 @provideHooks({
-  fetch: async ({ store: { dispatch, getState } }) => {
+  fetch: async ( { store: { dispatch, getState } } ) => {
 
-    const iSL = isAuthLoaded(getState());
-    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded ??: ', iSL);
-    const iIL = isInfoLoaded(getState());
-    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded ??: ', iIL);
+    // access state 'getState()' of 'auth' && 'info'
+    const isAL = isAuthLoaded(getState());
+    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded ??: ', isAL);
+    const isIL = isInfoLoaded(getState());
+    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded ??: ', isIL);
 
-    if (!iSL) {
-      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded 1111111111111: ', iSL);
-      await dispatch(loadAuth()).catch(() => null);
+    // --------------------------------------------------------------------------
+
+    // if 'state' of 'auth' or 'info' is false
+    // send 'action' 'LOAD, LOAD_SUCCESS, LOAD_FAIL' payload 'data' from 'app' to 'store'
+    // dispatch action creator 'load()' to create action 'LOAD, LOAD_SUCCESS, LOAD_FAIL'
+    if (!isAL) {
+      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded 1111111111111: ', isAL);
+      await dispatch( loadAuth() ).catch(() => null);
     }
 
-    if (!iIL) {
-      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded 1111111111111: ', iIL);
-      await dispatch(loadInfo()).catch(() => null);
+    if (!isIL) {
+      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded 1111111111111: ', isIL);
+      await dispatch( loadInfo() ).catch(() => null);
     }
   }
 })

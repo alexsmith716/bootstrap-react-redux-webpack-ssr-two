@@ -1,3 +1,4 @@
+
 const LOAD = 'redux-example/widgets/LOAD';
 const LOAD_SUCCESS = 'redux-example/widgets/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/widgets/LOAD_FAIL';

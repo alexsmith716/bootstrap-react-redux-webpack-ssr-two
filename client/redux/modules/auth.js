@@ -1,6 +1,13 @@
 import { FORM_ERROR } from 'final-form';
 import cookie from 'js-cookie';
 
+// https://github.com/redux-utilities/flux-standard-action
+
+// specify the initial state
+// take the previous state and an action, and returns the next state
+// initially called from server once (per slice)
+
+// Actions --------------------------------------------------
 const LOAD = 'redux-example/auth/LOAD';
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/auth/LOAD_FAIL';
@@ -19,6 +26,17 @@ const initialState = {
   user: null
 };
 
+// // start specifying the initial state. Redux calls reducer with an undefined state for the first time. 
+// // will return the 'initialState' of app
+
+// function todoApp(state) {
+//   if (typeof state === 'undefined') {
+//     return initialState
+//   }
+//   return state
+// }
+
+// using ES6 default arguments syntax on 'initialState'
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
@@ -138,12 +156,14 @@ function setUser({ app }) {
 
 // ============================================================================================
 
+// isLoaded(getState())
 export function isLoaded(globalState) {
-  const iAL = globalState.auth && globalState.auth.loaded;
-  console.log('>>>>>>>>>>>>> Redux > Modules > AUTH.JS > isAuthLoaded: ', iAL);
-  return iAL;
+  const isAuthLoaded = globalState.auth && globalState.auth.loaded;
+  console.log('>>>>>>>>>>>>> Redux > Modules > AUTH.JS > isAuthLoaded: ', isAuthLoaded);
+  return isAuthLoaded;
 }
 
+// Action Creators ------------------------------------------------
 export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
