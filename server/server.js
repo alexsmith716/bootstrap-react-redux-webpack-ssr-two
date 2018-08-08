@@ -301,9 +301,11 @@ export default function (parameters) {
       data: preloadedState,
       helpers: providers,
     });
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! > store: ', store);
-    
 
+    store.subscribe(() =>
+      console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > store.getState(): ', store.getState())
+    )
+    
     console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! END !! $$$$$$$$$$$$$$$$$$$$$$$$$');
 
     function hydrate() {

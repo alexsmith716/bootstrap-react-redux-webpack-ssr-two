@@ -110,7 +110,9 @@ initSocket();
     persistConfig
   });
 
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > store: ', store);
+  store.subscribe(() =>
+    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > store.getState(): ', store.getState())
+  )
 
   const hydrate = async _routes => {
 
@@ -191,7 +193,7 @@ initSocket();
     const DevTools = require('./containers/DevTools/DevTools').default;
 
     ReactDOM.hydrate(
-      <Provider store={store} {...providers}>
+      <Provider store={store}>
         <DevTools />
       </Provider>,
       devToolsDest

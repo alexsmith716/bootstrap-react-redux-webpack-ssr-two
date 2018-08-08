@@ -1,3 +1,4 @@
+
 const NOTIF_SEND = 'redux-example/notifs/NOTIF_SEND';
 const NOTIF_DISMISS = 'redux-example/notifs/NOTIF_DISMISS';
 const NOTIF_CLEAR = 'redux-example/notifs/NOTIF_CLEAR';

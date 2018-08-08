@@ -1,3 +1,4 @@
+
 const LOAD = 'redux-example/pinterest/LOAD';
 const LOAD_SUCCESS = 'redux-example/pinterest/LOAD_SUCCESS';
 const LOAD_FAIL = 'redux-example/pinterest/LOAD_FAIL';
