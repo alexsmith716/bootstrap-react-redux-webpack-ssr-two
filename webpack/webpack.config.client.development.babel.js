@@ -51,7 +51,12 @@ configuration.devtool = 'inline-source-map';
 configuration.output.filename = '[name].[hash].js';
 configuration.output.chunkFilename = '[name].[chunkhash].chunk.js';
 
+// https://babeljs.io/docs/en/next/babel-polyfill.html
+// If you are using ES6's import syntax in your application's entry point, 
+// you should instead import the polyfill at the top of the entry point 
+// to ensure the polyfills are loaded first
 configuration.entry.main.push(
+  '@babel/polyfill',
   'bootstrap-loader',
   './client/index.js',
 );

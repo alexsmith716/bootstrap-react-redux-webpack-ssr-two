@@ -37,6 +37,8 @@ const initialState = {
 // }
 
 // using ES6 default arguments syntax on 'initialState'
+// specify default values for arguments
+// 'state' === 'undefined' ? return 'initialState' : return 'state';
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
