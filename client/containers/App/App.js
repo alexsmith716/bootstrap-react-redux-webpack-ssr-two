@@ -20,34 +20,41 @@ import config from '../../../config/config';
 
 // --------------------------------------------------------------------------
 
+// HOC: apply HOCs outside the component definition so that the resulting component is created only once. 
+// Then, its identity will be consistent across renders
+// Decorators are applied in the order that you declare them
+// '@provideHooks' && '@connect' are being applied to class 'App'
+// Decorators are functions that return another function
+// class decorators evaluated on runtime && decorated code is replaced with the return value
+
+// --------------------------------------------------------------
+
+// 'provideHooks' data fetching and advanced route lifecycle management 
+// define (@provideHooks) and (trigger) route-level lifecycle hooks
 // HOC to ensure all data for routes is prefetched on server before attempting to render
+// define hooks for custom lifecycle events
+// 'trigger' function ('server' && 'client') will initiate 'fetch' request on components with '@provideHooks' decorator
 @provideHooks({
   fetch: async ( { store: { dispatch, getState } } ) => {
 
     // access state 'getState()' of 'auth' && 'info'
-    const isAL = isAuthLoaded(getState());
-    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded ??: ', isAL);
-    const isIL = isInfoLoaded(getState());
-    console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded ??: ', isIL);
+    if (!isAuthLoaded(getState())) {
 
-    // --------------------------------------------------------------------------
-
-    // if 'state' of 'auth' or 'info' is false
-    // send 'action' 'LOAD, LOAD_SUCCESS, LOAD_FAIL' payload 'data' from 'app' to 'store'
-    // dispatch action creator 'load()' to create action 'LOAD, LOAD_SUCCESS, LOAD_FAIL'
-    if (!isAL) {
-      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isAuthLoaded 1111111111111: ', isAL);
-      await dispatch( loadAuth() ).catch(() => null);
+      // if 'state' of 'auth' or 'info' is false
+      // send 'action' 'LOAD, LOAD_SUCCESS, LOAD_FAIL' payload 'data' from 'app' to 'store'
+      // dispatch action creator 'load()' to create action 'LOAD, LOAD_SUCCESS, LOAD_FAIL'
+      await dispatch(loadAuth()).catch(() => null);
     }
-
-    if (!isIL) {
-      console.log('>>>>>>>>>>>>> APP.JS > @provideHooks > isInfoLoaded 1111111111111: ', isIL);
-      await dispatch( loadInfo() ).catch(() => null);
+    if (!isInfoLoaded(getState())) {
+      await dispatch(loadInfo()).catch(() => null);
     }
   }
 })
 
 // connect component to redux store
+// passes state and action creators into component derived from supplied arguments
+// connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+// pushState(href) — pushes a new location onto the history stack (push history method)
 @connect(
   state => ({
     notifs: state.notifs,
@@ -112,6 +119,10 @@ export default class App extends Component {
   // executed after the render() method is done
   // and the new changes to the underlying DOM have been applied
 
+  // invoked immediately after updating occurs
+  // opportunity to operate on the DOM when the component has been updated
+  // && network requests as long as you compare the current props to previous props 
+  // (e.g. a network request may not be necessary if the props have not changed)
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       window.scrollTo(0, 0);

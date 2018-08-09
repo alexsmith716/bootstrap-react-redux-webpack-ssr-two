@@ -322,19 +322,11 @@ export default function (parameters) {
       // match incoming 'route' and get the 'components' and 'params' from that match
       const { components, match, params } = await asyncMatchRoutes(routes, req.path);
 
-      // Redial (trigger)
-      // ensure all data for routes prefetched on server before rendering
-      // 'trigger' all decorated components
+      // ensure all data for routes prefetched on server before rendering (inital render SSR)
+      // 'trigger' all '@provideHooks' decorated components
       // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
-      // App
-      // About
-      // Chat
-      // returning promises if any asynchronous operations need to be performed.
-
-      // const locals = { some: 'data', more: 'stuff' };
-      // trigger('fetch', components, locals).then(render);
-
       // from matched route, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
+      // 'trigger' function ('server' && 'client') will initiate 'fetch' event on components with '@provideHooks' decorator
       await trigger( 'fetch', components, { 
         ...providers, 
         store, match, 

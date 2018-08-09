@@ -50,6 +50,7 @@ configuration.stats = {
   // children: false,
 }
 
+// https://babeljs.io/docs/en/next/babel-polyfill.html
 configuration.entry.main.push(
   'bootstrap-loader',
   './client/index.js',

@@ -3,14 +3,11 @@ import Helmet from 'react-helmet';
 import { provideHooks } from 'redial';
 import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/info';
 
-// ensure that data for route(s) '/load-info' is prefetched (@provideHooks) on server before attempting to render
-// for 'info', test 'globalState >> loaded' 
-// if 'globalState >> loaded' is false, dispatch API request to '/load-info' @ (API > services > custom > index)
-// a promise is passed which resolves to the JSON message response of API request '/load-info' ('This came from the api server')
-// catch error on loadInfo() dispatch will return 'null'
-// data dependencies for 'loaded' defined in 'redux/modules/info'
-// define hook for 'redux/modules/info' actions / events
-// 
+// --------------------------------------------------------------------------
+
+// HOC to ensure all data for routes is prefetched on server before attempting to render
+// define hooks for custom lifecycle events
+// 'trigger' function ('server' && 'client') will initiate 'fetch' request on components with '@provideHooks' decorator
 @provideHooks({
   fetch: ({ store: { dispatch, getState } }) =>
     !isInfoLoaded(getState()) ? dispatch(loadInfo()).catch(() => null) : Promise.resolve()
