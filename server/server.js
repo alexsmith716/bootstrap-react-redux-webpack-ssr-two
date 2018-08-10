@@ -322,24 +322,30 @@ export default function (parameters) {
       // match incoming 'route' and get the 'components' and 'params' from that match
       const { components, match, params } = await asyncMatchRoutes(routes, req.path);
 
-      // ensure all data for routes prefetched on server before rendering (inital render SSR)
+      // ensure all data for routes prefetched on server before rendering
       // 'trigger' all '@provideHooks' decorated components
       // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
-      // from matched route, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
-      // 'trigger' function ('server' && 'client') will initiate 'fetch' event on components with '@provideHooks' decorator
-      await trigger( 'fetch', components, { 
-        ...providers, 
-        store, match, 
-        params, 
-        history, 
-        location: history.location 
-      } );
+      // from matched routes, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
+      // 'trigger' function ('server' && 'client') will initiate 'fetch' request for components with '@provideHooks' decorator
+
+      // Define locals to be provided to all lifecycle hooks (@provideHooks)
+      const locals = {
+        ...providers,
+        store,
+        match,
+        params,
+        history,
+        location: history.location
+      };
+
+      // Wait for async data fetching to complete, then continue to render
+      await trigger( 'fetch', components, locals);
 
       const modules = [];
       const context = {};
 
       // 'react-router-config' (Static route configuration helpers for React Router):
-      //    With the introduction of React Router v4, there is no longer a centralized route configuration. 
+      //    With the introduction of React Router v4, there is no longer a centralized route configuration.
       //    There are some use-cases where it is valuable to know about all the app's potential routes such as:
       //    
       //    - Loading data on the server or in the lifecycle before rendering the next screen
