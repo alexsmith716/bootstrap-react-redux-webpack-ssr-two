@@ -118,6 +118,14 @@ initSocket();
 
     const { components, match, params } = await asyncMatchRoutes(_routes, history.location.pathname);
 
+    // ensure all data for routes prefetched on client before rendering
+    // 'trigger' all '@provideHooks' decorated components
+    // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
+    // from matched routes, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
+    // 'trigger' function ('server' && 'client') will initiate 'fetch' request for components with '@provideHooks' decorator
+    // for initial load, components App && Home. only App - '@@redial-hooks': {fetch: [Function: fetch]}
+
+    // Define locals to be provided to all lifecycle hooks (@provideHooks)
     const triggerLocals = {
       ...providers,
       store,
@@ -127,6 +135,7 @@ initSocket();
       location: history.location
     };
 
+    // Wait for async data fetching to complete, then continue to render
     await trigger('fetch', components, triggerLocals);
     await trigger('defer', components, triggerLocals);
 
