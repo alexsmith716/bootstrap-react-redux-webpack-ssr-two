@@ -66,7 +66,7 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
 ### Of Note:
 
-* decorators make it possible to annotate and modify classes and properties at design time
+* decorators make it possible to annotate and modify classes and properties at ru time
 * a higher-order component (HOC aka 'enhancers') refers to a function that accepts a single React component and returns a new React component
 * a component transforms props into UI, a HOC transforms a component into another component
 
@@ -161,6 +161,7 @@ class Car {
 
 * https://blog.kevinchisholm.com/javascript/javascript-closures-basics/
 * https://blog.kevinchisholm.com/javascript/javascript-closures-getters-setters/
+* https://blog.kevinchisholm.com/javascript/difference-between-scope-and-context/
 
 * JavaScript functions always (always) retain a reference to any variables that are in-scope when they are defined
 * so what about when a function is defined inside another function
@@ -170,10 +171,10 @@ class Car {
 
 
 `var drink = "wine";
-var foo = function(){
+var foo = function() {
    var drink = "beer";
-   return function(){
-       return drink;
+   return function() {
+      return drink;
    };
 };
 var bar = foo();
@@ -197,6 +198,22 @@ That is because “bar()” is a function, it returns a variable named “drink�
 
 At the most basic level, this is how closures work.
 
+* 'getting' && 'setting' a private variable ++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+
+`var drink = 'wine';
+var foo = function() {
+  var drink = 'beer';
+  return {
+     getDrink: function(){ return drink },
+     setDrink: function(newDrink){ drink = newDrink; return drink; }
+  };
+};
+var bar = foo()
+console.log( drink );                   // wine
+console.log( bar.getDrink() );          // beer
+console.log( bar.setDrink("juice") );   // juice
+console.log( bar.getDrink() );          // juice`
+
 * ===================================================================================================================
 
 * below is modified 'car' class making 'userGear' property private (eliminating/hiding access to 'gear')
@@ -205,7 +222,6 @@ At the most basic level, this is how closures work.
 * basically wrapping one function with another
 
 * When that returned function is assigned to a variable, as long as that variable is alive, it (a function) has access to the context of the function that wraps it. This means that the outer (or “wrapping”) function can contain a private member, but the wrapped function has access to it
-
 
 * 'WeakMap' provides the getters and setters to access the encapsulated 'userGear'
 
@@ -283,6 +299,63 @@ car1.shift('d');
 car1.userGear; // 'D'`
 
 
+#### Static Methods:
+
+* https://javascript.info/class
+
+* 'shift()' method is considered an 'prototype method'. it is designed to be useful against a specific instance
+* a static methods (class method), do not apply to a specific instance
+* in a static method, 'this' is bound to the class itself (though usually it is the name of the class)
+* Static methods perform generic tasks that are related to the class, but not any specific instance
+* following the 'car' class, the 'car' 'VIN' would logically apply to the class and not a 'car' instance
+* a 'vin()' method would be considered a 'Static' method (since it will apply to all 'vehicles', hence all 'cars', 'boats')
+* Static methods are used to perform generic tasks that are related to the whole class, but not class instances
+
+
+#### Inheritance:
+
+* the concept of prototype shows a type of inheritance:
+* when you create an instance of a class, it inherits whatever functionality is in the class’s prototype
+* if a method isn’t found on an object’s prototype, it checks the prototype’s prototype
+* a prototype chain is established upon class instantiation
+* javascript will walk up the prototype chain until it finds a prototype that satisfies the request 
+* if it can find no such prototype, it will finally error out
+* (i did not know this!!) -------------------------------------
+
+* long story short below
+
+`class Vehicle {
+  constructor() {
+    this.passengers = [];
+    console.log("Vehicle created");
+  }
+  addPassenger(p) {
+    this.passengers.push(p);
+  }
+}
+class Car extends Vehicle {
+  constructor() {
+    super();
+    console.log("Car created");
+  }
+  deployAirbags() {
+    console.log("BWOOSH!");
+  }`
+
+* 'extends' keyword: syntax marks Car as a subclass of 'Vehicle'
+* call to 'super()': a special function in JavaScript that invokes the superclass’s constructor
+* 'super()' function call is required for subclasses
+* instances of the 'Car' class can access all methods of the 'Vehicle' class, but not the other way around
+* a 'new Vehicle()' instance does not have a 'deployAirbags()' method (unless that subclass instance posess a 'deployAirbags()' 'prototype' method)
+
+#### Polymorphism:
+
+* a suclass instance is a member of both own its class and any superclasses
+* in javascript, the code can take the form of 'duck typing'
+* 'duck typing': 'if it walks like a duck, and quacks like a duck...it’s probably a duck.'
+* with 'Car' superclass/subclass example
+* if an object has a 'deployAirbags' method it probably is an instance of 'Car' class
+* testing an objects 'instanceof' operator against a class and then making an instance type assumption based on that evaluation
 
 
 #### Assignment Operators:
@@ -339,20 +412,28 @@ z; // error: 'z' hasn't been defined
 // all elements past 'y' are discarded`
 
 
+#### Destructuring Arguments:
 
 
+#### Default Arguments Syntax:
 
 
+#### Scope Versus Existence:
 
 
+#### Global Scope:
 
 
+#### Block Scope:
 
 
+#### Array Operations: map and filter:
 
 
+#### Array: reduce:
 
 
+#### Object Rest/Spread Properties:
 
 
-
+#### Using Object Spread Operator:
