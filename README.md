@@ -83,6 +83,254 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
 ### JS Refresher +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++:
 
+
+
+#### Functions:
+
+* A function is a self-contained collection of statements that run as a single unit: a subprogram
+* Functions are central to javascript's power
+* Every function has a body; the collection of statements that compose the function
+* calliing a function executes the body (aka run, execute, invoke, dispatch)
+* a function is an expression ( expressions resolve to a value )
+* a function call resolves to a value which is returned
+* the return keyword immediately terminates the function and returns the specified value
+* the function call resolves to the returned value
+* A function can return any type of value
+
+
+* Functions are objects and can be passed around and assigned just like any other object
+
+`function getGreeting() { 
+  return 'Hello world!';
+}`
+
+`getGreeting();  // calling the function - an 'identifier' followed by '() - parentheses'`
+`getGreeting;    // referencing the function. it is not invoked`
+
+
+* ALOT can be done by REFERENCING a Function
+
+
+* For example, you can assign a function to a variable, which allows you to call the function by another name:
+
+`const f = getGreeting;
+f(); // 'Hello world!'`
+
+
+* Or assign a function to an object property:
+
+`const o = {};
+o.f = getGreeting;
+o.f(); // 'Hello world!'`
+
+
+* -------------------------------------------------------------------------
+
+
+* Or add a function to an array:
+
+`const arr = [1, 2, 3];
+arr[1] = getGreeting;
+arr[1]();               // 'Hello world!'
+`
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+
+`arr[1]();   // 'Hello world!'`
+
+* if javascript encounters parentheses that follow a value, the value is assumed to be a function, and that function is called
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+
+`const a = 5, b = 0;
+function avg(a, b) { 
+  return (a + b)/2;
+}
+avg(a, b);
+`
+
+* `avg(a, b)`: 'a' && 'b' are the function 'arguments' ('parameters')
+* The variables 'a' and 'b' are separate, distinct variables from the arguments 'a' and 'b' in the function avg
+* variables can share the same as arguments
+* arguments/parameters (are like variables, but specific to the function body)
+* arguments/parameters exist only in the function
+* arguments/parameters exist only in the function, even if they have the same name as variables outside of the function
+
+* when a function is called, the function arguments receive the values passed in, not the variables themselves
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+
+`function f(x) {
+  console.log(`inside f: x = ${x}`);
+  x = 5;
+  console.log(`inside f: x = ${x} (after assignment)`);
+}
+let x = 3;
+console.log(`before calling f: x = ${x}`);
+f(x);
+console.log(`after calling f: x = ${x}`);
+`
+
+
+`// logged output from above --------------------------------------
+before calling f: x = 3
+inside f: x = 3
+inside f: x = 5 (after assignment)
+after calling f: x = 3
+`
+
+
+* assigning a value to 'x' inside a function doesn't affect the variable 'x' that's outside the function
+* arguments/parameters and variables are two distinct entities that may happen to have the same name
+
+* when assigning to an argument inside a function, there is no effect on any variables outside of the function
+
+* * the variable value 'x' is a PRIMITIVE value type so a change was made to outside variable 'x' value
+
+* showing working with 'Primitives' inside and outside a function
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+
+`function f(o) {
+  o.message = `set in f (previous value: '${o.message}')`;
+}
+let o = {
+  message: "initial value"
+};
+console.log(`before calling f: o.message="${o.message}"`);
+f(o);
+console.log(`after calling f: o.message="${o.message}"`);
+`
+
+
+`// logged output from above --------------------------------------
+before calling f: o.message="initial value"
+after calling f: o.message="set in f (previous value: 'initial value')"
+`
+
+* 'f' modified 'o' within the function, and those changes affected the object 'o' outside of the function
+* it is possible to modify an 'object type' from within a function
+* objects modified by functions retain that modification when returned outside the function
+
+* the object 'o' inside the function is separate and distinct from the object 'o' outside of the function
+* the object 'o' inside the function AND the object 'o' outside function BOTH refer to the same object
+
+* the variable value 'o' is a OBJECT value type so a change was made to outside variable 'o' value
+
+
+* -------------------------------------------------------------------------
+
+
+#### Primitive Types and Objects:
+
+* WHAT IS GOING ON with the above variable and object examples
+* the difference is between between 'primitives' and 'objects'
+* In JavaScript, values are either 'primitives' or 'objects'
+
+
+* PRIMITIVE TYPES (STRING, NUMBER, BOOLEAN) are 'IMMUTABLE'
+
+* 'IMMUTABLE': (unchanging over time or unable to be changed)
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+`let str = 'hello';
+str = 'world';`
+
+
+* 'immutable' doesn't mean the contents of a variable can't change
+* 'str' is initialized with the (immutable) value 'hello', and then it is assigned a new (immutable) value, 'world'
+* 'hello' and 'world' are different strings; only the value that 'str' holds has changed
+
+* immutable primitive types - only ever represent one value
+
+
+* -------------------------------------------------------------------------
+
+
+* OBJECT TYPE is 'MUTABLE'
+* objects can take on different forms and values
+* objects can represent multiple values
+* contents of an object are called 'properties'
+* object 'properties' consist of a name (or key) and value
+
+`const myObj = { name: 'Foo', size: 4, color: 'blue' };`
+
+* an object property value can be any type including a Function
+
+* Built-in javascript Object Types: (Array, Date, RegExp, Map && WeakMap, Set && WeakSet)
+
+
+
+* -------------------------------------------------------------------------
+
+
+* about this bit of code:
+
+
+`function f(o) {
+  o.message = "set in f";
+  o = {
+    message: "new object!"
+  };
+  console.log(`inside f: o.message="${o.message}" (after assignment)`);
+}
+let o = {
+  message: 'initial value'
+};
+console.log(`before calling f: o.message="${o.message}"`);
+f(o);
+console.log(`after calling f: o.message="${o.message}"`);`
+
+
+`// logged output from above --------------------------------------
+before calling f: o.message="initial value"
+inside f: o.message="new object!" (after assignment)
+after calling f: o.message="set in f"`
+
+
+* combine both previous examples into a new example showing usage of primitives and objects inside and outside a function
+
+* argument 'o' (inside the function) is different than the variable 'o' (outside the function) (as seen 1st example)
+* when 'f' is called, argument 'o' (inside the function) && variable 'o' (outside the function) both point to the same object
+* but when argument 'o' is assigned inside 'f', it points to a new, distinct object
+* the variable 'o' outside the function still points to the original object
+* the variable 'o' outside the function was MUTATED inside function 'f'
+* the variable 'o' outside the function has new value because of that mutation inside function 'f'
+
+* the variable value 'o' is a OBJECT value type so a change was made to outside variable 'o' value
+
+* showing working with 'OBJECTS' && 'Primitives' inside and outside a function
+
+
+* -------------------------------------------------------------------------
+
+
+
 #### Object-Oriented Programming:
 
 * an object is a logically related collection of data and functionality
@@ -154,7 +402,7 @@ class Car {
 * 'WeakMap' keys must be objects
 * Keys in a 'WeakMap' can be garbage-collected
 * A 'WeakMap' cannot be iterated or cleared
-* You can’t get an overview of the contents of a WeakMap
+* You can't get an overview of the contents of a WeakMap
 * because of above properties, 'WeakMap' can store private keys in object instances
 
 * ====================================================================================================================
@@ -182,19 +430,19 @@ console.log( drink );  //wine
 console.log( bar() );  //beer`
 
 
-For above, create a global variable named “drink” and set it equal to “wine”. 
-Next we have a function “foo”, that returns another function. 
-When we say: ‘var bar = foo()’, we are assigning the value that foo returns to bar.
+For above, create a global variable named "drink" and set it equal to "wine". 
+Next we have a function 'foo', that returns another function. 
+When we say: 'var bar = foo()', we are assigning the value that foo returns to bar.
 
 Since foo returns a function, then bar is now a function. 
 Because the function that has been assigned to bar is defined inside of foo, it has access to foo. 
 This means that in our case, bar returns a private variable that lives inside of foo. 
-That variable inside of foo named “drink”, has been set to “beer”. 
-So, in the global context, “drink” equals “wine” and in the context of foo, “drink” equals “beer”.
+That variable inside of foo named "drink", has been set to "beer". 
+So, in the global context, "drink" equals "wine" and in the context of foo, "drink" equals "beer".
 
-The end result is that when we pass the variable “drink” to the console, it is “wine”, because in the global scope, “drink” is equal to “wine”. 
-But when we pass “bar()” to the console, we get “beer”. 
-That is because “bar()” is a function, it returns a variable named “drink” and because “Bar()” was defined inside of foo, it returns the first “drink” it finds, which is private to “foo()” and it is equal to “beer”.
+The end result is that when we pass the variable "drink" to the console, it is "wine", because in the global scope, "drink" is equal to "wine". 
+But when we pass "bar()" to the console, we get "beer". 
+That is because "bar()" is a function, it returns a variable named "drink" and because "Bar()" was defined inside of foo, it returns the first "drink" it finds, which is private to "foo()" and it is equal to "beer".
 
 At the most basic level, this is how closures work.
 
@@ -221,7 +469,7 @@ console.log( bar.getDrink() );          // juice`
 * the result is a 'closure' that prevents exposure of the local/private scope to the global/public scope
 * basically wrapping one function with another
 
-* When that returned function is assigned to a variable, as long as that variable is alive, it (a function) has access to the context of the function that wraps it. This means that the outer (or “wrapping”) function can contain a private member, but the wrapped function has access to it
+* When that returned function is assigned to a variable, as long as that variable is alive, it (a function) has access to the context of the function that wraps it. This means that the outer (or "wrapping") function can contain a private member, but the wrapped function has access to it
 
 * 'WeakMap' provides the getters and setters to access the encapsulated 'userGear'
 
@@ -276,9 +524,9 @@ function Es5Car {}
 * the shift method on 'Car' instances is a prototype method
 * can be written as 'Car.prototype.shift'
 
-* What’s important about the 'prototype' is a mechanism called 'dynamic dispatch' ('method invocation')
+* What's important about the 'prototype' is a mechanism called 'dynamic dispatch' ('method invocation')
 * JavaScript performs 'dynamic dispatch' using the 'prototype chain'
-* When accessing a property or method on an object, if it doesn’t exist, JavaScript checks the object’s prototype to see if it exists there
+* When accessing a property or method on an object, if it doesn't exist, JavaScript checks the object's prototype to see if it exists there
 * Because all instances of a given class share the same prototype, if there is a property or method on the prototype, all instances of that class have access to that property or method
 * defining a method or property on an instance will override the version in the prototype
 * JavaScript first checks the instance before checking the prototype
@@ -304,7 +552,7 @@ car1.userGear; // 'D'`
 * https://javascript.info/class
 
 * 'shift()' method is considered an 'prototype method'. it is designed to be useful against a specific instance
-* a static methods (class method), do not apply to a specific instance
+* a static method (class method), does not apply to a specific instance
 * in a static method, 'this' is bound to the class itself (though usually it is the name of the class)
 * Static methods perform generic tasks that are related to the class, but not any specific instance
 * following the 'car' class, the 'car' 'VIN' would logically apply to the class and not a 'car' instance
@@ -315,8 +563,8 @@ car1.userGear; // 'D'`
 #### Inheritance:
 
 * the concept of prototype shows a type of inheritance:
-* when you create an instance of a class, it inherits whatever functionality is in the class’s prototype
-* if a method isn’t found on an object’s prototype, it checks the prototype’s prototype
+* when you create an instance of a class, it inherits whatever functionality is in the class's prototype
+* if a method isn't found on an object's prototype, it checks the prototype's prototype
 * a prototype chain is established upon class instantiation
 * javascript will walk up the prototype chain until it finds a prototype that satisfies the request 
 * if it can find no such prototype, it will finally error out
@@ -343,7 +591,7 @@ class Car extends Vehicle {
   }`
 
 * 'extends' keyword: syntax marks Car as a subclass of 'Vehicle'
-* call to 'super()': a special function in JavaScript that invokes the superclass’s constructor
+* call to 'super()': a special function in JavaScript that invokes the superclass's constructor
 * 'super()' function call is required for subclasses
 * instances of the 'Car' class can access all methods of the 'Vehicle' class, but not the other way around
 * a 'new Vehicle()' instance does not have a 'deployAirbags()' method (unless that subclass instance posess a 'deployAirbags()' 'prototype' method)
@@ -352,10 +600,16 @@ class Car extends Vehicle {
 
 * a suclass instance is a member of both own its class and any superclasses
 * in javascript, the code can take the form of 'duck typing'
-* 'duck typing': 'if it walks like a duck, and quacks like a duck...it’s probably a duck.'
+* 'duck typing': 'if it walks like a duck, and quacks like a duck...it's probably a duck.'
 * with 'Car' superclass/subclass example
 * if an object has a 'deployAirbags' method it probably is an instance of 'Car' class
 * testing an objects 'instanceof' operator against a class and then making an instance type assumption based on that evaluation
+
+
+
+* ====================================================================================================
+* ====================================================================================================
+* ====================================================================================================
 
 
 #### Assignment Operators:
@@ -373,11 +627,50 @@ class Car extends Vehicle {
 console.log('Number greater than 10 found: ${n}.');
 console.log('${nums.length} numbers remain.');`
 
-* concept super obvious && been used forever
 
-#### Assignment Operators:
+* ====================================================================================================
+
+
+#### Default Function Parameters:
+
+* ES6 provides ability to specify default values for arguments
+* previously, when values for arguments weren't provided, they got a value of 'undefined'
+* Default values allow you to specify some other default value
+
+`function f(a, b = "default", c = 3) { 
+  return `${a} - ${b} - ${c}`;
+ }`
+
+
+`// logged output from above --------------------------------------
+f(5, 6, 7);   // "5 - 6 - 7"
+f(5, 6);      // "5 - 6 - 3"
+f(5);         // "5 - default - 3"
+f();          // "undefined - default - 3"`
+
+
+* ====================================================================================================
+
+
+#### Rest and Spread Operators:
+
+
+
+
+
+
+
+
+* ====================================================================================================
+
 
 #### Destructuring Assignment (ES6):
+
+* Objects and arrays are used to group data in JavaScript
+* various patterns exist to systematically fetch data from these defined structures when we need them
+* ES6 further extends this process by making it easier and simpler through a process called 'destructuring'
+
+* Destructuring Assignment: enables the 'destructure' an object or an array into individual variables
 
 * Object Destructuring ++++++++++++++++++++++++++++++++++++++
 
@@ -412,13 +705,19 @@ z; // error: 'z' hasn't been defined
 // all elements past 'y' are discarded`
 
 
+* ====================================================================================================
+
+
 #### Destructuring Arguments:
 
 
-#### Default Arguments Syntax:
+* ====================================================================================================
+
 
 
 #### Scope Versus Existence:
+
+* Scope determines when and where variables, constants, and arguments are defined
 
 
 #### Global Scope:
@@ -427,13 +726,13 @@ z; // error: 'z' hasn't been defined
 #### Block Scope:
 
 
+#### Closure:
+
+
 #### Array Operations: map and filter:
 
 
 #### Array: reduce:
 
 
-#### Object Rest/Spread Properties:
 
-
-#### Using Object Spread Operator:
