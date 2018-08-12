@@ -122,7 +122,7 @@ initSocket();
     // 'trigger' all '@provideHooks' decorated components
     // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
     // from matched routes, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
-    // 'trigger' function ('server' && 'client') will initiate 'fetch' request for components with '@provideHooks' decorator
+    // 'trigger' function ('server' && 'client') will initiate 'fetch' event for components with '@provideHooks' decorator
     // for initial load, components App && Home. only App - '@@redial-hooks': {fetch: [Function: fetch]}
 
     // Define locals to be provided to all lifecycle hooks (@provideHooks)
