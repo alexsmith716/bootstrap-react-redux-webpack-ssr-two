@@ -326,7 +326,7 @@ export default function (parameters) {
       // 'trigger' all '@provideHooks' decorated components
       // The `@provideHooks` decorator allows you to define hooks for your custom lifecycle events,
       // from matched routes, get all data from routes's components ('isAuthLoaded', 'isInfoLoaded'. etc.)
-      // 'trigger' function ('server' && 'client') will initiate 'fetch' request for components with '@provideHooks' decorator
+      // 'trigger' function ('server' && 'client') will initiate 'fetch' event for components with '@provideHooks' decorator
 
       // Define locals to be provided to all lifecycle hooks (@provideHooks)
       const locals = {
@@ -450,7 +450,7 @@ export default function (parameters) {
     try {
 
       // preload all loadable components on the server
-      // make sure all loadable components are loaded when before rendering them 
+      // make sure all loadable components are loaded before rendering them 
       // Loadable.preloadAll(): returns >>> promise that will resolve <<< when all loadable components are ready
       await Loadable.preloadAll();
       const wc = await waitChunks(loadableChunksPath);

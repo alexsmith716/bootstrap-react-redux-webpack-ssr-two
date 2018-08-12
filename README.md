@@ -90,7 +90,7 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 * A function is a self-contained collection of statements that run as a single unit: a subprogram
 * Functions are central to javascript's power
 * Every function has a body; the collection of statements that compose the function
-* calliing a function executes the body (aka run, execute, invoke, dispatch)
+* calling a function executes the body (aka run, execute, invoke, dispatch)
 * a function is an expression ( expressions resolve to a value )
 * a function call resolves to a value which is returned
 * the return keyword immediately terminates the function and returns the specified value
@@ -186,9 +186,8 @@ f(x);
 console.log(`after calling f: x = ${x}`);
 `
 
-
-`// logged output from above --------------------------------------
-before calling f: x = 3
+* logged output from above --------------------------------------
+`before calling f: x = 3
 inside f: x = 3
 inside f: x = 5 (after assignment)
 after calling f: x = 3
@@ -200,9 +199,9 @@ after calling f: x = 3
 
 * when assigning to an argument inside a function, there is no effect on any variables outside of the function
 
-* * the variable value 'x' is a PRIMITIVE value type so a change was made to outside variable 'x' value
+* the variable value 'x' is a PRIMITIVE value type so a change was made to outside variable 'x' value
 
-* showing working with 'Primitives' inside and outside a function
+* example of working with 'Primitives' inside and outside a function
 
 
 * -------------------------------------------------------------------------
@@ -222,9 +221,8 @@ f(o);
 console.log(`after calling f: o.message="${o.message}"`);
 `
 
-
-`// logged output from above --------------------------------------
-before calling f: o.message="initial value"
+* logged output from above --------------------------------------
+`before calling f: o.message="initial value"
 after calling f: o.message="set in f (previous value: 'initial value')"
 `
 
@@ -307,13 +305,13 @@ f(o);
 console.log(`after calling f: o.message="${o.message}"`);`
 
 
-`// logged output from above --------------------------------------
-before calling f: o.message="initial value"
+* logged output from above --------------------------------------
+`before calling f: o.message="initial value"
 inside f: o.message="new object!" (after assignment)
 after calling f: o.message="set in f"`
 
 
-* combine both previous examples into a new example showing usage of primitives and objects inside and outside a function
+* combine both previous examples into a new example example of usage of primitives and objects inside and outside a function
 
 * argument 'o' (inside the function) is different than the variable 'o' (outside the function) (as seen 1st example)
 * when 'f' is called, argument 'o' (inside the function) && variable 'o' (outside the function) both point to the same object
@@ -324,7 +322,7 @@ after calling f: o.message="set in f"`
 
 * the variable value 'o' is a OBJECT value type so a change was made to outside variable 'o' value
 
-* showing working with 'OBJECTS' && 'Primitives' inside and outside a function
+* example of working with 'OBJECTS' && 'Primitives' inside and outside a function
 
 
 * -------------------------------------------------------------------------
@@ -598,7 +596,7 @@ class Car extends Vehicle {
 
 #### Polymorphism:
 
-* a suclass instance is a member of both own its class and any superclasses
+* a subclass instance is a member of both own its class and any superclasses
 * in javascript, the code can take the form of 'duck typing'
 * 'duck typing': 'if it walks like a duck, and quacks like a duck...it's probably a duck.'
 * with 'Car' superclass/subclass example
@@ -642,23 +640,11 @@ console.log('${nums.length} numbers remain.');`
  }`
 
 
-`// logged output from above --------------------------------------
-f(5, 6, 7);   // "5 - 6 - 7"
+* logged output from above --------------------------------------
+`f(5, 6, 7);   // "5 - 6 - 7"
 f(5, 6);      // "5 - 6 - 3"
 f(5);         // "5 - default - 3"
 f();          // "undefined - default - 3"`
-
-
-* ====================================================================================================
-
-
-#### Rest and Spread Operators:
-
-
-
-
-
-
 
 
 * ====================================================================================================
@@ -709,6 +695,121 @@ z; // error: 'z' hasn't been defined
 
 
 #### Destructuring Arguments:
+
+
+* ====================================================================================================
+
+
+#### ES6 Rest and Spread Operators:
+
+
+* Rest Operator (Usage with Arrays):
+
+* 'Rest' refers to gathering up parameters and putting them all into a single array
+* provides the ability to pass a function a dynamic number of parameters
+
+
+`var showCollections = function (id, ...collection) {
+  console.log(collection instanceof Array);
+};
+showCollections(42, "movies", "music");`
+
+
+* logged output from above --------------------------------------
+`true`
+
+
+* the '...' symbol is the rest symbol
+* the '...' symbol precedes a named parameter ('collection')
+* named parameter 'collection' becomes an Array that gathers all remaining parameters passed to the function
+
+
+`var showCollections = function (id, ...collection) {
+  console.log(collection);
+};
+showCollections(42, "movies", "music");`
+
+
+* logged output from above --------------------------------------
+`// ["movies", "music"]`
+
+
+* Rest parameter 'collection' gathers up all the remaining parameters after the 'id' parameter
+* Rest parameter 'collection' then turns those remaining parameters into an array called 'collection'
+* Excluding the first defined parameter 'id', everything will be placed in array 'collection'
+* calling 'showCollections' by passing it just one value which is the 'id', it logs out an empty array '[]'
+* calling 'showCollections.length' gives the number of parameters in the function (did not know that)
+
+
+* Rest Operator (Usage with Objects):
+
+* usage will collect the remaining enumerable property keys that are not already picked off by destructuring
+* those keys and their values are copied onto a new object
+* (when destructuring an object, variable names must match property names in the object)
+
+`let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };`
+
+
+* values from above --------------------------------------
+`x;   // 1
+y;    // 2
+z;    // { a: 3, b: 4 }`
+
+
+
+* Spread Operator:
+
+* 'Spread' refers to spreading out the elements of an array (or string)
+* spread operator is denoted by '...' before an array
+* spread operator does the reverse operation of a REST operator
+* spread operator 'spreads' out an array and passes the values into the specified function
+
+`let values = [200, 300, 400];
+let newSet = [100, ...values, 500]
+console.log(newSet);`
+
+
+* logged output from above --------------------------------------
+`// [100, 200, 300, 400, 500]`
+
+
+* spread '...' is used like a concatenation or insertion mechanism
+* the 'values' array is inserted in between the existing 'newSet' array values
+
+* the spread operator specifies a single array that is split into separate arguments
+* those separate arguments are then passed into a function or method
+
+
+* about this bit of code:
+
+`let numbers = [-25, 100, 42, -1000];
+console.log(Math.max(...numbers, 900));`
+
+* logged output from above --------------------------------------
+`// 900`
+
+
+* ('Math.max' function takes any number of arguments and returns the maximum value)
+* the spread operator spreads out the values in array '...numbers' as arguments in function call 'Math.max'
+
+
+* using spread operator to create copies of objects with new or updated values
+* the spread operator is a solution to not mutating state (a core tenet of Redux)
+
+* called 'object spread syntax', spread (...) operator to copy enumerable properties from one object to another
+
+
+* Spread Operator (Usage with Objects):
+
+* Spread properties in object initializers copies enumerable properties from a provided object onto the newly created object
+
+`let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+let n = { x, y, ...z };`
+
+
+* value from above --------------------------------------
+`n; // { x: 1, y: 2, a: 3, b: 4 }`
+
 
 
 * ====================================================================================================
