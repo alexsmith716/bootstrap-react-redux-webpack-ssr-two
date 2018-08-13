@@ -328,6 +328,75 @@ after calling f: o.message="set in f"`
 * -------------------------------------------------------------------------
 
 
+#### Functions and Scope:
+
+
+* in javascript there are two types of scope:
+
+* Local scope
+* Global scope
+
+* each function creates a new scope
+* scope determines the accessibility (visibility) of Local && Global scope variables
+* variables defined inside a function are not accessible (visible) from outside the function
+
+
+
+* Local JavaScript Variables:
+
+* variables declared within a javascript function, become LOCAL to the function
+* Local variables have Function scope: They can only be accessed from within the function
+
+`// code here can NOT use carName
+function myFunction() {
+  var carName = 'Volvo';
+  // code here CAN use carName
+}`
+
+
+* Since local variables are only recognized inside their functions, variables with the same name can be used in different functions
+* Local variables are created when a function starts, and deleted when the function is completed
+
+
+
+* Global JavaScript Variables:
+
+* A variable declared outside a function, becomes GLOBAL.
+
+
+`var carName = 'Volvo';
+// code here can use carName
+function myFunction() {
+  // code here can also use carName
+}`
+
+
+* JavaScript Variables:
+
+* In JavaScript, objects and functions are also variables
+
+* Scope determines the accessibility of variables, objects, and functions from different parts of the code
+
+
+
+* Automatically Global:
+
+
+* If you assign a value to a variable that has not been declared, it will automatically become a GLOBAL variable
+
+* Below code example declares a global variable 'carName', even if the value is assigned inside a function
+
+
+`myFunction();
+// code here can use carName
+function myFunction() {
+  carName = "Volvo";
+}`
+
+
+* -------------------------------------------------------------------------
+
+
 #### ES6 Arrow Functions:
 
 
@@ -451,16 +520,121 @@ return price;
 * ---------------
 
 
+* Functions And 'This' Keyword:
+
+* inside a function body, a special read-only value called 'this' is available
+* the 'this' keyword is associated with objects
+* the 'this' keyword relates to functions that are properties of objects
+
+
+* ---------------
+
+
+* Non-Arrow Functions  And 'This' Keyword:
+
+* when methods are called (a function that is a property of an object), the 'this' keyword takes on the value of the specific object it was called on 
+
+`const o = {
+  name: 'Wallace',
+  speak() { return `My name is ${this.name}!`; },
+}`
+
+calling `o.speak()`, the 'this' keyword is bound to 'o':
+
+`o.speak(); // My name is Wallace!`
+
+
+* 'this' is bound according to how the function is called, not where the function is declared
+* in above, 'this' keyword took on the value of object 'o'
+* 'this' is bound to 'o' not because 'speak' is a property of 'o', but because we called it directly on 'o' ('o.speak')
+
+
+*  assigning the above function to a variable:
+
+`const speak = o.speak;
+speak === o.speak;        // true; both variables refer to the same function 
+speak();                  // My name is !`
+
+
+* in above, function 'speak()' is assigned to variable 'speak'
+* in above, 'this' keyword took on the value of variable 'speak'
+* JavaScript doesn't know that the function was originally declared in 'o', so 'this' was bound to 'undefined'
+* If you call a function and it's not clear how to bind 'this', what this gets bound is 'undefined'
+
+
+* example below of 'this' in a nested function:
+
+
+`const o = {
+  name: 'Julie',
+  greetBackwards: function() {
+    function getReverseName() {
+      let nameBackwards = '';
+      for (let i = this.name.length - 1; i >= 0; i--) {
+        nameBackwards += this.name[i];
+      }
+      return nameBackwards;
+    }
+    return `${getReverseName()} si eman ym ,olleH`;
+  },
+};
+o.greetBackwards();`
+
+
+* nested function 'getReverseName' returns 'name' reversed
+* calling object 'o.greetBackwards()' binds to 'this'
+* however, calling function 'getReverseName' is bound to 'undefined'
+
+
+* below, a solution to the problem (bound to 'undefined') is to assign a second variable to 'this'
+* below, notice `const self = this;`
+
+
+`const o = {
+  name: 'Julie',
+  greetBackwards: function() {
+    const self = this;
+    function getReverseName() {
+      let nameBackwards = '';
+      for (let i = self.name.length - 1; i >= 0; i--) {
+        nameBackwards += self.name[i];
+      }
+      return nameBackwards;
+    }
+    return `${getReverseName()} si eman ym ,olleH`;
+  },
+};
+o.greetBackwards();`
+
+
+* In order to gain access to 'o' from within 'greetBackwards()', a local variable is created inside of 'greetBackwards' which refers to 'o'
+* this is a common technique addressing (bound to 'undefined'), where 'this' is assigned to 'self' or 'that'
+* A better technique is to use ES6 Arrow Functions
+
+
+* NODE will 'TypeError' if it's not clear how to bind 'this' !!
+* NODE will 'error Command failed with exit code 1' if it's not clear how to bind 'this' !!
+
+
+* ---------------
+
+
+
+* ES6 Arrow Functions And 'This' Keyword:
+
 * The real purpose of arrow functions is to handle the 'this' keyword within functions
 
+
 * 'this' behaves differently inside an arrow function
-* 'this' is the current execution context of a function
+* in an arrow function the 'this' keyword refers to the context of the function enclosing the arrow function
 
 * arrow functions are designed to bind the context
-* 'this' refers to the enclosing context where the arrow function is defined
-* unlike a normal function, an arrow function does not create its own execution context
+* with arrow functions 'this' refers to the enclosing context where the arrow function is defined
+* an arrow function does not create its own execution context (unlike a non-arrow function)
+* arrow functions automatically take 'this' from the outer function where it is defined
+* unlike a non-arrow function
 
-* arrow functions take 'this' from the outer function where it is defined
+* below example not using an arrow functions:
 
 
 `function Employee(firstName, department, salary) {
@@ -477,10 +651,46 @@ return price;
 }
 let jim = new Employee('Jim', 'Finance', 5200);`
 
+`let printInfo = jim.getInfo();
+printInfo();  // undefined from undefined earns undefined`
+
 
 * in the above example, a constructor function called 'Employee' is created
-* in the above example, a 'new' employee object called 'jim' is created
-* both are created using the constructor function with the 'new' keyword
+* in the above example, a new employee object called 'jim' is created with the 'new' keyword
+* (a regular function becomes a 'constructor' function when called on by 'new' keyword)
+* 'printInfo' is referring to the inner function context (arrow functions && non arrow functions)
+* 'this' is referring to the Global object that does not have any Employee properties (no arrow function)
+
+* Results of 'printInfo()':
+* 'printInfo' is producing 'undefined' whenever a property on 'this' is used
+
+* 
+
+* in above code, in order to gain access to 'Employee' object properties, a reference to 'Employee' is required inside 'getInfo()'
+* 
+
+
+
+
+* below example using an arrow function:
+
+
+`function Employee(firstName, department, salary) {
+  this.firstName = firstName;
+  this.department = department;
+  this.salary = salary;
+  this.getInfo = function() {
+    // outer function context = Employee object
+    return () => {
+      // inner function context = surrounding context = Employee object
+      console.log(this.firstName + " from " + this.department + " earns " + this.salary);
+    };
+  }
+}
+let jim = new Employee('Jim', 'Finance', 5200);`
+
+`let printInfo = jim.getInfo();
+printInfo(); // Jim from Finance earns 5200`
 
 
 
