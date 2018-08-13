@@ -328,6 +328,172 @@ after calling f: o.message="set in f"`
 * -------------------------------------------------------------------------
 
 
+#### ES6 Arrow Functions:
+
+
+* Arrow Functions do not use the function and return syntax
+* Arrow Functions read the same way the function executes
+
+* Basic syntax of an Arrow Function:
+
+`var fn = data => data;`
+
+* the first part of the left-hand side of the assignment statement is the argument that is provided to the function
+* If the function takes a single argument, the parentheses can be omitted
+* The next part is the arrow and then the expression that is to be returned
+
+* above function is equivalent to:
+
+`var fn = function(data) {
+  return data;
+};`
+
+
+* about this bit of code:
+
+`let getNumber = () => 42;
+console.log(typeof getNumber); // function
+console.log(getNumber()); // 42`
+
+
+* a new function called getNumber is declared and assigned using an arrow function
+* The empty parentheses () indicates the function has no parameters
+* the function returns the value 42
+* the return keyword is not used
+* the expression specified after the arrow will get returned as long as it is not wrapped in braces '{ }'
+
+
+`var getPrice = (quantity, tax) => (quantity * 5) * (1 + tax);
+console.log(getPrice(2, .095)); //  10.95`
+
+
+* parentheses '()' can be skipped if only one parameter
+* parentheses '()' are required with zero or more than one parameter
+
+* to specify a function block with more than one expression the body needs to be wrapped in braces '{ }'
+* to specify a function block with more than one expression the return keyword is needed to specify the return value
+
+
+`var getPrice = (quantity, tax) => {
+let price = (quantity * 5)
+price *= (1 + tax);
+return price;
+}`
+
+* logged output from above --------------------------------------
+`console.log(getPrice(2, .095)); //  10.95`
+
+
+* the braces '{ }' represent the function's body
+* for the arrow function to return an object literal outside the body, literal is wrapped in parentheses
+
+
+`var getNumber = data => ({ data: "check", number: 42 });`
+
+
+* the above is equivalent to:
+
+
+`var getNumber = function(data) {
+  return {
+    data: "check",
+    number: 42 
+  };
+};`
+
+
+* An object literal wrapped in parentheses shows that the braces are an object literal instead of the function body
+
+
+* ---------------
+
+
+* Using Arrow Functions to Create IIFEs
+
+* Functions in javascript can be used to create immediately invoked function expressions (IIFE)
+* an anonymous function is defined and called without having any reference to it
+* it is a pattern that shields the expression from the rest of the program
+
+
+`var fn = function(number) {
+  return {
+    getNumber: function() {
+      return number;
+    } 
+  };
+}(42);`
+
+`console.log(fn.getNumber()); // 42`
+
+
+* in the code above, an IIFE is used to create the getNumber() method
+* the code above uses the number argument as a return value
+* the code above ensures the number property is a private member of the returned object
+
+* arrow functions can achieve the above by wrapping it in parentheses
+
+`var fn = ((number) => {
+  return {
+    getNumber: function() {
+      return number;
+    } 
+  };
+})(42);`
+
+`console.log(fn.getNumber()); // 42`
+
+
+* arrow functions are function expressions and are not function declarations
+* arrow functions are anonymous function expressions
+* arrow functions are have no named reference for the purposes of recursion or event binding or unbinding
+
+
+* ---------------
+
+
+* The real purpose of arrow functions is to handle the 'this' keyword within functions
+
+* 'this' behaves differently inside an arrow function
+* 'this' is the current execution context of a function
+
+* arrow functions are designed to bind the context
+* 'this' refers to the enclosing context where the arrow function is defined
+* unlike a normal function, an arrow function does not create its own execution context
+
+* arrow functions take 'this' from the outer function where it is defined
+
+
+`function Employee(firstName, department, salary) {
+  this.firstName = firstName;
+  this.department = department;
+  this.salary = salary;
+  this.getInfo = function() {
+    // outer function context = Employee object
+    return function() {
+      // inner function context = Global object
+      console.log(this.firstName + " from " + this.department + " earns " + this.salary);
+    };
+  }
+}
+let jim = new Employee('Jim', 'Finance', 5200);`
+
+
+* in the above example, a constructor function called 'Employee' is created
+* in the above example, a 'new' employee object called 'jim' is created
+* both are created using the constructor function with the 'new' keyword
+
+
+
+
+
+
+
+
+
+
+
+* -------------------------------------------------------------------------
+
 
 #### Object-Oriented Programming:
 
