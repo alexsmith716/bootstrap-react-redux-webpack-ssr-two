@@ -4,16 +4,70 @@
 // ============================================================================
 
 
-### Expression:
-
-* an expression produces a value ( myvar, 3 + x, myfunc("a", "b" )
+### Syntax:
 
 
-### Statement:
+#### Expression:
 
-* a statement performs an action
+* an expression produces a value:
+
+  `var x = y >= 0 ? y : -y;`
 
 
+#### Statement:
+
+* a statement performs an action:
+
+  `var x;
+  if (y >= 0) {
+    x = y;
+  } else {
+    x = -y;
+  }`
+
+
+### Values:
+
+* All 'values' in JavaScript have 'properties'
+* Each 'property' has a 'key' (or name) and a 'value'
+
+  `output: {
+    path: '/assets',
+    publicPath: '/assets/',
+  }`
+
+* the dot (.) operator to reads a property:
+
+  `value.propKey`
+
+  `output.path.length
+  // or written as:
+  '/assets'.length`
+
+
+* The dot operator is also used to assign a value to a property:
+
+`const configuration = {};  // empty object
+configuration.mode = 'production'; // create property `mode`, set it to string 'production'`
+
+
+* The dot operator is also used to invoke methods:
+
+
+`configuration.plugins =`
+
+
+#### JavaScript Value Types:
+
+* Primitive Values: 
+
+
+
+
+
+// ============================================================================
+// ============================================================================
+// ============================================================================
 // ============================================================================
 
 
@@ -28,6 +82,7 @@
 #### Functions And 'This' Keyword -------------------------------:
 
 
+* In JavaScript, 'this' is the current execution context of a function
 * inside a function body, a special read-only value called 'this' is available
 * the 'this' keyword is associated with objects
 * the 'this' keyword relates to functions that are properties of objects
@@ -112,11 +167,12 @@ speak();                  // 'My name is !'`
 o.greetBackwards();`
 
 
-* nested function 'getReverseName' reverses the 'name'
-* calling 'o.greetBackwards()' binds 'this'
+* ES5, unlike ES6, creates it's own 'context' (how ES5 interperets it's surroundings)
+* nested function 'getReverseName' reverses string 'name'
+* when calling 'o.greetBackwards()' ES5 'correctly' binds 'this' to the object it was called on 'o'
 * However, when 'getReverseName()' is called from inside 'greetBackwards()', 'this' is bound to 'undefined'
-* ES5 is 'CONFUS CONTEXT' on inner function call 'getReverseName()' 
-* On ES5 inner function call to 'getReverseName()', 'this' is referring to the Global object that does not have any 'greetBackwards()' properties
+* ES5 'inaccurately' sets the context on inner function call 'getReverseName()' to the 'Global' object
+* On ES5 inner function call to 'getReverseName()', the context of 'Global' does not have any 'greetBackwards()' properties
 * On ES5 inner function call to 'getReverseName()', 'this' is binding to 'undefined'
 
 
@@ -187,7 +243,7 @@ o.greetBackwards();`
 * Scope is hierarchical, and there has to be something at the base of the tree
 * the scope that you're implicitly in when you start a program is called 'global scope'
 
-* When a JavaScript program starts (before any functions are called( it is executing in global scope
+* When a JavaScript program starts (before any functions are called) it is executing in global scope
 * The implication is that anything declared in global scope will be available to all scopes in your program
 
 * Anything declared in global scope is called a 'global'
