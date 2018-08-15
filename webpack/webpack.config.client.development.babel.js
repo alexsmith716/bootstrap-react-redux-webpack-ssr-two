@@ -167,7 +167,7 @@ configuration.plugins.push(
     __CLIENT__: true,
     __SERVER__: false,
     __DEVELOPMENT__: true,
-    __DEVTOOLS__: true,
+    __DEVTOOLS__: false,
   }),
 
   new ReactLoadablePlugin({
