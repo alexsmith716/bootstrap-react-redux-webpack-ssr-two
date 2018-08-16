@@ -57,7 +57,7 @@ console.log('>>>>>>>>>>>>>>>>> SERVER > loadableChunksPath +++++++++: ', loadabl
 
 let gracefulShutdown;
 
-let dbURL = serverConfig.mongoDBmongooseURL;
+const dbURL = serverConfig.mongoDBmongooseURL;
 
 if (process.env.NODE_ENV === 'production') {
   // dbURL = serverConfig.mongoLabURL;
@@ -84,7 +84,8 @@ mongoose.connect(dbURL, mongooseOptions, err => {
 // #########################################################################
 
 process.on('unhandledRejection', (error, promise) => {
-  console.error('>>>>>> server > Unhandled Rejection at:', promise, 'reason:', error);
+  console.error('>>>>>>>>>>>>>>>>> SERVER > process > unhandledRejection > promise:', promise);
+  console.error('>>>>>>>>>>>>>>>>> SERVER > process > unhandledRejection > error:', error);
 });
 
 // #########################################################################
@@ -101,7 +102,7 @@ export default function (parameters) {
   });
 
   const normalizePort = (val)  => {
-    let port = parseInt(val, 10);
+    const port = parseInt(val, 10);
     if (isNaN(port)) {
       // named pipe
       return val;
@@ -476,7 +477,7 @@ export default function (parameters) {
         console.log('>>>>>>>>>>>>>>>> server.js > Express server error: ', err);
       }
 
-      let bind = typeof port === 'string'
+      const bind = typeof port === 'string'
         ? 'Pipe ' + port
         : 'Port ' + port;
 
@@ -509,8 +510,8 @@ export default function (parameters) {
     });
 
     server.on('listening', () => {
-      let addr = server.address();
-      let bind = typeof addr === 'string'
+      const addr = server.address();
+      const bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
       console.log('>>>>>>>>>>>>>>>> server.js > Express server Listening on: ', bind);

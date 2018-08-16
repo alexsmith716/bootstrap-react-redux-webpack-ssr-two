@@ -339,7 +339,7 @@ console.log(price); // 12`
 * ES6 variables are declared using 'let' and 'const'
 * 'let' && 'const' variables are block-scoped, their scopes are the innermost enclosing blocks '{ }' 
 
-* 'let' is bascially a block-scoped version of 'var'
+* 'let' is basically a block-scoped version of 'var'
 * 'let' is similar to 'var', but the variable 'let' declares is block-scoped, it only exists within the current block
 
 * 'const' works like 'let', but creates variables whose values can't be changed
