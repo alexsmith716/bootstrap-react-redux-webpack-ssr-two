@@ -365,17 +365,178 @@ console.log('>>> aaa: ', aaa); // 42`
 
 
 
+### Functions:
+
+
+#### Basics (ES5 && ES6):
+
+* A function encloses a set of statements
+
+* Functions in JavaScript are objects
+
+* Objects are collections of name/value pairs having a hidden link to a prototype object
+
+* Objects produced from object literals (objects) are linked to Object.prototype
+
+* Function objects are linked to 'Function.prototype' (which is linked to 'Object.prototype')
+
+* Every function is created with two hidden properties: the function's 'context' and the code that implements the function's 'behavior'
+
+* Every function is created with a prototype 'property'
+
+* Its value is an object with a constructor property whose value is the function
+
+* functions are objects, and can be used like any other value
+
+* functions can be stored in variables, objects, and arrays
+
+* functions can be passed as arguments to functions, and functions can be returned from functions
+
+* functions can have methods
+
+* The thing that is special about functions is that they can be 'invoked'
+
+
+* There are two ways to define functions: 'declarations' and 'expressions'
+
+
+* Function 'declarations' are named functions called/invoked with the function keyword:
+
+`// declaration +++++++++++++++++++++++++++
+function addOne(foo) {
+  return foo + 1
+}`
+
+
+*  Function 'expressions' are anonymous functions that are assigned to a variable
+
+`// expression +++++++++++++++++++++++++++
+const addOne = function(foo) {
+  return foo + 1
+}`
+
+
+
+
+#### Function Literal:
+
+* The word 'literal' means that you're providing the value directly in the program
+* A 'literal' is a way to create a value; JavaScript takes the literal value provided and creates a data value from it
+
+* Function objects are created with function literals:
+
+`// Create a variable called 'add' and store a function in it that adds two numbers
+//
+var add = function (a, b) { 
+  return a + b;
+};`
+
+* A function literal has four parts:
+
+* The first part is the reserved word function
+
+* The optional second part is the function's name
+* The function can use its name to call itself recursively
+* The name can also be used by debuggers and development tools to identify the function
+* If a function is not given a name, as shown in the above example, it is said to be 'anonymous'
+
+* The third part is the set of parameters of the function, wrapped in parentheses
+
+* The fourth part is a set of statements wrapped in curly braces.
+* These statements are the body of the function
+* They are executed when the function is invoked.
+
+* A function literal can appear anywhere that an expression can appear
+
+* Functions can be defined inside of other functions
+
+* An inner function has access to its own parameters and variables
+
+* An inner function also has access to the parameters and variables of the functions it is nested within
+
+* The function object created by a function literal contains a link to it's outer context (closure)
+
+
+
+#### Function Invocation (ES5):
+
+* Invoking a function suspends the execution of the current function, passing control and parameters to the new function
+
+* In addition to the declared parameters, every function receives two additional parameters: 'this' and 'arguments'
+
+* The 'this' parameter is very important in object oriented programming
+
+* The 'this' parameter's value is determined by the invocation pattern
+
+* There are four patterns of invocation in JavaScript: 
+
+* the method invocation pattern
+* the function invocation pattern
+* the constructor invocation pattern
+* the apply invocation pattern. 
+
+* The patterns differ in how the parameter 'this' is initialized
+
+* 'this' is 
 
 
 
 
 
+### Arrow Functions (ES6):
+
+* Arrow Functions read the same way the function executes
+
+* Basic syntax of arrow functions:
+
+`var fn = data => data;`
+
+* left-hand side of the assignment statement is argument provided to the function
+
+* if the function takes a single argument/parameter, you can omit the parentheses
+
+* more than one argument/parameter, requires parentheses
+
+* The next part is the arrow and the expression that is to be returned
+
+* the expression specified after the arrow will get returned as long as it is not wrapped in curly braces/brackets '{ }'
+
+`var getPrice = (quantity, tax) => (quantity * 5) * (1 + tax);
+console.log(getPrice(2, .095)); //  10.95
+`
+* a single expression, does not require the '{ }' or the 'return' statement
+
+* a function block with a single expression does not require brackets and the expression is automatically returned
+
+* a function block with more than one expression requires brackets and a 'return' statement with a returned value
+
+`var getPrice = (quantity, tax) => {
+  let price = (quantity * 5)
+  price *= (1 + tax);
+  return price;
+}
+console.log(getPrice(2, .095)); //  10.95`
 
 
+* for an arrow function to return an 'object literal', the literal is wrapped in parentheses '( )'
+
+`var getNumber = data => ({ data: 'check', number: 42 });
+// equivalent to:
+var getNumber = function(data) {
+  return {
+    data: 'check',
+    number: 42 
+  };
+};`
 
 
+* An object literal wrapped in parentheses shows that the braces are an object literal not the function body
 
+* Arrow functions are always anonymous
 
+* Arrow functions can be assigned to a variable
+
+* Arrow functions cannot be created as named function like you can with the function keyword.
 
 
 

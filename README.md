@@ -73,3 +73,21 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 * const EnhancedComponent = hoc(BaseComponent);
 * import { Provider as ReduxProvider } from 'react-redux';
 * const Provider = withContext(ReduxProvider);
+
+
+### Mongo / Mongoose:
+
+* Multiple Mongo Connections:
+* https://mongoosejs.com/docs/connections.html#multiple_connections
+
+* https://mongoosejs.com/docs/
+* https://mongoosejs.com/docs/connections.html
+* https://mongoosejs.com/docs/promises.html
+
+* https://docs.mongodb.com/manual/reference/connection-string/
+
+
+
+
+
+

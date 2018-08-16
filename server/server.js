@@ -55,8 +55,6 @@ console.log('>>>>>>>>>>>>>>>>> SERVER > loadableChunksPath +++++++++: ', loadabl
 
 // #########################################################################
 
-let gracefulShutdown;
-
 const dbURL = serverConfig.mongoDBmongooseURL;
 
 if (process.env.NODE_ENV === 'production') {
@@ -73,13 +71,14 @@ const mongooseOptions = {
 // #########################################################################
 
 mongoose.Promise = global.Promise;
-mongoose.connect(dbURL, mongooseOptions, err => {
-  if (err) {
-    console.error('####### > Please make sure Mongodb is installed and running!');
-  } else {
-    console.error('####### > Mongodb is installed and running!');
-  }
-});
+
+mongoose.connect(dbURL, mongooseOptions).then(
+  () => { console.log('####### > Mongodb is installed and running!'); },
+  err => { console.error('####### > Please make sure Mongodb is installed and running!'); }
+);
+
+// https://mongoosejs.com/docs/connections.html#multiple_connections
+// mongoose.createConnection('mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]', options);
 
 // #########################################################################
 
@@ -529,46 +528,53 @@ export default function (parameters) {
 
 // #########################################################################
 
+// MONGOOSE CONNECTION EVENTS
 
-mongoose.connection.on('connected', function() {
-  console.log('####### > MONGOOSE CONNECTED: ' + dbURL);
+mongoose.connection.on('connected', () => {
+  console.log('####### > Mongoose Connection: ' + dbURL);
 });
 
-mongoose.connection.on('error', function(err) {
-  console.log('####### > Mongoose connection error: ' + err);
+mongoose.connection.on('error', (err) => {
+  console.log('####### > Mongoose Connection error: ' + err);
 });
 
-mongoose.connection.on('disconnected', function() {
-  console.log('####### > Mongoose disconnected');
+mongoose.connection.on('disconnected', () => {
+  console.log('####### > Mongoose Connection disconnected');
 });
 
-// Handle Mongoose/Node connections
-gracefulShutdown = function(msg, callback) {
-  mongoose.connection.close(function() {
-    console.log('####### > Mongoose disconnected through: ' + msg);
-    callback();
+// CLOSE MONGOOSE CONNECTION
+
+let gracefulShutdown = (msg, cb) => {
+  mongoose.connection.close(() => {
+    console.log('####### > Mongoose Connection closed through: ' + msg);
+    cb();
   })
 };
 
-// For app termination
-process.on('SIGINT', function() {
-  gracefulShutdown('app termination', function() {
+// listen for Node processes / events
+
+// Monitor App termination
+// listen to Node process for SIGINT event
+process.on('SIGINT', () => {
+  gracefulShutdown('app termination', () => {
     console.log('####### > Mongoose SIGINT gracefulShutdown');
     process.exit(0);
   })
 });
 
 // For nodemon restarts
-process.once('SIGUSR2', function() {
-  gracefulShutdown('nodemon restart', function() {
+// listen to Node process for SIGUSR2 event
+process.once('SIGUSR2', () => {
+  gracefulShutdown('nodemon restart', () => {
     console.log('####### > Mongoose SIGUSR2 gracefulShutdown');
     process.kill(process.pid, 'SIGUSR2');
   })
 });
 
 // For Heroku app termination
-process.on('SIGTERM', function() {
-  gracefulShutdown('Heroku app termination', function() {
+// listen to Node process for SIGTERM event
+process.on('SIGTERM', () => {
+  gracefulShutdown('Heroku app termination', () => {
     console.log('####### > Mongoose SIGTERM gracefulShutdown');
     process.exit(0);
   })
