@@ -13,13 +13,13 @@ try {
 
     config.plugins.push('dynamic-import-node');
 
-    console.log('>>>>>>>>>>>>>>>> SERVER.BABEL > GOOD !!! parsing .babelrc <<<<<<<<<<<<<<<<<<<');
+    console.log('>>>>>>>>>>>>>>>> SERVER.BABEL > GOOD !!! parsing .babelrc !!!');
 
   }
 
 } catch (err) {
 
-  console.log('>>>>>>>>>>>>>>>> SERVER.BABEL > ERROR !!! parsing .babelrc <<<<<<<<<<<<<<<<<<<');
+  console.log('>>>>>>>>>>>>>>>> SERVER.BABEL > ERROR !!! parsing .babelrc > err: ', err);
 
 }
 
