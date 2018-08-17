@@ -1,4 +1,10 @@
 
+@import "../app/functions.scss";
+
+@import "../app/variables.scss";
+
+@import "../app/fonts.scss";
+
 // Variables should follow the `$component-state-property-size` formula for
 // consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs
 
@@ -18,17 +24,10 @@ $body-bg: #F7F7F7; // gray 97
 // ------------ Override default '$font-family-sans-serif' variable ---------
 // --------------------------------------------------------------------------
 
-// custom font folder url path
-$fonts-url-path: '../../../fonts';
-
 // Override default Bootstrap '$font-family-sans-serif' variable with "Old English"
 // $font-family-sans-serif: "Old English", Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-// '@font-face' rule loads font located at '$fonts-url-path' and overrides default '$font-family-sans-serif'
-@font-face {
-  font-family: 'Old English';
-  src: url('#{$fonts-url-path}/old-english.woff2') format('woff2');
-}
+// '@font-face' rule loads font located at '$font-assets-url-path' and overrides default '$font-family-sans-serif'
 
 // --------------------------------------------------------------------------
 // --------------------------------------------------------------------------

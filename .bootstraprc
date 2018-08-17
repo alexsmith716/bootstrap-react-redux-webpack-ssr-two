@@ -1,7 +1,7 @@
 {
   "bootstrapVersion": 4,
-  "preBootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/preBootstrapCustomizations.scss",
-  "bootstrapCustomizations": "./client/assets/scss/bootstrap/customizations/bootstrapCustomizations.scss",
+  "preBootstrapCustomizations": "./client/assets/scss/bootstrap/preBootstrapCustomizations.scss",
+  "bootstrapCustomizations": "./client/assets/scss/bootstrap/bootstrapCustomizations.scss",
   "appStyles": "./client/assets/scss/app/theme.scss",
   "loglevel": "disabled",
   "env": {

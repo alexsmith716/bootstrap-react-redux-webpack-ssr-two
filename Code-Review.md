@@ -248,8 +248,6 @@ o.greetBackwards();`
 
 * Anything declared in global scope is called a 'global'
 
-* Globals are not bad they are a necessity
-
 * sort of like anything declared in the scope of a function will be available to anything called from that function
 
 
