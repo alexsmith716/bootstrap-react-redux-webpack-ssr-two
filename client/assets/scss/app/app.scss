@@ -121,9 +121,9 @@ hr.light {
   @include montserratlight-font;
 }
 
-.font-bootstrap-default {
-  @include bootstrap-default-font;
-}
+// .font-bootstrap-default {
+//   @include bootstrap-default-font;
+// }
 
 .font-opensans-bold-webfont {
   @include opensans-bold-webfont-font;

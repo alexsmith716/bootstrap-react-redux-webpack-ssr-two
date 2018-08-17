@@ -407,7 +407,11 @@ export default function (parameters) {
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store.getState: ', store.getState());
       // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
 
-      if (req.originalUrl !== locationState.pathname + locationState.search) {
+      // decodeURIComponent: decode percent-encoded characters in the query string
+      // parses a URL Query String into a collection of key and value pairs
+      // 'foo=bar&abc=xyz&abc=123' >>>> '{foo: 'bar',abc: ['xyz', '123']}'
+      // https://nodejs.org/api/all.html#querystring_querystring_parse_str_sep_eq_options
+      if (decodeURIComponent(req.originalUrl) !== decodeURIComponent(locationState.pathname + locationState.search)) {
         return res.redirect(301, locationState.pathname);
       }
 
