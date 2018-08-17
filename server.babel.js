@@ -1,9 +1,9 @@
 
-require("@babel/polyfill");
+require('@babel/polyfill');
 
-var fs = require('fs');
-var babelrc = fs.readFileSync('./.babelrc');
-var config;
+const fs = require('fs');
+const babelrc = fs.readFileSync('./.babelrc');
+let config;
 
 try {
 
