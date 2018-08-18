@@ -3,11 +3,9 @@ require('@babel/polyfill');
 
 const fs = require('fs');
 const babelrc = fs.readFileSync('./.babelrc');
-let config;
+const config = JSON.parse(babelrc);
 
 try {
-
-  config = JSON.parse(babelrc);
 
   if (Array.isArray(config.plugins)) {
 

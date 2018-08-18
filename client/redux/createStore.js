@@ -36,6 +36,7 @@ function getNoopReducers(reducers, data) {
 }
 
 // =======================================================================================
+// const store = createStore({ history, data: {...preloadedState,...window.__data,online}, helpers: providers, persistConfig });
 
 export default function createStore({ history, data, helpers, persistConfig }) {
 
@@ -84,7 +85,7 @@ export default function createStore({ history, data, helpers, persistConfig }) {
   console.log('>>>>>>>>>>>>>>>>>>> createStore.JS > store 1: ', store);
   // -----------------------------------------
 
-  store.asyncReducers = {};
+  //store.asyncReducers = {};
 
   store.inject = _reducers => inject(store, _reducers, persistConfig);
 
@@ -92,6 +93,7 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // -----------------------------------------
 
+  // persist and rehydrate a redux store
   if (persistConfig) {
     const persistoid = createPersistoid(persistConfig);
     store.subscribe(() => { persistoid.update(store.getState()); });
@@ -100,15 +102,15 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // -----------------------------------------
 
-  // https://github.com/59naga/babel-plugin-add-module-exports
-  if (__DEVELOPMENT__ && module.hot) {
-    module.hot.accept('./reducer', () => {
-      let reducer = require('./reducer').default;
-      console.log('>>>>>>>>>>>>>>>>>>> createStore > createStore > reducer !!!: ', reducer);
-      reducer = combine((reducer.__esModule ? reducer.default : reducer)(store.asyncReducers), persistConfig);
-      store.replaceReducer(reducer);
-    });
-  }
+  // // https://github.com/59naga/babel-plugin-add-module-exports
+  // if (__DEVELOPMENT__ && module.hot) {
+  //   module.hot.accept('./reducer', () => {
+  //     let reducer = require('./reducer').default;
+  //     console.log('>>>>>>>>>>>>>>>>>>> createStore > createStore > reducer !!!: ', reducer);
+  //     reducer = combine((reducer.__esModule ? reducer.default : reducer)(store.asyncReducers), persistConfig);
+  //     store.replaceReducer(reducer);
+  //   });
+  // }
 
   // -----------------------------------------
 

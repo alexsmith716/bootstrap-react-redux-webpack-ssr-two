@@ -201,12 +201,14 @@ initSocket();
     window.document.body.insertBefore(devToolsDest, null);
     const DevTools = require('./containers/DevTools/DevTools').default;
 
-    ReactDOM.hydrate(
+    const xoo = ReactDOM.hydrate(
       <Provider store={store}>
         <DevTools />
       </Provider>,
       devToolsDest
     );
+
+    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension > xoo: ', xoo);
   }
 
   // if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
