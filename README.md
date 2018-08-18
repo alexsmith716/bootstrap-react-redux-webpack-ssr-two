@@ -85,9 +85,3 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 * https://mongoosejs.com/docs/promises.html
 
 * https://docs.mongodb.com/manual/reference/connection-string/
-
-
-
-
-
-
