@@ -23,6 +23,30 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
     Port: 3001
 
 
+### Code-Splitting:
+
+* utilizing 'dynamic import' format
+* benefit: initial payload of app is smaller
+* split points get loaded on demand
+* entire app based on code splitting pattern via `react-loadable` library
+* entire app based on splits (minus App.js, Home.js && NotFound.js)
+* examples found in 'client/containers... Loadable.js' modules
+
+* Regarding 'Loadable.js' modules:
+
+* regarding utilization of optional 'webpackChunkName':
+* allows the pulling of multiple split points into a single bundle
+* split points with the same name will be grouped
+* each split point generates a separate bundle
+* allows for composition (load multiple resources in parallel)
+
+* webpack wrapps emitted split point chunks in a `webpackJsonp` block
+
+* initially app split points are router based
+* feature based split points added later
+
+
+
 ### Webpack-Serve (references):
 
   https://github.com/webpack-contrib/webpack-serve

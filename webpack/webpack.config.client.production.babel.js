@@ -28,8 +28,6 @@ const serverPath = path.resolve(configuration.context, './build/server');
 
 // ==============================================================================================
 
-configuration.mode = 'production';
-
 function recursiveIssuer(m) {
   if (m.issuer) {
     return recursiveIssuer(m.issuer);
@@ -41,7 +39,7 @@ function recursiveIssuer(m) {
 }
 
 // configuration.devtool = 'source-map';
-// configuration.devtool = 'hidden-source-map';
+// configuration.devtool = 'hidden-source-map'; // stack trace info only
 
 configuration.stats = {
   // assets: true,
@@ -74,13 +72,13 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 3,
-          sourceMap: true,
+          // sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
+          // sourceMap: true,
           config: {
             path: 'postcss.config.js'
           }
@@ -90,8 +88,8 @@ configuration.module.rules.push(
         loader: 'sass-loader',
         options: {
           outputStyle: 'expanded',
-          sourceMap: true,
-          sourceMapContents: true
+          // sourceMap: true,
+          // sourceMapContents: true
         }
       },
       {
@@ -116,13 +114,13 @@ configuration.module.rules.push(
           modules: true,
           localIdentName: '[name]__[local]__[hash:base64:5]',
           importLoaders: 1,
-          sourceMap: true,
+          // sourceMap: true,
         }
       },
       {
         loader: 'postcss-loader',
         options: {
-          sourceMap: true,
+          // sourceMap: true,
           config: {
             path: 'postcss.config.js'
           }

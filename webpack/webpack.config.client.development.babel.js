@@ -97,9 +97,9 @@ configuration.module.rules.push(
         loader: 'postcss-loader',
         options: {
           sourceMap: true,
-          //config: {
-          //  path: 'postcss.config.js'
-          //}
+          config: {
+            path: 'postcss.config.js'
+          }
         }
       },
       {
@@ -143,9 +143,9 @@ configuration.module.rules.push(
         loader : 'postcss-loader',
         options: {
           sourceMap: true,
-          //config: {
-          //  path: 'postcss.config.js'
-          //}
+          config: {
+            path: 'postcss.config.js'
+          }
         }
       },
     ]
