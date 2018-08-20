@@ -1,11 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import renderRoutes from 'react-router-config/renderRoutes';
 import { provideHooks } from 'redial';
+import { connect } from 'react-redux';
+
 import Helmet from 'react-helmet';
 import qs from 'qs';
 
@@ -31,7 +33,7 @@ import config from '../../../config/config';
 
 // 'provideHooks' data fetching and advanced route lifecycle management 
 // define (@provideHooks) and (trigger) route-level lifecycle hooks
-// HOC to ensure all data for routes is prefetched on server before attempting to render
+// HOC to ensure all data for routes is prefetched on server before attempting to 'render()'
 // define hooks for custom lifecycle events
 // 'trigger' function ('server' && 'client') will initiate 'fetch' request on components with '@provideHooks' decorator
 @provideHooks({
