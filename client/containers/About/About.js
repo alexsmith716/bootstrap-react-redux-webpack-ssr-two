@@ -35,6 +35,8 @@ export default class About extends Component {
 
       <div className="container">
 
+        <Helmet title="About Us" />
+
         <h1 className={`mt-4 mb-3 ${styles.aboutUniqueColor}`}>About</h1>
 
         <div className="row">

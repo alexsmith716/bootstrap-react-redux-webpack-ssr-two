@@ -497,7 +497,7 @@ var add = function (a, b) {
 
 * The next part is the arrow and the expression that is to be returned
 
-* the expression specified after the arrow will get returned as long as it is not wrapped in curly braces/brackets '{ }'
+* 'return' keyword can be left out in arrow functions as long as it is not wrapped in curly braces/brackets '{ }'
 
 `var getPrice = (quantity, tax) => (quantity * 5) * (1 + tax);
 console.log(getPrice(2, .095)); //  10.95
@@ -506,7 +506,7 @@ console.log(getPrice(2, .095)); //  10.95
 
 * a function block with a single expression does not require brackets and the expression is automatically returned
 
-* a function block with more than one expression requires brackets and a 'return' statement with a returned value
+* a function block with more than one expression requires brackets '{ }' and a 'return' statement with a returned value
 
 `var getPrice = (quantity, tax) => {
   let price = (quantity * 5)

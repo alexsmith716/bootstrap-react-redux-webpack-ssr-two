@@ -3,7 +3,8 @@
 // https://mjrussell.github.io/redux-auth-wrapper/docs/Getting-Started/ReactRouter4.html
 // https://github.com/mjrussell/redux-auth-wrapper/tree/master/examples/react-router-4
 import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
-import { routerActions } from 'connected-react-router';
+import { replace } from 'connected-react-router';
+// routerActions.replace
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -31,23 +32,34 @@ const isAuthenticated = connectedReduxRedirect({
   redirectPath: '/login',
   // If authenticatedSelector is true, wrapper will not redirect
   // So if there is no user data, then we show the page
-  authenticatedSelector: state => state.auth.user !== null,
+  authenticatedSelector: state => {
+    const a = state.auth.user;
+    console.log('>>>>>>>>>>>>>>>> ROUTES.JS > isAuthenticated: ', a); 
+    return a === null;
+  },
   // dispatch a redux action to navigate - pass the redux action creator to redirectAction
-  redirectAction: routerActions.replace,          
+  redirectAction: replace,          
   wrapperDisplayName: 'UserIsAuthenticated'
 });
+
 
 const isNotAuthenticated = connectedReduxRedirect({
   // url to redirect if check fails
   redirectPath: '/',
   // If authenticatedSelector is true, wrapper will not redirect
-  authenticatedSelector: state => state.auth.user === null,
+  authenticatedSelector: state => {
+    const a = state.auth.user;
+    console.log('>>>>>>>>>>>>>>>> ROUTES.JS > isNotAuthenticated: ', a); 
+    return a === null;
+  },
   // dispatch a redux action to navigate - pass the redux action creator to redirectAction
-  redirectAction: routerActions.replace,
+  redirectAction: replace,
   wrapperDisplayName: 'UserIsAuthenticated',
   // prevent adding the query parameter when we send the user away from the Register page
   allowRedirectBack: false
 });
+
+
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -63,8 +75,8 @@ const routes = [{
     { path: '/login', component: Login },
     { path: '/login-success', component: isAuthenticated(LoginSuccess) },
     { path: '/register', component: isNotAuthenticated(Register) },
-    { component: NotFound },
-  ],
+    { component: NotFound }
+  ]
 }];
 
 export default routes;
