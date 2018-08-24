@@ -56,14 +56,12 @@ import config from '../../../config/config';
 // connect component to redux store
 // passes state and action creators into component derived from supplied arguments
 // connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+// mapStateToProps: subscribe to store updates (any time store is updated, 'mapStateToProps' is called)
+// mapDispatchToProps: action creators
 // pushState(href) — pushes a new location onto the history stack (push history method)
-@connect(
-  state => ({
-    notifs: state.notifs,
-    user: state.auth.user
-  }),
-  { logout, pushState: push }
-)
+// function mapStateToProps(state) // inject 'notifs' and 'user'
+// function mapDispatchToProps(dispatch) inject action creators 'logout' and 'pushState'
+@connect( state => ({ notifs: state.notifs, user: state.auth.user }), { logout, pushState: push } )
 
 // HOC to access the imperative API
 // You can get access to the history object's properties and the closest <Route>'s 
@@ -73,6 +71,8 @@ import config from '../../../config/config';
 
 // --------------------------------------------------------------------------
 
+// ES6 does not support creating properties with 'static'
+// Stage 3 proposal >>> "@babel/plugin-proposal-class-properties"
 
 export default class App extends Component {
 
@@ -171,6 +171,22 @@ export default class App extends Component {
 
                 <li className="nav-item">
                   <Link to='/about' className="nav-link js-scroll-trigger">About</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to='/about-one' className="nav-link js-scroll-trigger">AboutOne</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to='/about-two' className="nav-link js-scroll-trigger">AboutTwo</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to='/about-three' className="nav-link js-scroll-trigger">AboutThree</Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link to='/about-four' className="nav-link js-scroll-trigger">AboutFour</Link>
                 </li>
 
                 <li className="nav-item">

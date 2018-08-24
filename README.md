@@ -10,6 +10,17 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
   1) Implement `eslint`, `chai` && `jest`
 
+### SCSS:
+
+* Basic Guide:
+* https://sass-lang.com/guide
+
+* Built-in Functions:
+* http://sass-lang.com/documentation/Sass/Script/Functions.html
+
+* Useful:
+* https://gist.github.com/jareware/4738651
+
 
 ### PORTS:
 

@@ -193,23 +193,22 @@ initSocket();
 
   // ==============================================================================================
 
-  if (__DEVTOOLS__ && !window.devToolsExtension) {
+  // if (__DEVTOOLS__ && !window.devToolsExtension) {
 
-    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension');
+  //   console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension');
 
-    const devToolsDest = document.createElement('div');
-    window.document.body.insertBefore(devToolsDest, null);
-    const DevTools = require('./containers/DevTools/DevTools').default;
+  //   const devToolsDest = document.createElement('div');
+  //   window.document.body.insertBefore(devToolsDest, null);
+  //   const DevTools = require('./containers/DevTools/DevTools').default;
 
-    const xoo = ReactDOM.hydrate(
-      <Provider store={store}>
-        <DevTools />
-      </Provider>,
-      devToolsDest
-    );
+  //   ReactDOM.hydrate(
+  //     <Provider store={store}>
+  //       <DevTools />
+  //     </Provider>,
+  //     devToolsDest
+  //   );
 
-    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > __DEVTOOLS__ && NO window.devToolsExtension > xoo: ', xoo);
-  }
+  // }
 
   // if (!__DEVELOPMENT__ && 'serviceWorker' in navigator) {
   //   console.log('>>>>>>>>>>>>>>>>>>>>>>>> CLIENT.JS > !__DEVELOPMENT__ && serviceWorker in navigator <<<<<<<<<<<<<');
