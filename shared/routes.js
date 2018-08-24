@@ -35,7 +35,7 @@ const isAuthenticated = connectedReduxRedirect({
   authenticatedSelector: state => {
     const a = state.auth.user;
     console.log('>>>>>>>>>>>>>>>> ROUTES.JS > isAuthenticated: ', a); 
-    return a === null;
+    return a !== null;
   },
   // dispatch a redux action to navigate - pass the redux action creator to redirectAction
   redirectAction: replace,          
