@@ -183,11 +183,10 @@ initSocket();
   // Server-side rendering check
   if (process.env.NODE_ENV !== 'production') {
     window.React = React; // enable debugger
-    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > process.env.NODE_ENV === DEV <<<<<<<<<<<<<<<<<<<<<<');
+    console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > Server-side rendering check <<<<<<<<<<<<<<<<<<<<<<');
 
     if (!dest || !dest.firstChild || !dest.firstChild.attributes || !dest.firstChild.attributes['data-reactroot']) {
-      console.error('Server-side React render was discarded.' +
-        'Make sure that your initial render does not contain any client-side code.');
+      console.error('Server-side React render was discarded.' + 'Make sure that your initial render does not contain any client-side code.');
     }
   }
 

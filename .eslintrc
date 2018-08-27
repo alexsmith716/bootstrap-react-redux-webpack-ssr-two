@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "airbnb",
-    "plugin:flowtype/recommended",
-    "plugin:jsx-a11y/recommended",
-  ],
+  "extends": "airbnb",
   "env": {
     "browser": true,
     "node": true,
