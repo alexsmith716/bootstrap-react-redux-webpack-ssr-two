@@ -56,7 +56,6 @@ configuration.output.chunkFilename = '[name].[chunkhash].chunk.js';
 // you should instead import the polyfill at the top of the entry point 
 // to ensure the polyfills are loaded first
 configuration.entry.main.push(
-  '@babel/polyfill',
   'bootstrap-loader',
   './client/index.js',
 );

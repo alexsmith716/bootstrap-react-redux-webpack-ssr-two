@@ -10,6 +10,25 @@ import { Link } from 'react-router-dom';
 import * as authActions from '../../redux/modules/auth';
 import * as notifActions from '../../redux/modules/notifs';
 
+console.log('>>>>>>>>>>>>> LOGIN > CONNECT > authActions: ', { ...authActions })
+
+// authActions:  
+// { default: [Function: reducer],
+// isLoaded: [Function: isLoaded],
+// load: [Function: load],
+// register: [Function: register],
+// login: [Function: login],
+// logout: [Function: logout] }
+
+console.log('>>>>>>>>>>>>> LOGIN > CONNECT > notifActions: ', { ...notifActions})
+
+// notifActions:  
+// { default: [Function: reducer],
+// notifSend: [Function: notifSend],
+// notifDismiss: [Function: notifDismiss],
+// notifClear: [Function: notifClear],
+// notifClearAll: [Function: notifClearAll] }
+
 // <p>You are currently logged in as {user.email}.</p>
 
 // --------------------------------------------------------------------------

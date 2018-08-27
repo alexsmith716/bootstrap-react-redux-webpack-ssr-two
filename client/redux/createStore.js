@@ -44,8 +44,33 @@ export function inject(store, reducers, persistConfig) {
 // NoOp action does nothing returns state and 'none' effect
 function getNoopReducers(reducers, data) {
   if (!data) return {};
-  return Object.keys(data).reduce( (prev, next) => (reducers[next] ? prev : { ...prev, [next]: (state = {}) => state }), {} );
+  return Object.keys(data).reduce(
+    (prev, next) => reducers[next]
+      ? prev
+      : {
+        ...prev,
+        [next]: (state = {}) => state
+      },
+    {}
+  );
 }
+
+// SERVER: const store = createStore({ history, providers, data: preloadedState });
+// CLIENT: const store = createStore({ history, providers, data: {...preloadedState,...window.__data,online }, persistConfig });
+// ------------------------------------------------------------------------------
+// import { getStoredState } from 'redux-persist';
+// const persistConfig = {
+//   key: 'root',
+//   storage: new CookieStorage(Cookies, {
+//     expiration: {
+//       default: config.tokenExpiration
+//     }
+//   }),
+//   stateReconciler: (inboundState, originalState) => originalState,
+//   whitelist: ['auth']
+// };
+// const preloadedState = await getStoredState(persistConfig);
+// ------------------------------------------------------------------------------
 
 // =======================================================================================
 // const store = createStore({ history, data: {...preloadedState,...window.__data,online}, helpers: providers, persistConfig });

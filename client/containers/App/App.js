@@ -61,6 +61,7 @@ import config from '../../../config/config';
 // pushState(href) — pushes a new location onto the history stack (push history method)
 // function mapStateToProps(state) // inject 'notifs' and 'user'
 // function mapDispatchToProps(dispatch) inject action creators 'logout' and 'pushState'
+// does not modify the component class passed to it; it returns a new, connected component class to use
 @connect( state => ({ notifs: state.notifs, user: state.auth.user }), { logout, pushState: push } )
 
 // HOC to access the imperative API
