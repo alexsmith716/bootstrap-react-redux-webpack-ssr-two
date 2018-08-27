@@ -17,7 +17,7 @@ import { isLoaded as isAuthLoaded, load as loadAuth, logout } from '../../redux/
 import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/info';
 
 // import { Notifs, InfoBar } from '../../components';
-import { Notifs } from '../../components';
+import { Notifs, InfoBar } from '../../components';
 import config from '../../../config/config';
 
 // --------------------------------------------------------------------------
@@ -225,6 +225,8 @@ export default class App extends Component {
           )}
           {renderRoutes(route.routes)}
         </div>
+
+        <InfoBar />
 
         <div className={stylesScss1.footer}>
           <div className="container h-100">

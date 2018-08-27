@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { load } from '../../redux/modules/info';
 
 @connect(state => ({ info: state.info.data }), { load })
+
 export default class InfoBar extends Component {
+
   static propTypes = {
     info: PropTypes.shape({
       message: PropTypes.string,
@@ -18,16 +20,31 @@ export default class InfoBar extends Component {
   };
 
   render() {
+
     const { info, load } = this.props; // eslint-disable-line no-shadow
     const styles = require('./InfoBar.scss');
+
     return (
-      <div className={`${styles.infoBar} well`}>
-        <div className="container">
-          This is an info bar <strong>{info ? info.message : 'no info!'}</strong>
-          <span className={styles.time}>{info && new Date(info.time).toString()}</span>
-          <button className="btn btn-primary" onClick={load}>
-            Reload from server
-          </button>
+
+      <div className="container">
+
+        <div className={`${styles.infoBar} card text-center`}>
+
+          <div className="card-body bg-light">
+
+            <h5 className="card-title">
+              This is an info bar {info ? info.message : 'no info!'}
+            </h5>
+
+            <p className={`${styles.time} card-text`}>
+              {info && new Date(info.time).toString()}
+            </p>
+
+            <button type="button" className="btn btn-primary" onClick={load}>
+              Reload from server
+            </button>
+
+          </div>
         </div>
       </div>
     );

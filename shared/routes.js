@@ -69,7 +69,7 @@ const routes = [{
     { path: '/', exact: true, component: Home },
     { path: '/about', component: About },
     { path: '/about-one', component: AboutOne },
-    { path: '/about-too', component: AboutToo },
+    { path: '/about-two', component: AboutToo },
     { path: '/about-three', component: AboutThree },
     { path: '/about-four', component: AboutFour },
     { path: '/login', component: Login },
