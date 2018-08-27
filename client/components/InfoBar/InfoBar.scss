@@ -1,7 +1,9 @@
 .infoBar {
-  font-variant: italics;
+  margin: calculate-rem(15px) 0;
+  // @include opensans-italic-webfont-font;
+  @include philosopher-bold-webfont-font;
 }
 
 .time {
-  margin: 0 30px;
+  // margin: 0 30px;
 }
