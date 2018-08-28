@@ -95,7 +95,7 @@ export default class Home extends Component {
 
           </div>
 
-          <div className="row my-4">
+          <div className="row">
             <div className="col-lg-12 d-flex justify-content-center">
               <p className="color-crimson font-opensans-bold-webfont">{`'online' store state is ${online} !!!!!!!!!!!!!!!!`}</p>
             </div>
