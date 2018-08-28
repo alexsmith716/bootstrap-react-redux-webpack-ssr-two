@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { load } from '../../redux/modules/info';
 
+// data and action bindings && components
+// component && wrapper '@connect' in component
+// component bound to 'redux' actions and state
+// component with local/encapsulated state
+// state is local/encapsulated
+// state not accessible to any component other than the one that owns and sets it
+
 @connect(state => ({ info: state.info.data }), { load })
 
 export default class InfoBar extends Component {
+
+  // define properties and methods of class 'InfoBar'
 
   static propTypes = {
     info: PropTypes.shape({
@@ -15,6 +24,9 @@ export default class InfoBar extends Component {
     load: PropTypes.func.isRequired
   };
 
+  // following default data flow
+  // ES7 static property initializer
+  // @babel/plugin-proposal-class-properties
   static defaultProps = {
     info: null
   };
@@ -33,7 +45,7 @@ export default class InfoBar extends Component {
           <div className="card-body bg-light">
 
             <h5 className="card-title">
-              This is an info bar {info ? info.message : 'no info!'}
+              This is the InfoBar {info ? `'${info.message}'` : 'no info!'}
             </h5>
 
             <p className={`${styles.time} card-text`}>

@@ -12,9 +12,16 @@
 }
 
 .appContent {
-  padding-top: calculate-rem(50px);
+  margin: calculate-rem(50px) 0px 0px 0px;
+  // padding-top: calculate-rem(50px);
   // min-height: #{'calc(100vh - ' + calculate-rem($footer-height) + ')'}; // exclude the height of footer
+  background-color: #C6E2FF;
   position: relative;
+}
+
+.appInfoBar {
+  margin: calculate-rem(15px) 0px 0px 0px;
+  // background-color: #FFFFF0;
 }
 
 .notifs {
@@ -24,10 +31,12 @@
 }
 
 .footer {
-  background: #388E8E;
+  margin: calculate-rem(15px) 0px 0px 0px;
+  background-color: #0000FF;
   // @extend %footerHeight;
   height: calculate-rem($footer-height);
   .flexContainer {
+    color: #FFFFFF;
     @include lobster-v20-latin-regular-font;
   }
 }

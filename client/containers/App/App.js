@@ -226,7 +226,9 @@ export default class App extends Component {
           {renderRoutes(route.routes)}
         </div>
 
-        <InfoBar />
+        <div className={stylesScss1.appInfoBar}>
+          <InfoBar />
+        </div>
 
         <div className={stylesScss1.footer}>
           <div className="container h-100">
