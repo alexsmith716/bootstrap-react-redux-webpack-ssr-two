@@ -1,12 +1,13 @@
 
 // global styling --------------------------------------
 
-html,
+html {
+  position: relative;
+  min-height: 100%;
+}
 body {
-  width: 100%;
-  height: 100%;
-  // @include tester-font2;
-  // padding-top: calculate-rem(56px);
+  /* Margin bottom by footer height plus a 'margin-top: 15px' */
+  margin-bottom: calculate-rem($footer-height + $footer-margin-top);
 }
 
 #main-nav .navbar-collapse .navbar-nav .nav-item .nav-link {

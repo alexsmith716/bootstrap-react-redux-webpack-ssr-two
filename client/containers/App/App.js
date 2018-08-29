@@ -20,6 +20,24 @@ import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/
 import { Notifs, InfoBar } from '../../components';
 import config from '../../../config/config';
 
+// <div className={stylesScss1.footer}>
+//   <div className="container h-100">
+//     <div className={`h-100 d-flex flex-column justify-content-center align-items-center ${stylesScss1.flexContainer}`}>
+//       <div>Copyright &copy; 2018 · Election App 2018</div>
+//       <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`font-norwester ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
+//     </div>
+//   </div>
+// </div>
+
+// <div className={stylesScss1.footer}>
+//   <div className="container h-100">
+//     <div className={`h-100 d-flex flex-column justify-content-center align-items-center ${stylesScss1.flexContainer}`}>
+//       <div>Copyright &copy; 2018 · Election App 2018</div>
+//       <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`font-norwester ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
+//     </div>
+//   </div>
+// </div>
+
 // --------------------------------------------------------------------------
 
 // HOC: apply HOCs outside the component definition so that the resulting component is created only once. 
@@ -141,7 +159,6 @@ export default class App extends Component {
 
     const { notifs, route } = this.props;
     const { user } = this.state;
-    console.log('>>>>>>>>>>>>> APP.JS > render() <<<<<<<<<<<<<<');
     const stylesScss1 = require('./scss/AppScss1.scss');
     const stylesScss2 = require('./scss/AppScss2.scss');
     const stylesCss1 = require('./css/AppCss1.css');
@@ -187,7 +204,7 @@ export default class App extends Component {
                 </li>
 
                 <li className="nav-item">
-                  <Link to='/about-four' className="nav-link js-scroll-trigger">AboutFour</Link>
+                  <Link to='/sticky-footer' className="nav-link js-scroll-trigger">StickyFooter</Link>
                 </li>
 
                 <li className="nav-item">
@@ -206,6 +223,15 @@ export default class App extends Component {
                 <li className="nav-item">
                   <a className="nav-link font-norwester" href="#">
                     <span className={`fa fa-fw fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={stylesScss2.testColorFont}>Headphones!</span></a>
+                </li>
+
+                <li className="nav-item dropdown">
+                  <a className="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                  <div className="dropdown-menu" aria-labelledby="dropdown01">
+                    <Link to='/about' className="dropdown-item js-scroll-trigger">About</Link>
+                    <Link to='/about-one' className="dropdown-item js-scroll-trigger">AboutOne</Link>
+                    <Link to='/about-two' className="dropdown-item js-scroll-trigger">AboutTwo</Link>
+                  </div>
                 </li>
 
               </ul>
