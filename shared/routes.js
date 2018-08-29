@@ -13,7 +13,8 @@ import About from '../client/containers/About/Loadable';
 import AboutOne from '../client/containers/AboutOne/Loadable';
 import AboutToo from '../client/containers/AboutToo/Loadable';
 import AboutThree from '../client/containers/AboutThree/Loadable';
-import AboutFour from '../client/containers/AboutFour/Loadable';
+// import AboutFour from '../client/containers/AboutFour/Loadable';
+import StickyFooter from '../client/containers/StickyFooter/Loadable';
 import Login from '../client/containers/Login/Loadable';
 import Register from '../client/containers/Register/Loadable';
 import LoginSuccess from '../client/containers/LoginSuccess/Loadable';
@@ -64,7 +65,7 @@ const routes = [{
     { path: '/about-one', component: AboutOne },
     { path: '/about-two', component: AboutToo },
     { path: '/about-three', component: AboutThree },
-    { path: '/about-four', component: AboutFour },
+    { path: '/sticky-footer', component: StickyFooter },
     { path: '/login', component: Login },
     { path: '/login-success', component: isAuthenticated(LoginSuccess) },
     { path: '/register', component: isNotAuthenticated(Register) },
