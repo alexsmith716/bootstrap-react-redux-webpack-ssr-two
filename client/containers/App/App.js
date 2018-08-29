@@ -204,7 +204,7 @@ export default class App extends Component {
                 </li>
 
                 <li className="nav-item">
-                  <a className="nav-link font-norwester dropdown-item" href="#">
+                  <a className="nav-link font-norwester" href="#">
                     <span className={`fa fa-fw fa-headphones ${stylesScss2.colorGoldLocal}`}></span><span className={stylesScss2.testColorFont}>Headphones!</span></a>
                 </li>
 

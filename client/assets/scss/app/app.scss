@@ -1,19 +1,10 @@
 
 // global styling --------------------------------------
 
-// * {
-//   margin: 0px; 
-//   padding: 0px; 
-//   box-sizing: border-box;
-// }
-
 html,
 body {
   width: 100%;
   height: 100%;
-}
-
-body {
   // @include tester-font2;
   // padding-top: calculate-rem(56px);
 }
@@ -37,12 +28,6 @@ hr.light {
 .fa-padding {
   padding-left: calculate-rem(4px);
   padding-right: calculate-rem(4px);
-}
-
-.app-container {
-  margin-top: calculate-rem(56px);
-  // margin-bottom: calculate-rem(10px);
-  position: relative;
 }
 
 .button-facebook,

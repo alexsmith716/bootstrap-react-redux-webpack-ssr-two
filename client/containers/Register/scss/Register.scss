@@ -1,7 +1,9 @@
 
 .registerContainer {
-  padding-top: calculate-rem(25px);
+  padding-top: calculate-rem(15px);
+  padding-bottom: calculate-rem(15px);
   // padding-bottom: calculate-rem(40px);
+  // background-color: #009900;
 
   .register {
     width: calculate-rem(650px);
@@ -14,7 +16,7 @@
     }
   
     .formContainer {
-      padding: calculate-rem(15px) calculate-rem(15px);
+      padding: calculate-rem(15px);
       border: calculate-rem(1px) solid #d8dee2;
       border-radius: calculate-rem(6px);
       background-color: #ffffff;

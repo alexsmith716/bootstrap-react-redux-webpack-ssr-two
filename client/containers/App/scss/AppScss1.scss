@@ -1,5 +1,8 @@
 
 // $footer-height: 100px !default;
+// $infobar-height: 200px !default;
+
+// Bootstrap Navbar rendered height affected by size of the content (brand, links, text, padding)
 
 .app {
   .brand {
@@ -12,26 +15,28 @@
 }
 
 .appContent {
-  margin: calculate-rem(50px) 0px 0px 0px;
-  // padding-top: calculate-rem(50px);
+  margin-top: calculate-rem(53px);
+  // margin-top: 93px;
   // min-height: #{'calc(100vh - ' + calculate-rem($footer-height) + ')'}; // exclude the height of footer
-  background-color: #C6E2FF;
-  position: relative;
+  min-height: #{'calc(100vh - ' + calculate-rem(277px) + ')'};
+  // background-color: #C6E2FF;
+  // position: relative;
 }
 
 .appInfoBar {
-  margin: calculate-rem(15px) 0px 0px 0px;
+  margin-top: calculate-rem(15px);
+  // height: calculate-rem($infobar-height);
   // background-color: #FFFFF0;
 }
 
 .notifs {
-  margin: calculate-rem(15px) 0;
+  // margin: calculate-rem(15px) 0;
   color: #F0F8FF;
-  border: 3px solid #F0F8FF;
+  // border: 3px solid #F0F8FF;
 }
 
 .footer {
-  margin: calculate-rem(15px) 0px 0px 0px;
+  margin-top: calculate-rem(15px);
   background-color: #0000FF;
   // @extend %footerHeight;
   height: calculate-rem($footer-height);
