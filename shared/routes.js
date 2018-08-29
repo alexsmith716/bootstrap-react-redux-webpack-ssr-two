@@ -6,8 +6,6 @@ import { connectedReduxRedirect } from 'redux-auth-wrapper/history4/redirect';
 import { replace } from 'connected-react-router';
 // routerActions.replace
 
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 import { App, Home, NotFound } from '../client/containers';
 
 // dynamically imported routes
@@ -42,7 +40,6 @@ const isAuthenticated = connectedReduxRedirect({
   wrapperDisplayName: 'UserIsAuthenticated'
 });
 
-
 const isNotAuthenticated = connectedReduxRedirect({
   // url to redirect if check fails
   redirectPath: '/',
@@ -58,10 +55,6 @@ const isNotAuthenticated = connectedReduxRedirect({
   // prevent adding the query parameter when we send the user away from the Register page
   allowRedirectBack: false
 });
-
-
-
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 const routes = [{
   component: App,

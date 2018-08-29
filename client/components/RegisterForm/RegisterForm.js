@@ -92,8 +92,3 @@ RegisterForm.defaultProps = {
 };
 
 export default RegisterForm;
-
-
-
-
-

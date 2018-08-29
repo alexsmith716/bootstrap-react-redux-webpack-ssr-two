@@ -91,4 +91,3 @@ LoginForm.propTypes = {
 };
 
 export default LoginForm;
-

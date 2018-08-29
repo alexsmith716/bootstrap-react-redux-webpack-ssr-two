@@ -2,6 +2,11 @@
   // margin: calculate-rem(15px) 0;
   // @include opensans-italic-webfont-font;
   @include philosopher-bold-webfont-font;
+  .message {
+    color: #EE2C2C;
+    @include roboto-mono-v4-latin-regular-font;
+    font-size: small;
+  }
 }
 
 .time {
