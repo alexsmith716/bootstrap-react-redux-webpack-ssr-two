@@ -37,9 +37,7 @@ export default class InfoBar extends Component {
 
           <div className="card-body bg-light">
 
-            <h5 className="card-title">
-              InfoBar message: {info ? <span className={styles.message}>'{info.message}'</span> : 'no info!'}
-            </h5>
+            <h5 className="card-title">InfoBar message: <span className={styles.message}>{info ? `${info.message}` : 'no info!'}</span></h5>
 
             <p className="card-text">
               {info && new Date(info.time).toString()}

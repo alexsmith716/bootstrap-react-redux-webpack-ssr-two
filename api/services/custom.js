@@ -1,9 +1,7 @@
 import _ from 'lodash';
 import { SOCKET_KEY } from '@feathersjs/socketio';
 
-
 export default function customService(app) {
-
 
   app.use('/load-info', (req, res) => {
 
@@ -17,7 +15,6 @@ export default function customService(app) {
 
   });
 
-
   // app.use('/visitors', (req, res) => {
   //   const { connections } = app.channel('chat');
   //   res.json({
@@ -26,7 +23,6 @@ export default function customService(app) {
   //   });
   // });
 
-
   app.on('connection', connection => {
 
     const socket = connection[SOCKET_KEY];
@@ -34,6 +30,4 @@ export default function customService(app) {
     socket.emit('news', { msg: "'Hello World!' from server" });
 
   });
-
-
 }
