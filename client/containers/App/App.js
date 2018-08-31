@@ -260,7 +260,7 @@ export default class App extends Component {
 
                 <p>Modal is working. This paragraph's font and the above modal-title's font is using Bootstrap's default font. It is the default 'global' font for this app. It is overriding Bootstrap's default font 'font-family-sans-serif'. It's a hard to read font but easily recognizable for development purposes.</p>
 
-                <p className={`${stylesScss2.specialAppFontColor}`}>This paragraph's '@font-face' is 'Old English'.</p>
+                <p className={stylesScss2.specialAppFontColor}>This paragraph's '@font-face' is 'Old English'.</p>
 
                 <p className="font-roboto-mono-V4-latin-regular">This paragraph's '@font-face' is 'roboto-mono-v4-latin-regular'.</p>
 

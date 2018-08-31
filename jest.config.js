@@ -8,14 +8,16 @@
 // https://github.com/facebook/jest/blob/master/docs/GettingStarted.md#using-babel
 // https://jestjs.io/docs/en/configuration#moduledirectories-array-string
 // https://jestjs.io/docs/en/using-matchers
-// writing unit tests
+
+// JSDOM is a JavaScript based headless browser that can be used to create a realistic testing environment.
 
 module.exports = {
 
   verbose: true,
-  testEnvironment: 'node', // Default: 'jsdom'
+  // testEnvironment: 'node', // Default: 'jsdom'
+  testEnvironment: 'jsdom',
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href.
-  // testURL: 'http://localhost/',
+  testURL: 'http://localhost/',
 
   // (tell jest how to find files)
   // https://github.com/facebook/jest/blob/master/docs/Webpack.md#configuring-jest-to-find-our-files
