@@ -79,6 +79,9 @@ export default function createStore({ history, data, helpers, persistConfig }) {
 
   // https://redux.js.org/advanced/middleware
   const middleware = [clientMiddleware(helpers), routerMiddleware(history)];
+
+  console.log('>>>>>>>>>>>>>>>>>>> createStore.JS > history: ', history);
+
   console.log('>>>>>>>>>>>>>>>>>>> createStore.JS > middleware 1: ', middleware);
   // -----------------------------------------
 

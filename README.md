@@ -10,6 +10,10 @@ App is a continuation of repo 'bootstrap-react-redux-webpack-ssr-one'.
 
   1) Implement `eslint`, `chai` && `jest`
 
+### Babel:
+
+https://github.com/babel/babel/tree/master/packages
+
 ### SCSS:
 
 * Basic Guide:

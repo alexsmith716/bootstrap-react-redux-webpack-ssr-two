@@ -176,7 +176,7 @@ export default function (parameters) {
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.cookies ++++++++++++++: ', req.cookies);
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.session ++++++++: ', req.session);
     // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.params +++++++++: ', req.params);
-    // console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.originalUrl ++++: ', req.originalUrl);
+    console.log('>>>>>>>>>>>>>>>>> SERVER > REQ.originalUrl ++++: ', req.originalUrl);
     console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ IN < $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
     return next();
   });
@@ -266,6 +266,8 @@ export default function (parameters) {
     // initialEntries: initial URLs in the history stack
     // createMemoryHistory: method used in Node (non-DOM)
     const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
+
+    console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > history: ', history)
 
     // redux-persist-cookie-storage: redux persist cookie
     // Read-only mode: using getStoredState()

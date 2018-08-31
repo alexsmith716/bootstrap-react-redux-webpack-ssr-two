@@ -1,11 +1,24 @@
 
+// enable jest to handle webpack configuration
+// https://jestjs.io/docs/en/cli#env-environment
+// https://jestjs.io/docs/en/configuration#testurl-string
+
+// NODE_PATH: environment variable - absolute path - instruct Node to search path for modules
+// https://github.com/facebook/jest/blob/master/docs/Webpack.md
+// https://github.com/facebook/jest/blob/master/docs/GettingStarted.md#using-babel
 // https://jestjs.io/docs/en/configuration#moduledirectories-array-string
 // https://jestjs.io/docs/en/using-matchers
-// https://github.com/facebook/jest
 // writing unit tests
 
 module.exports = {
 
+  verbose: true,
+  testEnvironment: 'node', // Default: 'jsdom'
+  // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href.
+  // testURL: 'http://localhost/',
+
+  // (tell jest how to find files)
+  // https://github.com/facebook/jest/blob/master/docs/Webpack.md#configuring-jest-to-find-our-files
   // An array of directory names to be searched recursively up from the requiring module's location
   // Default: '["node_modules"]'
   moduleDirectories: [
@@ -13,15 +26,13 @@ module.exports = {
     'node_modules'
   ],
 
-  // A map from regular expressions to module names that allow to stub out resources, like images or styles with a single module.
-  // Modules that are mapped to an alias are unmocked by default, regardless of whether automocking is enabled or not.
-  // Use '<rootDir>' string token to refer to 'rootDir' value if you want to use file paths.
-  // Additionally, you can substitute captured regex groups using numbered backreferences.
-  // The order in which the mappings are defined matters. Patterns are checked one by one until one fits. 
-  // The most specific rule should be listed first.
-  // Note: If you provide module name without boundaries '^$' it may cause hard to spot errors.
-  // 'relay' will replace all modules which contain 'relay' as a substring in its name: 'relay', 'react-relay' and 'graphql-relay' will all be pointed to your stub.
-  // Default: 'null'
+  // configure jest for webpack (tell jest how to process files)
+  // https://github.com/facebook/jest/blob/master/docs/Webpack.md#handling-static-assets
+  // mock a proxy for your className lookups (CSS Modules)
+  // https://github.com/facebook/jest/blob/master/docs/Webpack.md#mocking-css-modules
+  // use ES6 Proxy to mock CSS Modules
+  // https://github.com/keyanzhang/identity-obj-proxy
+  // https://github.com/facebook/jest/blob/master/docs/SnapshotTesting.md
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|eot|otf|svg|ttf|woff|woff2)$': '<rootDir>/__mocks__/fileMock.js',
     '\\.(css|less|scss)$': 'identity-obj-proxy'
