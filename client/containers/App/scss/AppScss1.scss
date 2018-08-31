@@ -9,6 +9,9 @@
   .brand {
     color: #00BFFF;
   }
+  nav :global(.fa) {
+    padding-top: 4px;
+  }
 }
 
 %footerHeight {

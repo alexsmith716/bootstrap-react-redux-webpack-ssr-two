@@ -20,24 +20,6 @@ import { isLoaded as isInfoLoaded, load as loadInfo } from '../../redux/modules/
 import { Notifs, InfoBar } from '../../components';
 import config from '../../../config/config';
 
-// <div className={stylesScss1.footer}>
-//   <div className="container h-100">
-//     <div className={`h-100 d-flex flex-column justify-content-center align-items-center ${stylesScss1.flexContainer}`}>
-//       <div>Copyright &copy; 2018 · Election App 2018</div>
-//       <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`font-norwester ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
-//     </div>
-//   </div>
-// </div>
-
-// <div className={stylesScss1.footer}>
-//   <div className="container h-100">
-//     <div className={`h-100 d-flex flex-column justify-content-center align-items-center ${stylesScss1.flexContainer}`}>
-//       <div>Copyright &copy; 2018 · Election App 2018</div>
-//       <div><span className={`fa fa-headphones fa-padding ${stylesScss2.colorGoldLocal}`}></span><span className={`font-norwester ${stylesScss2.colorGoldLocal}`}>Footer Headphones!</span></div>
-//     </div>
-//   </div>
-// </div>
-
 // --------------------------------------------------------------------------
 
 // HOC: apply HOCs outside the component definition so that the resulting component is created only once. 
