@@ -9,6 +9,8 @@
 // https://jestjs.io/docs/en/configuration#moduledirectories-array-string
 // https://jestjs.io/docs/en/using-matchers
 
+// javaScript files transformed by babel so 'babel-jest' plugin required
+
 // JSDOM is a JavaScript based headless browser that can be used to create a realistic testing environment.
 
 module.exports = {
@@ -28,15 +30,18 @@ module.exports = {
     'node_modules'
   ],
 
-  // configure jest for webpack (tell jest how to process files)
+  // (tell jest how to process files)
+  // configure Jest to handle asset stylesheets and images
   // https://github.com/facebook/jest/blob/master/docs/Webpack.md#handling-static-assets
-  // mock a proxy for your className lookups (CSS Modules)
   // https://github.com/facebook/jest/blob/master/docs/Webpack.md#mocking-css-modules
-  // use ES6 Proxy to mock CSS Modules
   // https://github.com/keyanzhang/identity-obj-proxy
   // https://github.com/facebook/jest/blob/master/docs/SnapshotTesting.md
   moduleNameMapper: {
+    // Handling Static Assets
     '\\.(jpg|jpeg|png|gif|eot|otf|svg|ttf|woff|woff2)$': '<rootDir>/__mocks__/fileMock.js',
+    // Mocking CSS Modules
+    // use ES6 Proxy 'identity-obj-proxy' to mock CSS modules
+    // all className lookups on a 'styles' object will be returned as-is (e.g., `styles.foobar === 'foobar'`)
     '\\.(css|less|scss)$': 'identity-obj-proxy'
   },
 
