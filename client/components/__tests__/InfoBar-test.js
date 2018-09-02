@@ -13,19 +13,17 @@ import apiClient from '../../../server/utils/apiClient';
 // import { render } from 'enzyme';   // Static Rendered Markup
 
 // renderIntoDocument(element): Render a React element into a detached DOM node in the document. This function requires a DOM.
-// AssertionError: expected 'COMPONENT' to equal 'TEST'
 
 const client = apiClient();
 
 describe('InfoBar', () => {
-
   const mockStore = {
     info: {
       // load: () => {},
       loaded: true,
       loading: false,
       data: {
-        message: 'This came from the api server',
+        message: 'This came from the api server!',
         time: Date.now()
       }
     }
@@ -49,20 +47,26 @@ describe('InfoBar', () => {
     expect(renderer).to.be.ok;
   });
 
-  it('should render with correct value', () => {
+  it('should render with correct value (findRenderedDOMComponentWithClass: .message)', () => {
     console.log('>>>>>>>>>>>>> InfoBar-test 2 >>>>>>>>>>>>>>>>>>>>>>>>>>')
+    const text = findRenderedDOMComponentWithClass(renderer, 'message').textContent;
+    expect(text).to.equal(mockStore.info.data.message);
+  });
+
+  it('should render with correct value (findRenderedDOMComponentWithTag: <span/>)', () => {
+    console.log('>>>>>>>>>>>>> InfoBar-test 3 >>>>>>>>>>>>>>>>>>>>>>>>>>')
     const text = findRenderedDOMComponentWithTag(renderer, 'span').textContent;
     expect(text).to.equal(mockStore.info.data.message);
   });
 
   it('should render with a reload button', () => {
-    console.log('>>>>>>>>>>>>> InfoBar-test 3 >>>>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>> InfoBar-test 4 >>>>>>>>>>>>>>>>>>>>>>>>>>')
     const text = findRenderedDOMComponentWithTag(renderer, 'button').textContent;
     expect(text).to.be.a('string');
   });
 
   it('should render the correct className', () => {
-    console.log('>>>>>>>>>>>>> InfoBar-test 4 >>>>>>>>>>>>>>>>>>>>>>>>>>')
+    console.log('>>>>>>>>>>>>> InfoBar-test 5 >>>>>>>>>>>>>>>>>>>>>>>>>>')
     const styles = require('../components/InfoBar/InfoBar.scss');
     const component = findRenderedDOMComponentWithClass(renderer, styles.infoBar);
     expect(styles.infoBar).to.be.a('string');

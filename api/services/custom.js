@@ -7,7 +7,7 @@ export default function customService(app) {
 
     res.json({
 
-      message: 'This came from the api server',
+      message: 'This came from the api server!',
 
       time: Date.now()
 
