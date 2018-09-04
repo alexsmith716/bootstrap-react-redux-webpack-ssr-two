@@ -139,6 +139,9 @@ initSocket();
     await trigger('fetch', components, triggerLocals);
     await trigger('defer', components, triggerLocals);
 
+    // server-rendered markup ('ReactDOMServer.renderToString()') sent here
+    // 'ReactDOM.hydrate()' preserves sent server-rendered markup
+    // (allows for a very performant first-load experience)
     ReactDOM.hydrate(
       <HotEnabler>
         <Provider store={store} {...providers}>

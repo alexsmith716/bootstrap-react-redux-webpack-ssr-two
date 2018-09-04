@@ -8,8 +8,13 @@ import { matchRoutes } from 'react-router-config';
 //    - Linking to routes by name
 //    - Static analysis
 
+// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
+// --------------------------------------------------------------------------
+
 function getComponents(match) {
+
   return match.map(v => v.route.component).reduce(async (result, component) => {
+
     if (component.preload) {
       const res = await component.preload();
       const ret = [...(await result), component, ...[].concat(res)];
@@ -19,7 +24,10 @@ function getComponents(match) {
   }, []);
 }
 
+// --------------------------------------------------------------------------
+
 function getParams(match) {
+
   return match.reduce((result, component) => {
     if (component.match && component.match.params) {
       return { ...result, ...component.match.params };
@@ -27,6 +35,8 @@ function getParams(match) {
     return result;
   }, {});
 }
+
+// --------------------------------------------------------------------------
 
 const asyncMatchRoutes = async (routes, pathname) => {
 
@@ -41,4 +51,8 @@ const asyncMatchRoutes = async (routes, pathname) => {
   return { components, match, params };
 };
 
+// --------------------------------------------------------------------------
+
 export default asyncMatchRoutes;
+
+

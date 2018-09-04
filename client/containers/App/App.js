@@ -21,15 +21,12 @@ import { Notifs, InfoBar } from '../../components';
 import config from '../../../config/config';
 
 // --------------------------------------------------------------------------
-
 // HOC: apply HOCs outside the component definition so that the resulting component is created only once. 
 // Then, its identity will be consistent across renders
 // Decorators are applied in the order that you declare them
 // '@provideHooks' && '@connect' are being applied to class 'App'
 // Decorators are functions that return another function
 // class decorators evaluated on runtime && decorated code is replaced with the return value
-
-// --------------------------------------------------------------
 
 // 'provideHooks' data fetching and advanced route lifecycle management 
 // define (@provideHooks) and (trigger) route-level lifecycle hooks
@@ -94,6 +91,10 @@ export default class App extends Component {
     store: PropTypes.object.isRequired,
   };
 
+  // getDerivedStateFromProps(): enables component to update internal state as the result of changes in props
+  // lifecycle is invoked after a component is instantiated as well as before it is re-rendered
+  // returns an object to update state, or null to indicate that the new props do not require any state updates
+  // called every time a component is rendered
   static getDerivedStateFromProps(props, state) {
     const { prevProps } = state;
     // Compare the incoming prop to previous prop
@@ -290,7 +291,6 @@ export default class App extends Component {
             </div>
           </div>
         </div>
-
       </div>
     );
   }

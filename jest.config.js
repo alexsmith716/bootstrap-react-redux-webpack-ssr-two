@@ -15,15 +15,22 @@
 
 module.exports = {
 
-  verbose: true,
+  // Indicates whether each individual test should be reported during the run.
+  // All errors will also still be shown on the bottom after execution.
+  verbose: true, // Default: false
+
+  // The test environment that will be used for testing. 
+  // default environment in Jest is a browser-like environment through jsdom
+  // for a node service, use 'node' option to use a node-like environment
   // testEnvironment: 'node', // Default: 'jsdom'
   testEnvironment: 'jsdom',
+
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href.
   testURL: 'http://localhost/',
 
   // (tell jest how to find files)
   // https://github.com/facebook/jest/blob/master/docs/Webpack.md#configuring-jest-to-find-our-files
-  // An array of directory names to be searched recursively up from the requiring module's location
+  // An array of directory names searched recursively up from the requiring module's location
   // Default: '["node_modules"]'
   moduleDirectories: [
     process.env.NODE_PATH,
@@ -45,8 +52,7 @@ module.exports = {
     '\\.(css|less|scss)$': 'identity-obj-proxy'
   },
 
-  // A set of global variables that need to be available in all test environments.
-  // For example, the following would create a global '__DEV__' variable set to 'true' in all test environments:
+  // global variables needed and SET in all test environments
   // Default: '{}'
   globals: {
     __CLIENT__: process.env.NODE_PATH === 'src',
@@ -55,10 +61,4 @@ module.exports = {
     __DEVTOOLS__: false,
     __DLLS__: false,
   }
-
-  // Note that, if you specify a global reference value (like an object or array) here, 
-  // and some code mutates that value in the midst of running a test, 
-  // that mutation will not be persisted across test runs for other test files. 
-  // In addition the 'globals' object must be json-serializable, 
-  // so it can't be used to specify global functions. For that you should use 'setupFiles'.
 };
