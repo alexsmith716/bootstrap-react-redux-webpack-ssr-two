@@ -181,11 +181,9 @@ export default function (parameters) {
     return next();
   });
 
-
-  // #########################################################################
-  // ############### ----------------- API -------------------- ##############
-  // #########################################################################
-
+  // ##################################################################################################################
+  // ########## ------------------------------------------ API --------------------------------------------- ##########
+  // ##################################################################################################################
 
   // PORT (3030)
   // proxy any requests to '/api/*' >>>>>>>>> the API server
@@ -205,7 +203,6 @@ export default function (parameters) {
 
   console.log('>>>>>>>>>>>>>>>>> SERVER > $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ / $$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
 
-
   proxy.on('error', (error, req, res) => {
 
     if (error.code !== 'ECONNRESET') {
@@ -224,42 +221,44 @@ export default function (parameters) {
     res.end(JSON.stringify(json));
   });
 
-
-
-  // #########################################################################
-  // ########## --------------------- SERVER --------------------- ###########
-  // #########################################################################
+  // ##################################################################################################################
+  // ########## ---------------------------------------- SERVER -------------------------------------------- ##########
+  // ##################################################################################################################
 
   // PORT (3000)
   // 1) serve favicon
   // 2) serve static content
   // 3) initiate delegate rendering to `react-router`
 
-  // generate HTML page && return contents with 'react-router'
 
-  // #########################################################################
-
-  // app.use((req, res) => {
-  //   res.status(200).send('SERVER > Response Ended For Testing!!!!!!! Status 200!!!!!!!!!');
-  // });
-
+  // ####################################################################################################
+  // ######## -------------------------------- APP LOADER -------------------------------------- ########
+  // ######## ----------------- (built from current route passed from Express) ----------------- ########
+  // ####################################################################################################
 
   app.use(async (req, res) => {
 
-    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponent !! START !! $$$$$$$$$$$$$$$$$$$$$$');
+    console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > SetUpComponent !! START !! $$$$$$$$$$$$$$$$$$$$$$');
 
-    // return webpack-compiled chunks
+    // ###########################################################################
+    // ######## --------------- RETURN WEBPACK-COMPILED CHUNKS ------------ ######
+    // ###########################################################################
+
     const webpackAssets = parameters.chunks();
     // const webpackAssets = {...parameters.chunks()};
 
-    // configure server for API communication (rest / axios/ajax)
+
+    // ###########################################################################
+    // ######## ----- CONFIGURE SERVER FOR API COMM (REST/AXIOS-AJAX) ----- ######
+    // ###########################################################################
+
     // passing session cookie (req)
     const providers = {
       app: createApp(req),
       client: apiClient(req)
     };
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.app !!: ', providers.app);
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > providers.client !!: ', providers.client);
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > providers.app !!: ', providers.app);
+    // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > providers.client !!: ', providers.client);
 
     // manage session history with 'history' object
     // manage session history (stack, navigate, confirm navigation, persist state between sessions)
@@ -268,6 +267,12 @@ export default function (parameters) {
     const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
 
     console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > history: ', history)
+
+
+    // ###########################################################################
+    // ######## ------- SET THE CURRENT USER DEPENDING ON THE ------------- ######
+    // ######## ---------- STATE OF COOKIE CREATED ON CLIENT ------------ ########
+    // ###########################################################################
 
     // redux-persist-cookie-storage: redux persist cookie
     // Read-only mode: using getStoredState()
@@ -283,7 +288,7 @@ export default function (parameters) {
     };
 
     let preloadedState;
-  
+
     // read stored cookies: getStoredState()
     // preloadedState:
     //    {
@@ -292,11 +297,98 @@ export default function (parameters) {
     //    }
 
     try {
-      preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
+      // Returns a promise of restored state (getStoredState())
+      preloadedState = await getStoredState(persistConfig);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > preloadedState !! 1111111111');
     } catch (e) {
       preloadedState = {};
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > preloadedState !! 222222222');
     }
-    // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > preloadedState !! =======================: ', preloadedState);
+    console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > preloadedState !! =======================: ', preloadedState);
+
+    // preloadedState (initial load): undefined
+    // ----------------------------------------------------------------------------------------------
+    // preloadedState (logged in):
+    // {
+    //   auth: {
+    //       loaded: true,
+    //       user: {
+    //           email: 'zzzz@zzzz.com',
+    //           _id: 'KdHmTpMy2fmAPfPA'
+    //       },
+    //       loading: false,
+    //       error: {
+    //           name: 'NotAuthenticated',
+    //           message: 'Could not find stored JWT and no authentication strategy was given',
+    //           code: 401,
+    //           className: 'not-authenticated',
+    //           errors: {}
+    //       },
+    //       registeringIn: false,
+    //       loggingIn: false,
+    //       accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cISkGM'
+    //   },
+    //   info: {
+    //       loaded: true,
+    //       loading: false,
+    //       data: {
+    //           message: 'This came from the api server!!',
+    //           time: 1535916019241
+    //       }
+    //   },
+    //   chat: {
+    //       loaded: true,
+    //       messages: [],
+    //       visitors: {
+    //           authenticated: [Array],
+    //           anonymous: 0
+    //       },
+    //       loading: false
+    //   }
+    // }
+    // ----------------------------------------------------------------------------------------------
+    // preloadedState (logged out):
+    // {
+    //   auth: {
+    //       loaded: true,
+    //       user: null,
+    //       loading: false,
+    //       error: {
+    //           name: 'NotAuthenticated',
+    //           message: 'Could not find stored JWT and no authentication strategy was given',
+    //           code: 401,
+    //           className: 'not-authenticated',
+    //           errors: {}
+    //       },
+    //       registeringIn: false,
+    //       loggingIn: false,
+    //       accessToken: null,
+    //       loggingOut: false
+    //   },
+    //   info: {
+    //       loaded: true,
+    //       loading: false,
+    //       data: {
+    //           message: 'This came from the api server!!',
+    //           time: 1535916019241
+    //       }
+    //   },
+    //   chat: {
+    //       loaded: true,
+    //       messages: [],
+    //       visitors: {
+    //           authenticated: [Array],
+    //           anonymous: 0
+    //       },
+    //       loading: false
+    //   }
+    // }
+    // ----------------------------------------------------------------------------------------------
+
+
+    // ###########################################################################
+    // ######## -------------------- CREATE STORE ----------------------- ########
+    // ###########################################################################
 
     const store = createStore({
       history,
@@ -307,11 +399,14 @@ export default function (parameters) {
     store.subscribe(() =>
       console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > store.getState(): ', store.getState())
     )
-    
-    console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > SetUpComponentDone !! END !! $$$$$$$$$$$$$$$$$$$$$$$$$');
+
+
 
     function hydrate() {
       res.write('<!doctype html>');
+      // ReactDOM.renderToNodeStream():
+      // Returns a Readable stream that outputs an HTML string
+      // HTML output by this stream is exactly equal to what ReactDOM.renderToString() returns
       ReactDOM.renderToNodeStream(<Html assets={webpackAssets} store={store} />).pipe(res);
     }
 
@@ -366,35 +461,47 @@ export default function (parameters) {
 
       // {...providers}: { app: {}, client: {} }
 
+      const rr = {renderRoutes(routes)}
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > renderRoutes(routes): ', rr);
+
       const component = (
+
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+
           { /* 'provide' store to child components (application) */ }
           <Provider store={store} {...providers}>
+
             { /* ConnectedRouter will use the store from Provider automatically */ }
             <ConnectedRouter history={history}>
+
               { /* StaticRouter >> server-side rendering >> (no navigating, location never changes) */ }
               { /* {req.originalUrl}: pass in requested url from the server */ }
               { /* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>
+
+                { /* bind data requests from API to component */}
+                { /* return matched route with */ }
                 <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
+                  { /* required to ensure matching (matchRoutes) results in the same branch */ }
+                  { /* required for child routes to render */ }
                   {renderRoutes(routes)}
                 </ReduxAsyncConnect>
+
               </StaticRouter>
             </ConnectedRouter>
           </Provider>
         </Loadable.Capture>
       );
 
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== component: ', component);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > ===================================== component: ', component);
 
       const content = ReactDOM.renderToString(component);
 
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > ===================================== content: ', content);
-
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > ===================================== content: ', content);
 
       // ------------------------------------------------------------------------------------------------------
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > context: ', context);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > context: ', context);
 
       // test context prop to find out what the result of rendering was
       // context.url ? the app redirected
@@ -406,8 +513,8 @@ export default function (parameters) {
 
       const locationState = store.getState().router.location;
 
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > store.getState: ', store.getState());
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > locationState: ', locationState);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > store.getState: ', store.getState());
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > locationState: ', locationState);
 
       // decodeURIComponent: decode percent-encoded characters in the query string
       // parses a URL Query String into a collection of key and value pairs
@@ -421,23 +528,32 @@ export default function (parameters) {
 
       const bundles = getBundles(getChunks(), modules);
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (webpack-compiled chunks) > ASSETS: ', webpackAssets);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE1: ', store);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > STORE2: ', store.getState());
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > MODULES : ', modules);
-      // console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (which modules were rendered) > CONTENT : ', content);
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > (convert rendered modules to bundles) > BUNDLES: ', bundles);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > (webpack-compiled chunks) > ASSETS: ', webpackAssets);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > STORE1: ', store);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > STORE2: ', store.getState());
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > (which modules were rendered) > MODULES : ', modules);
+      // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > (which modules were rendered) > CONTENT : ', content);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > (convert rendered modules to bundles) > BUNDLES: ', bundles);
 
       const html = <Html assets={webpackAssets} store={store} content={content} bundles={bundles} />;
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > DID IT !! > STATUS 200 !! <<<<<<<<<<<<<<<<<<');
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > RESPOND TO CLIENT !! > STATUS 200 !! <<<<<<<<<<<<<<<<<<');
 
+      const moo = `<!doctype html>${ReactDOM.renderToString(html)}`;
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > RESPOND TO CLIENT !! > STATUS 200 !! > moo:', moo);
+
+      // render element to HTML && send HTTP response (ReactDOM.renderToString())
+      // (allows search engines to crawl page for SEO purposes && enables faster page loads)
       res.status(200).send(`<!doctype html>${ReactDOM.renderToString(html)}`);
 
+      // ReactDOM.renderToStaticMarkup():
+      // Similar to renderToString, except doesn't create extra DOM attributes
+      // If you plan to use React on the client to make the markup interactive, do not use this method
+      // Instead, use renderToString on the server and ReactDOM.hydrate() on the client
 
     } catch (error) {
 
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP.USE > ASYNC !! > TRY > ERROR > error: ', error);
+      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > TRY > ERROR > error: ', error);
 
       res.status(500);
 

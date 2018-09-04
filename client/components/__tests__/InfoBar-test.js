@@ -1,11 +1,13 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass } from 'react-dom/test-utils';
 import { expect } from 'chai';
-import { InfoBar } from '../index';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router';
 import createStore from '../../redux/createStore';
 import apiClient from '../../../server/utils/apiClient';
+
+// components
+import { InfoBar } from '../index';
 
 // https://github.com/airbnb/enzyme
 // import { shallow } from 'enzyme';  // Shallow Rendering
@@ -16,10 +18,15 @@ import apiClient from '../../../server/utils/apiClient';
 
 const client = apiClient();
 
+// ===============================================================
+// ========================= InfoBar =============================
+// ===============================================================
+
 describe('InfoBar', () => {
+
   const mockStore = {
     info: {
-      // load: () => {},
+      load: () => {},
       loaded: true,
       loading: false,
       data: {
