@@ -29,6 +29,9 @@ export default class InfoBar extends Component {
     const { info, load } = this.props; // eslint-disable-line no-shadow
     const styles = require('./InfoBar.scss');
 
+    // console.log('>>>>>>>>>>>>>>>> InfoBar > render() > info:', info);
+    // console.log('>>>>>>>>>>>>>>>> InfoBar > render() > load:', load);
+
     return (
 
       <div className="container">
@@ -42,6 +45,7 @@ export default class InfoBar extends Component {
             <p className="card-text">
               {info && new Date(info.time).toString()}
             </p>
+            <p>{info && info.time}</p>
 
             <button type="button" className="btn btn-primary" onClick={load}>
               Reload from server

@@ -9,14 +9,14 @@
     "@babel/preset-flow"
   ],
   "plugins": [
-    "@babel/plugin-proposal-export-default-from",
-    "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-runtime",
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose": false }],
     "react-loadable/babel",
-    "react-hot-loader/babel"
+    "react-hot-loader/babel",
+    "@babel/plugin-syntax-dynamic-import",
+    ["@babel/plugin-proposal-class-properties", { "loose": false, "useBuiltIns": false }],
+    "@babel/plugin-proposal-export-default-from",
+    "@babel/plugin-proposal-object-rest-spread"
   ],
   "env": {
     "development": {
