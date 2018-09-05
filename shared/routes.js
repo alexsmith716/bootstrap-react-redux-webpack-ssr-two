@@ -57,6 +57,9 @@ const isNotAuthenticated = connectedReduxRedirect({
   allowRedirectBack: false
 });
 
+// { component: App, routes: [] }
+// { component: App, routes: [ {path: '/', exact: true, component: Home}, {path: '/about', component: About}, {component: NotFound} ] }
+
 const routes = [{
   component: App,
   routes: [

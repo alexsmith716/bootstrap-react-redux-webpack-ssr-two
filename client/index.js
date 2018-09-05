@@ -83,7 +83,7 @@ initSocket();
 (async () => {
 
   const preloadedState = await getStoredState(persistConfig); // Persist and rehydrate redux store
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > preloadedState: ', preloadedState);
+  //console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > preloadedState: ', preloadedState);
 
 
   const online = window.__data ? true : await isOnline();
@@ -92,12 +92,20 @@ initSocket();
     socket.open();
     await app.authenticate().catch(() => null);
   }
+  //console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > online: ', online);
 
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > online: ', online);
+
+  // ###########################################################################
+  // ######## ----------- CREATE BROWSER HISTORY OBJECT ----------------- ######
+  // ###########################################################################
 
   const history = createBrowserHistory();
-  console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
+  //console.log('>>>>>>>>>>>>>>>>>>> CLIENT.JS > history: ', history);
 
+
+  // ###########################################################################
+  // ######## -------------------- CREATE STORE ------------------------- ######
+  // ###########################################################################
 
   const store = createStore({
     history,

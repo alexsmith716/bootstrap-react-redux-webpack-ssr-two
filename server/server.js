@@ -260,13 +260,20 @@ export default function (parameters) {
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > providers.app !!: ', providers.app);
     // console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > providers.client !!: ', providers.client);
 
-    // manage session history with 'history' object
-    // manage session history (stack, navigate, confirm navigation, persist state between sessions)
-    // initialEntries: initial URLs in the history stack
-    // createMemoryHistory: method used in Node (non-DOM)
+
+    // ###########################################################################
+    // ######## ----------- CREATE NON-DOM HISTORY OBJECT ----------------- ######
+    // ###########################################################################
+
+    // manage session history
+    // API to manage the history stack, navigate, confirm navigation and persist state between sessions
+    // history object is mutable
+    // create non-dom 'createMemoryHistory()' method
+    // create method with option 'initialEntries'
+    // option 'initialEntries' assigned value 'req.originalUrl' (requested URL)
     const history = createMemoryHistory({ initialEntries: [req.originalUrl] });
 
-    console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > history: ', history)
+    console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > APP LOADER > history: ', history)
 
 
     // ###########################################################################
@@ -306,86 +313,6 @@ export default function (parameters) {
     }
     console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > preloadedState !! =======================: ', preloadedState);
 
-    // preloadedState (initial load): undefined
-    // ----------------------------------------------------------------------------------------------
-    // preloadedState (logged in):
-    // {
-    //   auth: {
-    //       loaded: true,
-    //       user: {
-    //           email: 'zzzz@zzzz.com',
-    //           _id: 'KdHmTpMy2fmAPfPA'
-    //       },
-    //       loading: false,
-    //       error: {
-    //           name: 'NotAuthenticated',
-    //           message: 'Could not find stored JWT and no authentication strategy was given',
-    //           code: 401,
-    //           className: 'not-authenticated',
-    //           errors: {}
-    //       },
-    //       registeringIn: false,
-    //       loggingIn: false,
-    //       accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cISkGM'
-    //   },
-    //   info: {
-    //       loaded: true,
-    //       loading: false,
-    //       data: {
-    //           message: 'This came from the api server!!',
-    //           time: 1535916019241
-    //       }
-    //   },
-    //   chat: {
-    //       loaded: true,
-    //       messages: [],
-    //       visitors: {
-    //           authenticated: [Array],
-    //           anonymous: 0
-    //       },
-    //       loading: false
-    //   }
-    // }
-    // ----------------------------------------------------------------------------------------------
-    // preloadedState (logged out):
-    // {
-    //   auth: {
-    //       loaded: true,
-    //       user: null,
-    //       loading: false,
-    //       error: {
-    //           name: 'NotAuthenticated',
-    //           message: 'Could not find stored JWT and no authentication strategy was given',
-    //           code: 401,
-    //           className: 'not-authenticated',
-    //           errors: {}
-    //       },
-    //       registeringIn: false,
-    //       loggingIn: false,
-    //       accessToken: null,
-    //       loggingOut: false
-    //   },
-    //   info: {
-    //       loaded: true,
-    //       loading: false,
-    //       data: {
-    //           message: 'This came from the api server!!',
-    //           time: 1535916019241
-    //       }
-    //   },
-    //   chat: {
-    //       loaded: true,
-    //       messages: [],
-    //       visitors: {
-    //           authenticated: [Array],
-    //           anonymous: 0
-    //       },
-    //       loading: false
-    //   }
-    // }
-    // ----------------------------------------------------------------------------------------------
-
-
     // ###########################################################################
     // ######## -------------------- CREATE STORE ----------------------- ########
     // ###########################################################################
@@ -393,14 +320,16 @@ export default function (parameters) {
     const store = createStore({
       history,
       data: preloadedState,
-      helpers: providers,
+      helpers: providers
     });
 
     store.subscribe(() =>
       console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > APP LOADER > store.getState(): ', store.getState())
     )
 
-
+    // ###########################################################################
+    // ######## ----------------- function hydrate ---------------------- ########
+    // ###########################################################################
 
     function hydrate() {
       res.write('<!doctype html>');
@@ -413,6 +342,10 @@ export default function (parameters) {
     if (__DISABLE_SSR__) {
       return hydrate();
     }
+
+    // ###########################################################################
+    // ######## ----------------- TRY SUCESSFUL SSR ---------------------- #######
+    // ###########################################################################
 
     try {
 
@@ -438,21 +371,15 @@ export default function (parameters) {
       // Wait for async data fetching to complete, then continue to render
       await trigger( 'fetch', components, locals);
 
+      // array holding any modules that were rendered (Loadable.Capture)
       const modules = [];
+      // 
       const context = {};
 
-      // 'react-router-config' (Static route configuration helpers for React Router):
-      //    With the introduction of React Router v4, there is no longer a centralized route configuration.
-      //    There are some use-cases where it is valuable to know about all the app's potential routes such as:
-      //    
-      //    - Loading data on the server or in the lifecycle before rendering the next screen
-      //    - Linking to routes by name
-      //    - Static analysis
-
+      // Loadable.Capture: component to collect all modules that were rendered
       // Finding out which dynamic modules were rendered
       // Find out which modules were actually rendered when a request comes in:
-      // Loadable.Capture: component to collect all modules that were rendered
-
+      
       // {req.originalUrl}: pass in requested url from the server
       // {context}: pass in empty context prop
 
@@ -468,25 +395,26 @@ export default function (parameters) {
 
         <Loadable.Capture report={moduleName => modules.push(moduleName)}>
 
-          { /* 'provide' store to child components (application) */ }
+          {/* 'provide' store to child components (application) */}
           <Provider store={store} {...providers}>
 
-            { /* ConnectedRouter will use the store from Provider automatically */ }
+            {/* ConnectedRouter will use the store from Provider automatically */}
             <ConnectedRouter history={history}>
 
-              { /* StaticRouter >> server-side rendering >> (no navigating, location never changes) */ }
-              { /* {req.originalUrl}: pass in requested url from the server */ }
-              { /* {context}: pass in empty context prop */ }
+              {/* render on the server: wrap app in 'stateless' StaticRouter */}
+              {/* StaticRouter >> server-side rendering >> (no navigating, location never changes) */}
+              {/* {req.originalUrl}: pass in requested url from the server */}
+              {/* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>
 
-                { /* handle 'declarative' routing */}
-                { /* tied directly to 'Redux' via 'Connected-React-Router'}
-                { /* bind data requests from API to component */}
-                { /* return matched route with */ }
-                { /* preload async page data */ }
+                {/* handle 'declarative' routing */}
+                {/* tied directly to 'Redux' via 'Connected-React-Router'}
+                {/* bind data requests from API to component */}
+                {/* return matched route with */ }
+                {/* preload async page data */ }
                 <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
-                  { /* required to ensure matching (matchRoutes) results in the same branch */ }
-                  { /* required for child routes to render */ }
+                  {/* required to ensure matching (matchRoutes) results in the same branch */}
+                  {/* required for child routes to render */}
                   {renderRoutes(routes)}
                 </ReduxAsyncConnect>
 

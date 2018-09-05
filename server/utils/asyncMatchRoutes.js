@@ -1,5 +1,7 @@
 import { matchRoutes } from 'react-router-config';
 
+// ---------------------------------------------------------------------------------------------
+// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 // 'react-router-config' (Static route configuration helpers for React Router):
 //    With the introduction of React Router v4, there is no longer a centralized route configuration. 
 //    There are some use-cases where it is valuable to know about all the app's potential routes such as:
@@ -8,8 +10,9 @@ import { matchRoutes } from 'react-router-config';
 //    - Linking to routes by name
 //    - Static analysis
 
-// https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
-// --------------------------------------------------------------------------
+// figure out what is going to be rendered before it actually is rendered
+// ---------------------------------------------------------------------------------------------
+
 
 function getComponents(match) {
 
@@ -44,8 +47,9 @@ const asyncMatchRoutes = async (routes, pathname) => {
   const components = await getComponents(match);
   const params = getParams(match);
 
-  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > components: ', components);
+  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > pathname: ', pathname);
   console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > matchRoutes: ', match);
+  console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > components: ', components);
   console.log('>>>>>>>>>>>>>>>> asyncMatchRoutes > asyncMatchRoutes > params: ', params);
 
   return { components, match, params };
