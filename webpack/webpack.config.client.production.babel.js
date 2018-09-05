@@ -181,7 +181,9 @@ configuration.optimization = {
       // styles: {
       //   name: 'main',
       //   test: (m,c,entry = 'main') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+      //   // test: /\.(scss)$/,
       //   chunks: 'async',
+      //   // chunks: 'all',
       //   enforce: true,
       // },
       vendor: {

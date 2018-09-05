@@ -17,6 +17,7 @@ import asyncMatchRoutes from '../server/utils/asyncMatchRoutes';
 // passing required data component via props
 // rendering 'NProgress' loader if props are empty
 
+// share props and behavior between components/containers
 // HOC withRouter will pass updated match, location, history props to the wrapped component whenever it renders
 @withRouter
 
@@ -26,7 +27,7 @@ import asyncMatchRoutes from '../server/utils/asyncMatchRoutes';
 export default class ReduxAsyncConnect extends Component {
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired, // Anything that can be rendered: numbers, strings, elements or an array
     history: PropTypes.objectOf(PropTypes.any).isRequired,
     location: PropTypes.objectOf(PropTypes.any).isRequired
   };
@@ -45,14 +46,36 @@ export default class ReduxAsyncConnect extends Component {
   //     * componentDidMount()
   // ----------------------------------------------------------------------------------------------------------
 
+  // methods 'componentWillMount' && 'componentWillReceiveProps' are legacy:
+  // https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
+  // https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods
+
   // componentWillMount(): invoked just before mounting occurs
-  // https://reactjs.org/blog/2018/03/29/react-v-16-3.html
   componentWillMount() {
     // progress bars for Ajax applications
     NProgress.configure({ trickleSpeed: 200 });
   }
 
+
+
+  // static getDerivedStateFromProps(props, state):
+  // https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
+  // invoked right before calling the render method, both on the initial mount and on subsequent updates
+  // It should return an object to update the state, or null to update nothing
+  // method exists for use cases where state depends on changes in props over time.
+
+  async getDerivedStateFromProps(nextProps) {
+    const { history, location, routes, store, helpers } = this.props;
+    const navigated = nextProps.location !== location;
+    if (navigated) {
+      const { components, match, params } = await asyncMatchRoutes(routes, nextProps.location.pathname);
+      console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > getDerivedStateFromProps() > navigated?:', navigated);
+    }
+  }
+
+  // componentWillReceiveProps(): invoked before a mounted component receives new props
   async componentWillReceiveProps(nextProps) {
+  // async getDerivedStateFromProps(nextProps) {
 
     const { history, location, routes, store, helpers } = this.props;
 
@@ -60,6 +83,7 @@ export default class ReduxAsyncConnect extends Component {
 
     if (navigated) {
 
+      console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > componentWillReceiveProps() > navigated?:', navigated);
       // save the location so we can render the old screen
       NProgress.start();
 
@@ -90,15 +114,21 @@ export default class ReduxAsyncConnect extends Component {
     }
   }
 
+  // called each time on routing update
   render() {
     const { children, location } = this.props;
     const { previousLocation } = this.state;
 
+    console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > render() > children:', children);
+    console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > render() > location:', location);
+    console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > render() > previousLocation:', previousLocation);
+
     // use a controlled <Route> to trick all descendants into
     // rendering the old location
     // Routes are objects with the same properties as a '<Route>'
-    const voo = <Route location={previousLocation || location} render={() => children} />
-    console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > voo:', voo);
+    //const voo = <Route location={previousLocation || location} render={() => children} />
+    //console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > voo:', voo);
+
     return <Route location={previousLocation || location} render={() => children} />;
   }
 }

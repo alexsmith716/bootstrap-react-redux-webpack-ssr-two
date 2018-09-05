@@ -72,6 +72,7 @@ import config from '../../../config/config';
 // ES6 does not support creating properties with 'static'
 // Stage 3 proposal >>> "@babel/plugin-proposal-class-properties"
 
+// class App extends Component {
 export default class App extends Component {
 
   static propTypes = {
@@ -295,3 +296,5 @@ export default class App extends Component {
     );
   }
 }
+
+// export default App;

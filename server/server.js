@@ -397,7 +397,7 @@ export default function (parameters) {
     });
 
     store.subscribe(() =>
-      console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > store.getState(): ', store.getState())
+      console.log('>>>>>>>>>>>>>>>>>>> SERVER.JS > APP LOADER > store.getState(): ', store.getState())
     )
 
 
@@ -461,8 +461,8 @@ export default function (parameters) {
 
       // {...providers}: { app: {}, client: {} }
 
-      const rr = {renderRoutes(routes)}
-      console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > renderRoutes(routes): ', rr);
+      //const rr = renderRoutes(routes)
+      //console.log('>>>>>>>>>>>>>>>> SERVER > APP LOADER > renderRoutes(routes): ', rr);
 
       const component = (
 
@@ -479,8 +479,11 @@ export default function (parameters) {
               { /* {context}: pass in empty context prop */ }
               <StaticRouter location={req.originalUrl} context={context}>
 
+                { /* handle 'declarative' routing */}
+                { /* tied directly to 'Redux' via 'Connected-React-Router'}
                 { /* bind data requests from API to component */}
                 { /* return matched route with */ }
+                { /* preload async page data */ }
                 <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
                   { /* required to ensure matching (matchRoutes) results in the same branch */ }
                   { /* required for child routes to render */ }
