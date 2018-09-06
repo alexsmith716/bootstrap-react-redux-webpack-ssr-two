@@ -187,4 +187,3 @@ module.exports = configuration;
 if (process.env.WEBPACK_DLLS === '1' && validDLLs) {
   helpers.installVendorDLL(configuration, 'vendor');
 };
-

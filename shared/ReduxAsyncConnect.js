@@ -15,6 +15,7 @@ import asyncMatchRoutes from '../server/utils/asyncMatchRoutes';
 // HOC 'withRouter': get access to the history object's properties and the closest <Route>'s match
 // 'withRouter' will pass updated match, location, and history props to the wrapped component whenever it renders
 // Create a new component that is "connected" (redux terminology) to the router
+// <Route> render methods are passed the same three route props: ('match', 'location', 'history')
 @withRouter
 
 // 'withRouter' does not subscribe to location changes like React Redux's connect does for state changes
@@ -107,21 +108,26 @@ export default class ReduxAsyncConnect extends Component {
   // <ReduxAsyncConnect routes={routes} store={store} helpers={providers}>
   async componentWillReceiveProps(nextProps) {
 
+    // current props
     const { history, location, routes, store, helpers } = this.props;
 
     console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > componentWillReceiveProps() > location:', location);
     console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > componentWillReceiveProps() > nextProps.location:', nextProps.location);
 
+    // test if location has changed
+    // if location changed, update the state in response to location prop changes
     // a page refresh has both 'locations' returning false (same key values)
+    // (key prop to prevent remounting component when transition was made from route with the same component and same key prop)
     const navigated = nextProps.location !== location;
 
     console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > componentWillReceiveProps() > navigated?:', navigated);
 
     if (navigated) {
 
-      // save the location so we can render the old screen
       NProgress.start();
 
+      // location has changed, perform state transition
+      // set state 'previousLocation' with the current location which is to become the previous location
       this.setState({ previousLocation: location });
 
       // load data while the old screen remains
@@ -163,10 +169,16 @@ export default class ReduxAsyncConnect extends Component {
     // use a controlled <Route> to trick all descendants into
     // rendering the old location
 
-    // <Route>: render some UI when a location matches the route's path
-
     const theRoute = <Route location={previousLocation || location} render={() => children} />;
     console.log('>>>>>>>>>>>>>>>> ReduxAsyncConnect > render() > <Route>:', theRoute);
+
+    // https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Route.md
+    // <Route> props:
+    //  * location: object:
+    //    > match a <Route> to a location other than the current history location
+    //  * render: func:
+    //    > allows for inline rendering and wrapping without remounting (creating a new component every render)
+    //    > it updtes the existing component instead of unmounting and mounting of old/new components
 
     return <Route location={previousLocation || location} render={() => children} />;
   }

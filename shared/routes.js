@@ -59,7 +59,14 @@ const isNotAuthenticated = connectedReduxRedirect({
 
 // { component: App, routes: [] }
 // { component: App, routes: [ {path: '/', exact: true, component: Home}, {path: '/about', component: About}, {component: NotFound} ] }
+// <Route path="/" component={App}/>
+// <Route exact path="/about" component={Home}/>
 
+// 'react-router-config' Route Configuration Shape:
+// Routes are objects with the same properties as a <Route> (with a couple differences)
+
+// So, the 'exact' prop instructs root route '/' that 'Home' is to be rendered on 'initial' route match '/'
+// no matches will default to '/NotFound'
 const routes = [{
   component: App,
   routes: [
