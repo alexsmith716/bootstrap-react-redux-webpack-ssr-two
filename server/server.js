@@ -47,13 +47,17 @@ import apiClient from './utils/apiClient';
 
 import { getChunks, waitChunks } from './utils/chunks';
 
-// #########################################################################
+// ###########################################################################
+// ######## ---------- SPECIFY LOADABLE COMPONENTS PATH --------------- ######
+// ###########################################################################
 
 const loadableChunksPath = path.join(__dirname, '..', 'public', 'assets', 'loadable-chunks.json');
 // /Users/../bootstrap-redux-react-loadable-webpack-dllplugin/build/public/assets/loadable-chunks.json
 console.log('>>>>>>>>>>>>>>>>> SERVER > loadableChunksPath +++++++++: ', loadableChunksPath);
 
-// #########################################################################
+// ###########################################################################
+// ######## ------------------- CONFIGURE MONGOOSE -------------------- ######
+// ###########################################################################
 
 const dbURL = serverConfig.mongoDBmongooseURL;
 
@@ -68,8 +72,6 @@ const mongooseOptions = {
   useNewUrlParser: true,
 };
 
-// #########################################################################
-
 mongoose.Promise = global.Promise;
 
 mongoose.connect(dbURL, mongooseOptions).then(
@@ -80,14 +82,26 @@ mongoose.connect(dbURL, mongooseOptions).then(
 // https://mongoosejs.com/docs/connections.html#multiple_connections
 // mongoose.createConnection('mongodb://[username:password@]host1[:port1][,host2[:port2],...[,hostN[:portN]]][/[database][?options]]', options);
 
-// #########################################################################
+// ###########################################################################
+// ######## ----------------- CATCH UNCAUGHT ERRORS ------------------- ######
+// ###########################################################################
 
+// catch uncaught errors at a global level:
+// promises swallow errors without a catch() statement
+// always call .catch() on your promises
+// 'unhandledrejection' event is fired when a Promise is rejected but there is no rejection handler to deal with the rejection
 process.on('unhandledRejection', (error, promise) => {
   console.error('>>>>>>>>>>>>>>>>> SERVER > process > unhandledRejection > promise:', promise);
   console.error('>>>>>>>>>>>>>>>>> SERVER > process > unhandledRejection > error:', error);
 });
 
-// #########################################################################
+// ###########################################################################
+// ######## ----------------- Universal-Webpack ----------------------- ######
+// ######## ----------- Server code must export a function ------------ ######
+// ######## ---- the library passes the chunks() function parameter --- ######
+// ######## ------------- inside the parameters argument -------------- ######
+// ######## --- which returns webpack-compiled chunks filename info --- ######
+// ###########################################################################
 
 export default function (parameters) {
 
